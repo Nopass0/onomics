@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mx-auto py-6 px-4">
+  <div class="flex items-center mb-4">
+    <img src="assets/profile.svg" class="h-16 w-16 rounded-full" alt="Avatar">
+    <div class="ml-4">
+      <div class="text-xl font-bold text-gray-100">{{ user.username }}</div>
+      <div class="text-sm text-gray-400">{{ user.last_login }}</div>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="text-center bg-gray-200 rounded-lg p-4">
+      <div class="text-2xl font-bold text-gray-800">12</div>
+      <div class="text-xs text-gray-600">Прочитанные главы</div>
+    </div>
+    <div class="text-center bg-gray-200 rounded-lg p-4">
+      <div class="text-2xl font-bold text-gray-800">34</div>
+      <div class="text-xs text-gray-600">Лайки</div>
+    </div>
+    <div class="text-center bg-gray-200 rounded-lg p-4">
+      <div class="text-2xl font-bold text-gray-800">56</div>
+      <div class="text-xs text-gray-600">Подписчики</div>
+    </div>
+    <div class="text-center bg-gray-200 rounded-lg p-4">
+      <div class="text-2xl font-bold text-gray-800">78</div>
+      <div class="text-xs text-gray-600">Подписки</div>
+    </div>
+  </div>
+</div>
+<div class="chart">
+  <canvas id="chart"></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('chart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!--comics-catalog-->
+      <!--Catalog header-->
+      <div class="mx-4 mt-4">
+        <h1 class="font-bold text-gray-100 text-2xl">Каталог</h1>
+      </div>
+      <!--End-->
+      <!--comics-catalog-->
+      <!--Слева каталог с комиксами flex wrapper, а справа блок для редактирования фильтров поиска-->
+      <div class="flex flex-wrap md:flex-row md:float-left w-full">
+       <!-- Блок фильтров -->
+       <div class="md:w-1/3 w-full">
+        <div class="px-2">
+            <!-- Фильтры здесь -->
+            <input type="text" class="w-full my-1 bg-zinc-800 text-gray-100 rounded-lg px-2 py-2" placeholder="🔎 Поиск" />
+              <div class="bg-zinc-800 rounded-lg px-4 py-2 my-4">
+                  <h4 class="text-gray-200 mb-2 my-2">Жанры</h4>
+                  
+                  <div class="my-2"> 
+                      <!--Небольшой блок с выбором жанров с чекбоксами, при переполнении которого появляется скроллбар-->
+                      <div class="bg-zinc-800 rounded-lg px-4 py-2 mb-4 h-24 overflow-y-auto">
+                          <div class="flex items-center">
+                              <input id="check" type="checkbox" class="mr-2"/>
+                              <label class="text-gray-200 mx-2">Экшен</label> 
+                          </div>
+                          <div class="flex items-center">
+                              <input id="check" type="checkbox" class="mr-2"/>
+                              <label class="text-gray-200 mx-2">Драма</label> 
+                          </div>
+                          <div class="flex items-center">
+                              <input id="check" type="checkbox" class="mr-2"/>
+                              <label class="text-gray-200 mx-2">Триллер</label> 
+                          </div>
+                          <div class="flex items-center">
+                              <input id="check" type="checkbox" class="mr-2"/>
+                              <label class="text-gray-200 mx-2">Приключение</label> 
+                          </div>
+                          <div class="flex items-center">
+                              <input id="check" type="checkbox" class="mr-2"/>
+                              <label class="text-gray-200 mx-2">Ещё что-то</label> 
+                          </div>
+                      </div>
+                  </div>
+          </div>
+  
+          <!--Тэги-->
+          <div class="bg-zinc-800 rounded-lg px-4 py-2 my-4">
+              <h4 class="text-gray-200 mb-2 my-2">Тэги</h4>
+              
+              <div class="my-2"> 
+                  <!--Небольшой блок с выбором тэгов с чекбоксами, при переполнении которого появляется скроллбар-->
+                  <div class="bg-zinc-800 rounded-lg px-4 py-2 mb-4 h-24 overflow-y-auto">
+                      <div class="flex items-center">
+                          <input id="check" type="checkbox" class="mr-2"/>
+                          <label class="text-gray-200 mx-2 truncate">ГГ Женщина</label>
+                      </div>
+                      <div class="flex items-center">
+                          <input id="check" type="checkbox" class="mr-2"/>
+                          <label class="text-gray-200 mx-2 truncate">ГГ Мужчина</label>
+                      </div>
+                      <div class="flex items-center">
+                          <input id="check" type="checkbox" class="mr-2"/>
+                          <label class="text-gray-200 mx-2 truncate">ГГ Овощь</label>
+                      </div>
+                      <div class="flex items-center">
+                          <input id="check" type="checkbox" class="mr-2"/>
+                          <label class="text-gray-200 mx-2 truncate">ГГ кто-то</label>
+                      </div>
+                      <div class="flex items-center">
+                          <input id="check" type="checkbox" class="mr-2"/>
+                          <label class="text-gray-200 mx-2 truncate">Ёще что-то</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--Кол-во глав, '<50', '50-100', '100-200', '200+', как чекбоксы, при выборе  background-color менеяться на синий. Самого чекбокса нету-->
+          <div class="bg-zinc-800 rounded-lg px-4 py-2 my-4">
+              <h4 class="text-gray-200 mb-2 my-2">Кол-во глав</h4>
+              
+              <div class="my-2 flex flex-wrap items-center justify-between"> 
+                  <span class="text-gray-200 mx-2 rounded-xl hover:bg-sky-600 p-2 cursor-pointer"><50</span>
+                  <span class="text-gray-200 mx-2 rounded-xl hover:bg-sky-600 p-2 cursor-pointer">50-100</span>
+                  <span class="text-gray-200 mx-2 rounded-xl hover:bg-sky-600 p-2 cursor-pointer">100-200</span>
+                  <span class="text-gray-200 mx-2 rounded-xl hover:bg-sky-600 p-2 cursor-pointer">200+</span>
+              </div>
+          </div>
+  
+          <!--Год, select, option-->
+          <div class="bg-zinc-800 rounded-lg px-4 py-2 my-4">
+              <h4 class="text-gray-200 mb-2 my-2">Год</h4>
+              
+              <div class="my-2 flex flex-wrap items-center justify-between"> 
+                  <select class="bg-zinc-800 text-gray-200 rounded-xl hover:bg-sky-600 p-2 cursor-pointer">
+                      <option>2021</option>
+                      <option>2020</option>
+                      <option>2019</option>
+                      <option>2018</option>
+                      <option>2017</option>
+                      <option>2016</option>
+                  </select>
+              </div>
+          </div>
+        </div>
+       </div>
+        <!-- Блок с карточками комиксов -->
+        <div class="md:w-2/3 sm:w-full px-2 flex flex-wrap">
+          <!-- Карточки комиксов здесь -->
+          <div class="flex flex-wrap items-center justify-between justify-normal">
+            {% for comic in comics %}
+              <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху--> 
+              <div class="py-2">
+                <div class="slider-item-image">
+                  <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+                </div>
+                <div class="slider-item-title mx-2">
+                  <h3 class="text-gray-200">{{ comic.title }}</h3>
+                  {% for tag in comic.tags.all %}
+                  <b>{{ tag.name }}</b>,
+                  {% endfor %}
+                  {% for charapter in charapters %}
+                  <b>{{ charapter.name }}</b>,
+                  {% endfor %}
+                </div>
+              </div>
+              <!--End-->
+            {% endfor %}
+            </div>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+    
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Roboto:wght@100;300&display=swap');
+
+* {
+    scrollbar-width: 1px; 
+    scrollbar-color: #1b1b1c #1b1b1c;
+  }
+  
+  /* для Chrome/Edge/Safari */
+  *::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  *::-webkit-scrollbar-thumb {
+    opacity: 0;
+    background-color: #4b4b4c;
+    padding: 4px;
+    border-radius: 6px;
+  }
+
+  *::-webkit-scrollbar-thumb:active {
+    opacity: 1;
+  }
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+        
+body {
+    background-color: #1b1b1c;
+}
+
+@media (min-width: 768px) {
+    .justify-normal {
+        justify-content: normal;
+    }
+}
+        
+.glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    opacity: 0.75;  
+}
+        
+.down-radius {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+        
+.comic {
+    width: 144px;
+    height: 216px;
+}
+          
+.comic-img {
+    border-radius: 12px;
+}
+
+.menu-profile-menu {
+  display: none;
+}
+
+.menu-profile:hover + div.menu-profile-menu, div.menu-profile-menu:hover {
+  display: block;
+}
+
+.slider {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+  
+.slider-item {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+}
+  
+
+.slider-item {
+    transform: translateX(100%);
+}
+  
+#check {
+    
+}
+
+#check:checked ~ .slider {
+    transform: translateX(-100%);
+}
+
+#check:checked ~ .slider .slider-item {
+    transform: translateX(0);
+}

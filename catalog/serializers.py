@@ -1,0 +1,20 @@
+from rest_framework import serializers
+from .models import Comic, Tag, Genre
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('id', 'name', 'slug')
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('id', 'name', 'slug')
+
+class ComicSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(read_only=True, many=True)
+    genres = GenreSerializer(read_only=True, many=True)
+    
+    class Meta:
+        model = Comic
+        fields = ('id', 'title', 'description', 'image', 'slug', 'tags', 'genres', 'rating', 'comments')

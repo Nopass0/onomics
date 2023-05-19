@@ -1,0 +1,69 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onomics</title>
+    {% tailwind_css %}
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+  </head>
+  <body>
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
+      <div class="flex items-center">
+        <a href="/"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-8 w-8 rounded-full" /></a>
+        <nav class="flex items-center">
+          <a href="{% url 'catalogue' %}" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">Каталог</a>
+          <a href="#" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">Тренды</a>
+        </nav>
+      </div>
+      <div>
+        <!--<button class="px-4 py-4 text-gray-700 hover:text-gray-900">Sign In</button>-->
+        {% if user.is_authenticated %}
+        <div class="relative">
+          <button class="menu-profile px-4 py-2 text-gray-100 hover:text-gray-300">
+            <img src="{% static 'user.svg' %}" alt="User" class="h-8 w-8 rounded-full" />
+          </button>
+          <div class="menu-profile-menu absolute right-0 w-48 rounded-lg backdrop-blur-xl bg-opacity-60 bg-zinc-700 py-4 shadow-xl">
+            <a href="{% url 'bookmarks' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Закладки</a>
+            <a href="{% url 'profile' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Профиль</a>
+            <a href="{% url 'logout' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Выйти</a>
+          </div>
+        </div>
+        {% else %}
+          <a href="{% url 'login_view' %}" class="px-2 text-gray-100 hover:text-gray-300 truncate py-4">Войти</a>
+        {% endif %}
+      </div>
+    </header>
+    <div class="h-8 mt-5"><br></div>
+    <content class="w-auto h-auto">
+        {% block content %}
+        {% endblock %}
+    </content>
+    <!--Footter-->
+    <footer class="w-full bg-zinc-900 h-auto flex flex-wrap justify-between bottom-0">
+      <div class="mx-5 sm:mx-20 my-10 h-full">
+        <a href="/" class="flex"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-12 w-12 rounded-full" />
+        <span class="float-left mx-4 text-lg my-2 text-gray-200">Onomics</span>
+        </a>
+      </div>
+      <div class="mx-5 sm:mx-4 md:mx-10 my-10 h-full">
+        <a href="{% url 'privicy' %}" class="flex">
+        <span class="float-left mx-4 text-sm my-2 text-gray-600 w-full">Политика конфеденциальности</span>
+        </a>
+        <a href="{% url 'termsOfUse' %}" class="flex">
+          <span class="float-left mx-4 text-sm my-1 text-gray-600 w-full">Пользовательское соглашение</span>
+          </a>
+      </div>
+      <div class="mx-5 sm:mx-10 flex my-10 h-full">
+        <a href="{% url 'vk' %}" class="flex float-right">
+          <img src="{% static 'VK Logo/VK_Compact_Logo.svg' %}" alt="Logo" class="h-12 w-12" />
+        </a>
+      </div>
+    </footer>
+    <!--Scripts-->
+    {% block scripts %}
+    {% endblock %}
+  </body>
+</html>
