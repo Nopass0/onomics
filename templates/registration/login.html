@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+<!--<div class="md:w-1/4"></div>-->
+  <!--Блок с формой входа, полями для логина и пароля, внопкой входа и ссылки на регистрацию. На большом экране блок должен быть определенного цвета и блоком по середине экрана-->
+  <!--<div class="w-auto flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-60 md:my-32 md:mx-20">
+    <h1 class="text-4xl text-center py-4 text-gray-100 w-full">Вход</h1>
+    <input type="text" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="Логин" />
+    <input type="password" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="Пароль" />
+    <input type="submit" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer" value="Войти" />
+    <a href="#" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer">Регистрация</a>
+  </div>
+<div class="md:w-1/4"></div>-->
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Вход</button>
+</form>
+{% endblock %}

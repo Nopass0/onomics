@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+<div class="md:w-1/4"></div>
+        <!--Блок с формой входа, полями для логина и пароля, внопкой входа и ссылки на регистрацию. На большом экране блок должен быть определенного цвета и блоком по середине экрана-->
+        <div class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
+            <h1 class="reg_register--text text-left px-12 text-gray-100 w-full">Регистрация</h1>
+            <input type="text" class="w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="*Логин" />
+            <input type="password" class="w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="*Пароль" />
+            <input type="password" class="w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="*Повторите пароль" />
+            <!--  <input type="text" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="Имя" /> -->
+            <input type="text" class="w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="*E-mail" />
+            
+            <!--Выпадающие списки: год, месеяц, день, с подписью дата рождения в одну строку без переносов-->
+            <span class="reg_Date--bday--text w-full text-left mx-12 py-4 text-gray-200">Дата рождения:</span>
+            <div class="reg_Date--bday mx-12">
+              <!-- flex flex-wrap md:justify-center w-full mx-4 -->
+                <select class="w-full md:w-1/3 md:mx-4 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2">
+                    <option value="1">Год</option>
+                    <option value="2">2023</option>
+                    <option value="3">2022</option>
+                </select>
+                <select class="w-full md:w-1/3 md:mx-4 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2">
+                    <option value="1">Месяц</option>
+                    <option value="2">Декабрь</option>
+                    <option value="3">Январь</option>
+                    <option value="4">Февраль</option>
+                    <option value="5">Март</option>
+                    <option value="6">Апрель</option>
+                    <option value="7">Май</option>
+                    <option value="8">Июнь</option>
+                    <option value="9">Июль</option>
+                    <option value="10">Август</option>
+                    <option value="11">Сентябрь</option>
+                    <option value="12">Октябрь</option>
+                    <option value="13">Ноябрь</option>
+                </select>
+                <select class="w-full md:w-1/3 md:mx-4 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2">
+                    <option value="1">День</option>
+                    <option value="2">1</option>
+                    <option value="3">2</option>
+                </select>
+            </div>
+            
+            <!--Выбор пола-->
+            <span class="w-full mx-12 py-4 px-2 text-gray-200 text-left">Пол:</span>
+            <div class="flex flex-wrap md:justify-center w-full mx-4"> 
+                <input type="radio" class="w-full md:w-1/2 md:mx-2 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 cursor-pointer " name="" id="" hidden/>
+                <label for="" class="w-full md:w-1/2 md:mx-2 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 cursor-pointer hover:bg-blue-500">Мужской</label>
+                <input type="radio" class="w-full md:w-1/2 md:mx-2 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 cursor-pointer" name="" id="" hidden/>
+                <label for="" class="w-full md:w-1/2 md:mx-2 mx-1 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 cursor-pointer hover:bg-blue-500">Женский</label>
+            </div>
+            <!-- <input type="submit" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer" value="Войти" /> -->
+            <button class="w-full mx-12 my-4 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer">Зарегистрироваться</button>
+            <p class="reg_had--acc w-full mx-4 px-2 py-2 text-center">Уже есть аккаунт?</p>
+            <a href="#" class="reg_log_in w-full mx-4 text-center  text-gray-200 mb-4">Войти</a>
+          </div>
+        <div class="md:w-1/4"></div>
+        {% endblock %}

@@ -1,10 +1,11 @@
+from django import views
 from django.contrib import admin
-from django.urls import path
-from . import views
+from django.urls import path, include
+from .views import SignUp, login, profile
 
 urlpatterns = [
-    path('login/', views.login_view, name='login_view'),
-    path('profile/', views.profile, name='profile'),
-    path('logout/', views.logout, name='logout'),
-    path('api/v1/users.get', views.UserAPIView.as_view()),
+    path("signup/", SignUp.as_view(), name="signup"),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path("profile/", profile, name="profile"),
+    path("login/", login, name="login_view"),
 ]
