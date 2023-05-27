@@ -12,6 +12,7 @@ class UserInfomation(models.Model):
         )
     
     gender = models.CharField(choices=GENDERS, max_length=1, default='m', verbose_name='Пол')
+    #avatar = models.ImageField()
 
     class Meta:
         verbose_name = 'Пользователи'
