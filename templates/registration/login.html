@@ -11,9 +11,11 @@
     <a href="#" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer">Регистрация</a>
   </div>
 <div class="md:w-1/4"></div>-->
-<form method="post">
+<form method="post" class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
+  <h1 class="reg_register--text text-left px-12 text-gray-100 w-full">Вход</h1>
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Вход</button>
+  <button type="submit" class="reg_log_in w-full mx-4 text-center  text-gray-200 mb-4">Вход</button>
+  <a href="{% url 'signup' %}" class="reg_had--acc w-full mx-4 px-2 py-2 text-center">Зарегистрироватся</a>
 </form>
 {% endblock %}

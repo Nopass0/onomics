@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-
+{% load static tailwind_tags %}
 {% block content %}
 
 <div class="container mx-auto py-6 px-4">
   <div class="flex items-center mb-4">
-    <img src="assets/profile.svg" class="h-16 w-16 rounded-full" alt="Avatar">
+    <img src="{% static user.profile.avatar %}" class="h-16 w-16 rounded-full" alt="Avatar">
     <div class="ml-4">
-      <div class="text-xl font-bold text-gray-100">{{ user.username }}</div>
-      <div class="text-sm text-gray-400">{{ user.last_login }}</div>
+      <div class="text-xl font-bold text-gray-100">{{ user_page.username }}</div>
+      <div class="text-sm text-gray-400">{{ user_page.last_login }}</div>
     </div>
   </div>
   <div class="grid grid-cols-2 gap-4">
@@ -29,6 +29,14 @@
     </div>
   </div>
 </div>
+<div class="w-full text-center bg-red-500">
+  {% if isMyProfile and user.profile.email_confirmed == False %}
+    <a class="text-gray-1000" href="{% url 'confirm_email' %}">Подтвердите почту</a>
+  {% endif %}
+</div>
+{{ user_page.profile.gender }}<br>
+{{ user_page.profile.bdate }}<br>
+{{ user_page.profile.regdate}}
 <div class="chart">
   <canvas id="chart"></canvas>
 </div>

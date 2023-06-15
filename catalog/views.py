@@ -10,9 +10,9 @@ from .models import Comic, Genre, Tag, Comment, Charapter, Block
 def index(request):
     comics = Comic.objects.all()
     if Comic.objects.count == 0:
-        isComicsExists = True
-    else:
         isComicsExists = False
+    else:
+        isComicsExists = True
     return render(request, 'index.html' , {'comics': comics, 'isComicsExists': isComicsExists})
 
 def bookmarks(request):
@@ -20,6 +20,9 @@ def bookmarks(request):
 
 def vk(request):
     return redirect('https://vk.com/onomics')
+
+def admin_panel(request):
+    return redirect('/admin')
 
 def comicsPage(request, id):
     comics = Comic.objects.filter(id=id)[0]
@@ -41,6 +44,11 @@ def termsOfUse(request):
 
 def privicy(request):
     return render(request, 'privicy.html')
+
+def addComicsPage(request):
+    return render(request, 'addComicsPage.html')
+
+
 #API
 
 class ComicAPIView(generics.ListAPIView):

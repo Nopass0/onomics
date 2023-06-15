@@ -1,11 +1,15 @@
 from base64 import urlsafe_b64decode
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 #from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from django.contrib.auth import authenticate, login as dj_login, logout
+from django.core.mail import EmailMessage
 
 from .forms import *
-from .tokens import *
+from .email_code_generator import *
+from .models import *
 
 # Create your views here.
 '''
@@ -14,89 +18,123 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = "register.html"
 '''
-'''
-def login(request):
-    form = LoginForm()
-    if request.method == "POST":
-	    form = LoginForm(request.POST)
-        if form.is_valid():
-		    username = form.cleaned_data.get('username')
-		    password = form.cleaned_data.get('password1')
-		    user = authenticate(username=username, password=password)
 
-			if user is not None:
-				login(request, user)
-			    return redirect('profile')
-	    else:
-		    form = LoginForm()
-	return render(request, 'registration/login.html', {'form': form})
-'''
+def sendEmailActivationCode(user):
+    email = EmailMessage(
+    'Код подтверждения почты',
+    profile.email_code,
+    'from@example.com',
+    [user.email],
+    ['bcc@example.com'],
+    )
+    email.send()
+
+
 def signup(request):
-	form = SignUpForm()
-	if request.method == "POST":
-		form = SignUpForm(request.POST)
-		if form.is_valid():
-			form.save()
-			username = form.cleaned_data.get('username')
-			email = form.cleaned_data.get('email')
-			avatar = form.cleaned_data.get('avatar')
-			password = form.cleaned_data.get('password1')
-			user = authenticate(username=username, password=password)
+    if request.user.is_authenticated:
+        return redirect('profile')
+    
+    form = SignUpForm()
+    profile_form = SignUpProfile()
 
-			if user is not None:
-				login(request, user)
-			return redirect('profile')
-		else:
-			form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        profile_form = SignUpProfile(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
 
-	return render(request, 'register.html', {'form': form})
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+
+            profile = Profile.objects.get(user=user)
+            profile.bdate = profile_form.cleaned_data.get('bdate')
+            profile.gender = profile_form.cleaned_data.get('gender')
+            profile.email_code = generate_email_code(4)
+            profile.save()
+
+            if settings.DEBUG == False:
+                sendEmailActivationCode(user)
+
+            user = authenticate(username=username, password=password)
+
+            if (user is not None):
+                dj_login(request, user)
+                return redirect('confirm_email')
+            else:
+                form = SignUpForm()
+                profile_form = SignUpProfile()
+
+    return render(request, 'register.html', {'form': form, 'profile_form': profile_form})
 
 def profile(request):
-    return render(request, 'profile.html')
+    if not request.user.is_authenticated:
+        return redirect('index')
+    isMyProfile = True
+    return render(request, 'profile.html', {'isMyProfile': isMyProfile})
 
-def account_activation_sent_view(request):
-    return render(request, 'registration/account_activation_sent.html')
-
-'''
-def account_activate(request, uidb64, token):
-    try:
-        uid = urlsafe_b64decode(uidb64).decode()
-        print(uid)
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist) as e:
-        print(e)
-        user = None
-
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.profile.email_confirmed = True
-        user.save()
-        login(request, user)
-        return redirect('users:dashboard')
+def user_profile(request):
+    user_id = request.GET["id"]
+    isMyProfile = False
+    if user_id == "0":
+        return redirect('profile')
     else:
-        return render(request, 'registration/account_activation_invalid.html')
-
-# views.py
-'''
-'''
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, _('Ваш профиль был успешно обновлен!'))
-            return redirect('settings:profile')
+        user = User.objects.get(id=user_id)
+        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile})
+    
+def confirm_email(request):
+    message = ""
+    if not request.user.is_authenticated:
+        return redirect('login')
+    profile = Profile.objects.get(user=request.user)
+    if profile.email_confirmed == True:
+        return redirect('profile')
+    if settings.DEBUG == True:
+        message = "Debug code: " + profile.email_code
+    form = ConfirmEmail()
+    if request.method == "POST":
+        code = request.POST["code"]
+        if code == profile.email_code:
+            print("OK")
+            profile.email_confirmed = True
+            profile.save()
+            return redirect('profile')
         else:
-            messages.error(request, _('Пожалуйста, исправьте ошибки.'))
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profiles/profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-'''
+            message = "Неверный код"
+            form = ConfirmEmail()
+            return render(request, "confirm_email.html", {'form': form, 'message': message})
+    return render(request, "confirm_email.html", {'form': form, 'message': message})
+
+def template_view(request):
+    if settings.DEBUG == False:
+        return redirect('index')
+    return render(request, request.GET["t"])
+
+def users_list(request):
+    users = User.objects.all()
+    return render(request, 'users-list.html', {'users': users})
+
+def login(request):
+    if request.user.is_authenticated:
+          return redirect('profile')
+    form = LoginUserForm()
+    #print(form)
+    if request.method == "POST":
+        form = LoginUserForm(request.POST)
+        if (form.is_valid()):
+            print(request)
+            print(form.is_valid())
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            print(user)
+            if user is not None:
+                print("OK")
+                dj_login(request, user)
+                return redirect('profile')
+            else:
+                form = LoginUserForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+def logoutUser(request):
+    logout(request)
+    return redirect('index')

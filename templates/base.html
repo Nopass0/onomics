@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Onomics</title>
+    <link rel="icon" type="image/ico" href="{% static 'images/favico.ico' %}">
     {% tailwind_css %}
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
   </head>
@@ -16,6 +17,7 @@
         <nav class="flex items-center">
           <a href="{% url 'catalogue' %}" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">Каталог</a>
           <a href="#" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">Тренды</a>
+          <a href="{% url 'users_list' %}" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">Пользователи</a>
         </nav>
       </div>
       <div>
@@ -23,12 +25,15 @@
         {% if user.is_authenticated %}
         <div class="relative">
           <button class="menu-profile px-4 py-2 text-gray-100 hover:text-gray-300">
-            <img src="{% static 'user.svg' %}" alt="User" class="h-8 w-8 rounded-full" />
+            <img src="{% static user.profile.avatar %}" alt="User" class="h-8 w-8 rounded-full" />
           </button>
-          <div class="menu-profile-menu absolute right-0 w-48 rounded-lg backdrop-blur-xl bg-opacity-60 bg-zinc-700 py-4 shadow-xl">
-            <a href="{% url 'bookmarks' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Закладки</a>
-            <a href="{% url 'profile' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Профиль</a>
-            <a href="{% url 'logout' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-800">Выйти</a>
+          <div class="menu-profile-menu absolute right-0 w-48 rounded-lg bg-zinc-800 py-4 shadow-xl">
+            <a href="{% url 'profile' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Профиль</a>
+            {% if user.is_staff %}
+            <a href="{% url 'admin-panel' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Админ-панель</a>
+            {% endif %}
+            <a href="{% url 'bookmarks' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Закладки</a>
+            <a href="{% url 'logout' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Выйти</a>
           </div>
         </div>
         {% else %}

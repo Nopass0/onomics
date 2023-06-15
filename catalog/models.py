@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from sorl.thumbnail import ImageField, get_thumbnail
 #from users.models import User
 
 STATUS_CHOICES = (
@@ -14,7 +15,7 @@ class Comic(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='theme/static/images/covers', verbose_name='Обложка')
+    image = models.ImageField(upload_to='theme/static/images/covers', verbose_name='Обложка') # Width: 180px, Height: 270px
     price = models.IntegerField(verbose_name='Цена')
     slug = models.SlugField()
 
@@ -36,6 +37,7 @@ class Comic(models.Model):
 
     def __str__(self):
         return self.title
+    
 
 class Genre(models.Model):
     id = models.AutoField(primary_key=True)
@@ -59,7 +61,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
 
-    reply_id = models.IntegerField(default=0, blank=True, verbose_name='Ответ на')
+    reply_id = models.OneToOneField('self', default=0, null=True, blank=True, verbose_name='Ответ на', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
@@ -80,7 +82,7 @@ class Charapter(models.Model):
 
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to='theme/images/blocks', verbose_name='Изображение')
+    image = models.ImageField(upload_to='theme/images/blocks', verbose_name='Изображение') # Width: 800px, Height: 1080px
     charapter_id = models.ForeignKey('Charapter', on_delete=models.CASCADE)
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='bl_comments', verbose_name='Комментарии')

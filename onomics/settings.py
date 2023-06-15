@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zqat*j%1%x-m*h1i#fnw%$rznxef*kw#@s(#(_ay1xkdj)jca0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['e3bc-188-18-20-98.ngrok-free.app', 'localhost']
 
 #NPM_BIN_PATH = "node_modules/.bin"
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'rest_framework',
     'tailwind',
+    'sorl.thumbnail',
     'theme',
     'catalog',
     'users',
@@ -49,7 +50,15 @@ INSTALLED_APPS = [
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = "login"
 
+LOGIN_URL = "login"
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#EMAIL_HOST = 'host here'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'your user here'
+#EMAIL_HOST_PASSWORD = 'your password'
+#EMAIL_USE_TLS = True
 
 ###AUTHENTICATION_BACKENDS = (
 #    'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',

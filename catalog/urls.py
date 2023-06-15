@@ -9,6 +9,7 @@ urlpatterns = [
     path('terms-of-use', views.termsOfUse, name='termsOfUse'),
     path('privicy', views.privicy, name='privicy'),
     path('vk', views.vk, name='vk'),
+    path('admin-panel', views.admin_panel, name='admin-panel'),
     path('bookmarks/', views.bookmarks, name='bookmarks'),
     path('catalogue/', views.catalogue, name='catalogue'),
     path('comics/<int:id>', views.comicsPage, name='comicsPage'),

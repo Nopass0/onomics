@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+
+<div class="text-center mt-20 font-bold text-6xl text-zinc-100">
+  Введите код, который был отправлен вам на почту
+</div>
+<div class="text-center text-2xl text-gray-400">
+    <form method="post" class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
+        <p class="text-gray-200">{{ message }}</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="w-full mx-4 text-center text-gray-200 mb-4">Подтвердить</button>
+    </form>
+</div>
+
+{% endblock %}

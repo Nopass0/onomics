@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block content %}
+
+
+<div class="flex flex-wrap mx-20 my-10">
+    {% for x_user in users %}
+        <a class="flex flex-wrap text-center p-10 rounded-lg justify-center hover:bg-zinc-700" href="{% url 'user_profile' %}?id={{ x_user.id }}">
+            <img src="{% static x_user.profile.avatar %}" class="h-16 w-16 rounded-full" alt="Avatar">
+            <p class="w-full text-gray-200">{{ x_user.username }}</p>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
