@@ -9,7 +9,11 @@ from .models import Comic, Genre, Tag, Comment, Charapter, Block
 
 def index(request):
     comics = Comic.objects.all()
-    return render(request, 'index.html' , {'comics': comics})
+    if Comic.objects.count == 0:
+        isComicsExists = True
+    else:
+        isComicsExists = False
+    return render(request, 'index.html' , {'comics': comics, 'isComicsExists': isComicsExists})
 
 def bookmarks(request):
     return render(request, 'bookmarks.html')

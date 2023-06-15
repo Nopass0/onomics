@@ -49,6 +49,8 @@ INSTALLED_APPS = [
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = "login"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ###AUTHENTICATION_BACKENDS = (
 #    'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
 #    'social_auth.backends.facebook.FacebookBackend',
@@ -143,6 +145,9 @@ USE_TZ = True
 
 STATIC_URL = 'theme/static/'
 STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "images"]
+
+#AUTH_USER_MODEL = 'users.User'
+#AUTH_USER_MODEL = 'users.CustomEmailUser'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

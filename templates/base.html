@@ -10,7 +10,7 @@
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
   </head>
   <body class="flex flex-col h-screen">
-    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
+    <header class="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
       <div class="flex items-center">
         <a href="/"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-8 w-8 rounded-full" /></a>
         <nav class="flex items-center">
@@ -38,7 +38,10 @@
         {% endif %}
       </div>
     </header>
-    <div class="h-8 mt-6"><br></div>
+    <header id="mobile-header" class="fixed z-10 text-gray-100 inline sm:hidden bg-zinc-900 bottom-0 h-20 w-full">
+      ASASASASA
+    </header>
+    <div class="h-8 mt-6 hidden sm:block"><br></div>
     <main class="w-auto flex-grow">
         {% block content %}
         {% endblock %}

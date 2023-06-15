@@ -3,6 +3,7 @@
 {% load static tailwind_tags %}
 {% block content %}
 <!--Создать слайдер с классом slider на всю ширину экрана и высотой 264 px, где все -->
+{% if isComicsExists %}
 <div id="slider" class="slider h-74 w-auto overflow-y-hidden flex bg-zinc-900">
   {% for comic in comics %}
     <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
@@ -17,6 +18,11 @@
     <!--End-->
   {% endfor %}
 </div>
+{% else %}
+<div id="slider" class="slider h-74 w-auto overflow-y-hidden flex bg-zinc-900 justify-center">
+  <h4 class="py-16 text-gray-300">Тут пока что пусто</h4>
+</div>
+{% endif %}
 <!--comics-catalog-->
 <!--Catalog header-->
 <div class="mx-4 lg:mx-32 mt-4">
@@ -24,6 +30,7 @@
 </div>
 <!--End-->
 <!--comics-catalog-->
+{% if isComicsExists %}
 <div class="mx-4 lg:mx-32 mt-2 flex flex-wrap m-auto">
   {% for comic in comics %}
      <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
@@ -38,6 +45,11 @@
   <!--End-->
   {% endfor %}
 </div>
+{% else %}
+<div class="mx-4 lg:mx-32 mt-2 flex flex-wrap m-auto justify-center">
+  <h4 class="py-48 text-gray-300">И тут тоже ничего нет</h4>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import User
+#from users.models import User
 
 STATUS_CHOICES = (
     ("Complete", "Вышел"),
@@ -16,14 +19,14 @@ class Comic(models.Model):
     slug = models.SlugField()
 
     #status, author, views, likes
-    #author = models.ForeignKey(User)
-    #status = models.CharField(max_length=12,
-    #                          choices=STATUS_CHOICES,
-    #                          default="Anonce",
-    #                          verbose_name="Статус")
+    author = models.ForeignKey(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
+    status = models.CharField(max_length=12,
+                              choices=STATUS_CHOICES,
+                              default="Anonce",
+                              verbose_name="Статус")
 
-    #views = models.IntegerField(verbose_name="Количество просмотров")
-    #likes = models.IntegerField(verbose_name="Количество лайков")
+    views = models.IntegerField(default=0, verbose_name="Количество просмотров")
+    likes = models.IntegerField(default=0, verbose_name="Количество лайков")
 
     tags = models.ManyToManyField('Tag', blank=True, related_name='tags', verbose_name='Теги')
     genres = models.ManyToManyField('Genre', blank=True, related_name='genres', verbose_name='Жанры')
@@ -53,8 +56,10 @@ class Tag(models.Model):
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     text = models.TextField(verbose_name='Комментарий')
-    author_id = models.IntegerField(verbose_name='Автор')
+    author = models.ForeignKey(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+
+    reply_id = models.IntegerField(default=0, blank=True, verbose_name='Ответ на')
 
     def __str__(self):
         return self.text
@@ -66,6 +71,8 @@ class Charapter(models.Model):
     
     comic_id = models.ForeignKey('Comic', on_delete=models.CASCADE)
 
+    comments = models.ManyToManyField('Comment', blank=True, related_name='ch_comments', verbose_name='Комментарии')
+
     #blocks - images with comic charapter
 
     def __str__(self):
@@ -75,3 +82,5 @@ class Block(models.Model):
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to='theme/images/blocks', verbose_name='Изображение')
     charapter_id = models.ForeignKey('Charapter', on_delete=models.CASCADE)
+
+    comments = models.ManyToManyField('Comment', blank=True, related_name='bl_comments', verbose_name='Комментарии')

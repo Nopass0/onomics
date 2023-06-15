@@ -5,6 +5,11 @@
     
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Roboto:wght@100;300&display=swap');
 
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.ttf') format("truetype");
+}
+
 * {
     scrollbar-width: 1px; 
     scrollbar-color: #1b1b1c #1b1b1c;
