@@ -15,7 +15,7 @@
       <div class="flex flex-wrap w-full sm:w-auto h-52">
         
         <div class="h-28 w-full">
-          <h1 class="text-2xl font-bold text-gray-100 flex items-center"><p class="mr-2">{{ user_page.username }}</p>
+          <h1 class="text-2xl font-bold text-gray-100 flex w-full items-center"><p class="mr-2 w-full flex items-center">{{ user_page.username }} <span class="items-center ml-2">{% bs_icon 'check-lg' color='#42AAFF' size='0.8em'  %}</span></p>
           </h1>
           <div class="text-sm text-gray-400">{{ user_page.first_name }} {{ user_page.last_name }}</div>
           <div class="text-gray-200 text-md">Очень красочное описание профиля. Тут можно многое рассказать о себе!</div>
