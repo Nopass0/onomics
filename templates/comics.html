@@ -2,24 +2,24 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% block content %}
-<div class="px-2 py-4 xl:px-20 sm:mx-4 sm:my-4 w-full h-full flex flex-wrap sm:flex-nowrap justify-center sm:justify-between">
+<div class="px-2 py-4 xl:px-20 sm:mx-4 sm:my-4 w-full h-full flex flex-wrap sm:flex-nowrap justify-center ">
     <div class="w-full h-auto sm:w-40 sm:h-64 flex flex-wrap justify-center sm:justify-between">
 
       <div class="relative">
         <div class="absolute bottom-0 mt-96 py-2 bg-black sm:hidden bg-opacity-60 h-20 inset-0 z-10 w-full px-4">
           <h1 class="text-gray-100 text-2xl block sm:hidden">{{ comic.title }}</h1>
-          <p class="text-gray-300 inline sm:hidden">Имя Фамилия</p>
+          <p class="text-gray-300 inline sm:hidden">{{ comic.author.first_name}} {{ comic.author.last_name }}</p>
         </div>
         <img src="{{ comic.image.url }}" alt="Cover" class="rounded-md inset-0 w-full sm:w-52 "/>
       </div>
       <div class="w-full sm:w-40 flex flex-col">
         <a href="#" class="w-full text-center text-gray-200 my-2 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">Читать</a>
         <select name="bookmark" id="bookmark" class="w-full outline-none outline-0 border-none text-center cursor-pointer text-gray-200 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">
-          <option value="1">В закладки</option>
-          <option value="2">Буду читать</option>
-          <option value="3">Читаю</option>
-          <option value="3">Прочитано</option>
-          <option value="3">Брошено</option>
+          <option value="del" {% if bookmark == 'del' %}selected{% endif %}>В закладки</option>
+          <option value="will_read" {% if bookmark == 'will_read' %}selected{% endif %}>Буду читать</option>
+          <option value="read" {% if bookmark == 'read' %}selected{% endif %}>Читаю</option>
+          <option value="readed" {% if bookmark == 'readed' %}selected{% endif %}>Прочитано</option>
+          <option value="droped" {% if bookmark == 'droped' %}selected{% endif %}>Брошено</option>
         </select>
         <div class="flex text-left bg-zinc-800 rounded-md my-2">
           <p class="text-gray-200 text-center w-1/2 border-r border-zinc-500 py-1 sm:py-0">Рейтинг<br> <span class="text-gray-400">{{ comic.rating }}</span></p>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="px-2 sm:px-0 sm:mx-4 w-full sm:w-auto">
+    <div class="px-2 sm:px-0 sm:mx-4 w-full sm:w-auto h-full">
       <h1 class="text-gray-200 text-2xl hidden sm:block">{{ comic.title }}</h1>
       <div class="">
         <!--Description-->
@@ -35,7 +35,7 @@
         <div id="info" class="">
           <div class="bg-zinc-800 sm:bg-transparent rounded-lg ">
             <div class="hidden sm:flex flex-col">
-              <p class="text-gray-400">Автор: <span class="text-gray-200">Имя Фамилия</span></p>
+              <p class="text-gray-400">Автор: <span class="text-gray-200">{{ comic.author.first_name}} {{ comic.author.last_name }}</span></p>
             </div>
             <div class="flex ">
               <p class="text-gray-400 px-4 py-2">Жанры: </p>
@@ -81,14 +81,36 @@
           </div>
           <h2 class="text-gray-200 text-2xl mx-4 my-2">Комментарии</h2>
           <div id="comments" class="w-full flex flex-wrap my-4">
-            <div class="w-full">
-              <textarea name="comment-input" id="comment-input"
-              class="w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"></textarea>
-              <input type="button" value="Написать"
+            
+            {% if isAuth %}
+            <form class="w-full" method="post">
+              {% csrf_token %}
+              {{ formComment.as_p }}
+              <input type="submit" value="Отправить"
               class="text-gray-200 bg-zinc-800 mx-2 px-4 py-2 rounded-md cursor-pointer hover:bg-blue-500">
+            </form>
+            {% else %}
+            <div class="w-full bg-zinc-800 text-center items-center">
+              <a href="{% url 'login_view' %}" class="text-gray-200">Пожалуйста, войдите в аккаунт чтобы написать комментарий.</a>
             </div>
-            <div class="text-gray-200 mx-2 my-4 w-full">
-              <div class="w-full">
+            {% endif %}
+              
+            
+            {% if isCommentsExists %}
+            <div class="text-gray-200 mx-2 my-4 w-full h-full">
+              
+              {% for comment in comments  %}
+              <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
+              <img src="{% static comment.author.profile.avatar %}" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                <div class="w-full flex flex-wrap">
+                  <span class="w-full text-zinc-400">{{comment.author}}</span>
+                  <span class="w-full">{{comment}}</span>
+                </div>
+                <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
+              </div>
+              {% endfor %}
+                
+              <!--<div class="w-full">
                 <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
                   <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
                   <span class="w-full">Очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
@@ -110,14 +132,23 @@
                   <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
                   <span class="w-full">Еще один очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
                   <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
-                </div>
+                </div>-->
             </div>
+
+            {% else %}
+            <div class="text-gray-200 mx-2 my-4 w-full">
+              <div class="w-full bg-zinc-800 rounded-md text-center py-20">
+                <p class="text-gray-200">Тут пока что нет комментариев, но ты можешь быть первым!</p>
+              </div>
+            </div>
+            {% endif %}
+            
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="addition" class="w-full mx-2 sm:w-52">
+  <!--<div id="addition" class="w-full mx-2 sm:w-52">
     <h2 class="text-gray-200 w-full text-2xl mx-4 my-2">Другие комиксы</h2>
     <div class="bg-zinc-900 w-full rounded-md p-2 px-10 sm:px-0">
       {% for addition in comices %}
@@ -127,6 +158,144 @@
       </a>
       {% endfor %}
     </div>
-  </div>
+  </div>-->
 </div>
 {% endblock %}
+
+
+{% block scripts %}
+  <!--Jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    //on #bookmark changes check if bookmark exists for user
+    //if not exists - create bookmark
+    //if exists - update bookmark
+    //if selected 1 option - delete bookmark
+    //bookmark model in django
+    /*
+    class Bookmark(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    read = models.ManyToManyField('Comic', blank=True, related_name='read', verbose_name='Прочитано')
+    readed = models.ManyToManyField('Comic', blank=True, related_name='readed', verbose_name='Читаю')
+    droped = models.ManyToManyField('Comic', blank=True, related_name='droped', verbose_name='Брошено')
+    will_read = models.ManyToManyField('Comic', blank=True, related_name='will_read', verbose_name='Буду читать')
+
+    def __str__(self):
+        return self.user.username
+    */ 
+    //views.py
+    /*
+    #bookmarks API (GET) with check is user authenticated
+class BookmarksAPIView(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            bookmarks = Bookmark.objects.filter(user=request.user)
+            serializer = BookmarkSerializer(bookmarks, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({'error': 'User is not authenticated'})
+
+#bookmarks API (POST) with check is user authenticated
+class BookmarksAddAPIView(APIView):
+    def post(self, request):
+        if request.user.is_authenticated:
+            serializer = BookmarkSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(user=request.user)
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Data is not valid'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+        
+#bookmarks API (DELETE) with check is user authenticated
+class BookmarksDeleteAPIView(APIView):
+    def delete(self, request, id):
+        if request.user.is_authenticated:
+            bookmark = Bookmark.objects.filter(id=id)
+            bookmark.delete()
+            return Response({'success': 'Bookmark was deleted'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+
+#update Bookmark API (PUT) with check is user authenticated
+class BookmarksUpdateAPIView(APIView):
+    def put(self, request, id):
+        if request.user.is_authenticated:
+            bookmark = Bookmark.objects.filter(id=id)
+            serializer = BookmarkSerializer(bookmark, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Data is not valid'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+    */
+    //urls.py
+    /*
+      path('api/v1/bookmarks.get', BookmarksAPIView.as_view()),
+    path('api/v1/bookmarks.post', BookmarksAddAPIView.as_view()),
+    path('api/v1/bookmarks.delete', BookmarksDeleteAPIView.as_view()),
+    path('api/v1/bookmarks.put', BookmarksUpdateAPIView.as_view()),
+    */
+    
+    //use csrf token
+
+
+    //if selected bookmark exists in db - update it. Example - user read comic and want to add it to readed list. Delete from read list and add to readed list 
+    //if selected bookmark not exists in db - create it. Example - user want to add comic to read list. Create new bookmark with read list
+    //if selected 1 option - delete bookmark. Example - user want to delete comic from any list. Delete bookmark with any list where it exists
+    //all bookmarks add to db with user id using next urls: 
+    /*
+    path('api/v1/bookmarks.get', BookmarksAPIView.as_view()),
+    path('api/v1/bookmarks.post', BookmarksAddAPIView.as_view()),
+    path('api/v1/bookmarks.delete/<int:id>/', BookmarksDeleteAPIView.as_view()),
+    path('api/v1/bookmarks.put/<int:id>/', BookmarksUpdateAPIView.as_view()),
+    */
+    //bookmark model in django
+
+    $('#bookmark').change(function() {
+      var bookmark = $('#bookmark').val();
+      var csrf_token = '{{ csrf_token }}';
+      var comic_id = {{ comic.id }}; //get user id from django
+      console.log(bookmark);
+      var data = {
+        'read': [],
+        'readed': [],
+        'droped': [],
+        'will_read': []
+      };
+      if (bookmark == 'read') {
+        data.read.push(Number(comic_id));
+      } else if (bookmark == 'readed') {
+        data.readed.push(Number(comic_id));
+      } else if (bookmark == 'droped') {
+        data.droped.push(Number(comic_id));
+      } else if (bookmark == 'will_read') {
+        data.will_read.push(Number(comic_id));
+      } else if (bookmark == 'none') {
+        data = {};
+      }
+      console.log(data);
+      $.ajax({
+        url: '/api/v1/bookmarks.put/',
+        type: 'PUT',
+        dataType: 'json',
+        data: data,
+        headers: {
+          'X-CSRFToken': csrf_token
+        },
+        success: function(response) {
+          console.log(response);
+        }
+      });
+
+    });
+    
+
+
+  </script>
+{% endblock  %}
+  

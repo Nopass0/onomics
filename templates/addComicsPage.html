@@ -4,11 +4,11 @@
 
 
 <div class="flex flex-wrap mx-20 my-10">
-    <form method="post" class="flex flex-wrap md:w-80 md:my-32 md:mx-20">
-        <p class="text-gray-200">{{ message }}</p>
+    <form method="post" class="flex flex-wrap md:w-80 md:my-32 md:mx-20" enctype="multipart/form-data" >
+        <p class="text-red-600">{{ message }}</p>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="w-full mx-4 text-center text-gray-200 mb-4">Подтвердить</button>
+        <button type="submit" class="w-full mx-4 text-center text-gray-200 mb-4">Добавить комикс</button>
     </form>
 </div>
 

@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.template.defaultfilters import filesizeformat
-from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+
+from .models import *
 
 class RestrictedFileField(forms.FileField):
     """
@@ -42,7 +43,7 @@ class RestrictedFileField(forms.FileField):
         return data
     
 
-class addComicsForm(forms.Form):
+class addComicsForm(forms.ModelForm):
     title = forms.CharField(
 		max_length=70,
 		min_length=4,
@@ -54,7 +55,33 @@ class addComicsForm(forms.Form):
 				}
 			)
 		)
-    #Обложка
-    image = RestrictedFileField(content_types=['image/png', 'image/jpeg'],
-            max_upload_size=5242880)
-    
+    description = forms.CharField(
+        max_length=3000,
+		min_length=5,
+		required=True,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "Описание",
+					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+    )
+
+    class Meta:
+      model = Comic
+      fields = ['title','description','image']
+
+class addCommentForm(forms.ModelForm):
+    comment_input = forms.CharField(label="", widget=forms.Textarea(
+        attrs={
+            "placeholder": "Комментарий",
+			"class": "w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"
+        }
+    ) )
+
+    class Meta:
+        model = Comment
+        fields = ['comment_input']
+
+class imageForm(forms.Form):
+    image = forms.ImageField()

@@ -70,7 +70,9 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('index')
     isMyProfile = True
-    return render(request, 'profile.html', {'isMyProfile': isMyProfile})
+    #My comics
+    comics = Comic.objects.filter(author=request.user)
+    return render(request, 'profile.html', {'isMyProfile': isMyProfile, 'user_page': request.user, 'comics': comics})
 
 def user_profile(request):
     user_id = request.GET["id"]
@@ -79,7 +81,8 @@ def user_profile(request):
         return redirect('profile')
     else:
         user = User.objects.get(id=user_id)
-        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile})
+        comics = Comic.objects.filter(author=user)
+        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile, 'comics': comics})
     
 def confirm_email(request):
     message = ""
@@ -110,7 +113,8 @@ def template_view(request):
     return render(request, request.GET["t"])
 
 def users_list(request):
-    users = User.objects.all()
+    #users = User.objects.all()
+    users = User.objects.exclude(id=request.user.id)
     return render(request, 'users-list.html', {'users': users})
 
 def login(request):

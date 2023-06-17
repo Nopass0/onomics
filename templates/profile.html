@@ -1,45 +1,97 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
+{% load bootstrap_icons %}
 {% block content %}
+<div class="mx-24">
+<div class="container mx-auto flex pt-6 pb-2 px-4 h-full">
+  <div class="flex h-52">
+    <img src="{% static user.profile.avatar %}" class="h-52 w-52 rounded-md" alt="Avatar">
+    <div class="flex flex-wrap ml-4 h-52">
+      <div class="flex flex-wrap w-2/3 h-52">
+        
+        <div class="h-28">
+          <h1 class="text-2xl font-bold text-gray-100 flex items-center"><p class="mr-2">{{ user_page.username }}</p>
+            
 
-<div class="container mx-auto py-6 px-4">
-  <div class="flex items-center mb-4">
-    <img src="{% static user.profile.avatar %}" class="h-16 w-16 rounded-full" alt="Avatar">
-    <div class="ml-4">
-      <div class="text-xl font-bold text-gray-100">{{ user_page.username }}</div>
-      <div class="text-sm text-gray-400">{{ user_page.last_login }}</div>
+              
+          </h1>
+          <div class="text-sm text-gray-400">{{ user_page.last_login }}</div>
+        </div>
+        <div class="grid grid-cols-4 gap-4 h-24">
+          <div class="text-center bg-zinc-900 rounded-lg p-4">
+            <div class="text-2xl font-bold text-gray-200">12</div>
+            <div class="text-xs text-gray-300">Прочитанные главы</div>
+          </div>
+          <div class="text-center bg-zinc-900 rounded-lg p-4">
+            <div class="text-2xl font-bold text-gray-200">34</div>
+            <div class="text-xs text-gray-300">Лайки</div>
+          </div>
+          <div class="text-center bg-zinc-900 rounded-lg p-4">
+            <div class="text-2xl font-bold text-gray-200">56</div>
+            <div class="text-xs text-gray-300">Подписчики</div>
+          </div>
+          <div class="text-center bg-zinc-900 rounded-lg p-4">
+            <div class="text-2xl font-bold text-gray-200">78</div>
+            <div class="text-xs text-gray-300">Подписки</div>
+          </div>
+        </div>
+
+      </div>
+
+      </div>
     </div>
+
   </div>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="text-center bg-gray-200 rounded-lg p-4">
-      <div class="text-2xl font-bold text-gray-800">12</div>
-      <div class="text-xs text-gray-600">Прочитанные главы</div>
-    </div>
-    <div class="text-center bg-gray-200 rounded-lg p-4">
-      <div class="text-2xl font-bold text-gray-800">34</div>
-      <div class="text-xs text-gray-600">Лайки</div>
-    </div>
-    <div class="text-center bg-gray-200 rounded-lg p-4">
-      <div class="text-2xl font-bold text-gray-800">56</div>
-      <div class="text-xs text-gray-600">Подписчики</div>
-    </div>
-    <div class="text-center bg-gray-200 rounded-lg p-4">
-      <div class="text-2xl font-bold text-gray-800">78</div>
-      <div class="text-xs text-gray-600">Подписки</div>
-    </div>
+
+  <div class="container mx-auto px-4 pb-4">
+    <!--Button 'Редактировать' if isMyProfile-->
+    
+    {% if isMyProfile %}
+      <a href="{% url 'index' %}" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Редактировать профиль</a>
+    {% endif %}
+      
   </div>
+
+  <div class="text-center bg-red-500 my-2 mx-6">
+    {% if isMyProfile and user.profile.email_confirmed == False %}
+      <a class="text-gray-1000 my-2 mx-4" href="{% url 'confirm_email' %}">Подтвердите почту</a>
+    {% endif %}
+  </div>
+
+  <div class="mx-auto px-4 container">
+    <!--My comics if exists-->
+    <h2 class="text-gray-200 text-2xl mt-2 ml-4">
+      
+      {% if isMyProfile %}
+        Мои работы
+        {% else %}
+        Работы автора
+      {% endif %}
+        
+    </h2>
+    {% if comics %}
+    <div class=" mt-2 flex flex-wrap mx-auto">
+      {% for comic in comics %}
+        <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+        <a class="py-4" href="{{ comic.get_absolute_url }}">
+          <div class="slider-item-image">
+            <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+          </div>
+          <div class="slider-item-title mx-2">
+            <h3 class="text-gray-200">{{ comic.title }}</h3>
+          </div>
+        </a>
+      <!--End-->
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
 </div>
-<div class="w-full text-center bg-red-500">
-  {% if isMyProfile and user.profile.email_confirmed == False %}
-    <a class="text-gray-1000" href="{% url 'confirm_email' %}">Подтвердите почту</a>
-  {% endif %}
-</div>
-{{ user_page.profile.gender }}<br>
-{{ user_page.profile.bdate }}<br>
-{{ user_page.profile.regdate}}
-<div class="chart">
-  <canvas id="chart"></canvas>
-</div>
+
+<!--<div class="chart h-full">
+  <canvas id="chart h-full"></canvas>
+</div>-->
 {% endblock %}
 
 {% block scripts %}

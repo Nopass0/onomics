@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Comic, Tag, Genre
+from .models import *
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +18,9 @@ class ComicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comic
         fields = ('id', 'title', 'description', 'image', 'slug', 'tags', 'genres', 'rating', 'comments')
+
+#bookmarks serializer
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fields = ('read', 'readed', 'droped', 'will_read')

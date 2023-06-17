@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load bootstrap_icons %}
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -10,7 +11,7 @@
     {% tailwind_css %}
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
   </head>
-  <body class="flex flex-col h-screen">
+  <body class="flex flex-col h-screen relative justify-between">
     <header class="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
       <div class="flex items-center">
         <a href="/"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-8 w-8 rounded-full" /></a>
@@ -28,17 +29,18 @@
             <img src="{% static user.profile.avatar %}" alt="User" class="h-8 w-8 rounded-full" />
           </button>
           <div class="menu-profile-menu absolute right-0 w-48 rounded-lg bg-zinc-800 py-4 shadow-xl">
-            <a href="{% url 'profile' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Профиль</a>
+            <a href="{% url 'profile' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'person-square' %}<p class="mx-2">Профиль</p></a>
             {% if user.is_staff %}
-            <a href="{% url 'admin-panel' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Админ-панель</a>
+            <a href="{% url 'admin-panel' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'shield-fill' %}<p class="mx-2">Админ-панель</p></a>
             {% endif %}
-            <a href="{% url 'bookmarks' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Закладки</a>
-            <a href="{% url 'logout' %}" class="block px-4 py-4 text-gray-100 hover:bg-zinc-700">Выйти</a>
+            <a href="{% url 'addComicsPage' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'plus-square-fill' %}<p class="mx-2">Добавить комикс</p></a>
+            <a href="{% url 'bookmarks' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'tags-fill' %}<p class="mx-2">Закладки</p></a>
+            <a href="{% url 'logout' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'x-square-fill' %}<p class="mx-2">Выйти</p></a>
           </div>
         </div>
         {% else %}
         <div class="relative my-2">
-          <a href="{% url 'login_view' %}" class="px-2 text-gray-100 hover:text-gray-300 truncate py-2">Войти</a>
+          <a href="{% url 'login_view' %}" class="px-2 text-gray-100 hover:text-gray-300 truncate py-4 h-8">Войти</a>
         </div>
         {% endif %}
       </div>
@@ -46,13 +48,14 @@
     <header id="mobile-header" class="fixed z-10 text-gray-100 inline sm:hidden bg-zinc-900 bottom-0 h-20 w-full">
       ASASASASA
     </header>
-    <div class="h-8 mt-6 hidden sm:block"><br></div>
-    <main class="w-auto flex-grow">
-        {% block content %}
-        {% endblock %}
-    </main>
+    <div class="h-6 mt-6 hidden sm:block"><br></div>
+    <div class="h-full w-full">
+      <main class="w-auto flex-grow h-full my-2 box-border pb-24">
+          {% block content %}
+          {% endblock %}
+      </main>
     <!--Footter-->
-    <footer class="w-full bg-zinc-900 h-full flex flex-wrap justify-center sm:justify-between">
+    <footer class="w-full bg-zinc-900  flex flex-wrap justify-center sm:justify-between">
       <div class="mx-5 sm:mx-20 my-10 sm:h-full">
         <a href="/" class="flex"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-12 w-12 rounded-full" />
         <span class="float-left mx-4 text-lg my-2 text-gray-200">Onomics</span>
@@ -72,6 +75,7 @@
         </a>
       </div>
     </footer>
+    </div>
     <!--Scripts-->
     {% block scripts %}
     {% endblock %}

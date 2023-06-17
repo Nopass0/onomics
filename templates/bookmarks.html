@@ -2,89 +2,163 @@
 
 {% block content %}
 <div class="flex my-4 justify-center">
-  <a href="#" class="text-gray-100 bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
-      Читаю
-  </a>
-  <a href="#" class="text-gray-100 bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
-      Буду читать
-  </a>
-  <a href="#" class="text-gray-100 bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
-      Прочитано
-  </a>
-  <a href="#" class="text-gray-100 bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
-      Брошено
-  </a>
+  <button id="read" class="text-gray-100 flex items-center bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
+      Читаю<div class="rounded-full bg-zinc-600 text-gray-100 text-cente ml-2 py-1 px-3" id="read_len"></div>
+  </button>
+  <button id="will_read" class="text-gray-100 flex items-center bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
+      Буду читать<div class="rounded-full bg-zinc-600 text-gray-100 text-center ml-2 py-1 px-3" id="will_read_len"></div>
+  </button>
+  <button id="readed" class="text-gray-100 flex items-center bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
+      Прочитано <div class="rounded-full bg-zinc-600 text-gray-100 text-center ml-2 py-1 px-3" id="readed_len"></div>
+  </button>
+  <button id="droped" class="text-gray-100 flex items-center bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
+      Брошено<div class="rounded-full bg-zinc-600 text-gray-100 text-center ml-2 py-1 px-3" id="droped_len"></div>
+  </button>
 </div>
-<div class="flex flex-wrap justify-center">
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-  <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-  <div class="py-2">
-      <div class="slider-item-image">
-      <img src="https://placehold.jp/144x216.png" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
-      </div>
-      <div class="slider-item-title mx-2">
-      <h3 class="text-gray-200">Название комикса</h3>
-      </div>
-  </div>
-  <!--End-->
-</div>         
+<div class="flex flex-wrap justify-center" id="wrapper_readed" style="display: none;"></div>
+<div class="flex flex-wrap justify-center" id="wrapper_droped" style="display: none;"></div>
+<div class="flex flex-wrap justify-center" id="wrapper_will_read" style="display: none;"></div>
+<div class="flex flex-wrap justify-center" id="wrapper_read"></div>         
 {% endblock %}
+
+
+{% block scripts %}
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--Ajax get -->
+    <script>
+        //on click #read, #readed, #droped and #will_read buttons hide div's 
+        $("#read").click(function(){
+            $("#wrapper_readed").hide();
+            $("#wrapper_droped").hide();
+            $("#wrapper_will_read").hide();
+            //show #wrapper_read div
+            $("#wrapper_read").show();
+        });
+        $("#readed").click(function(){
+            $("#wrapper_read").hide();
+            $("#wrapper_droped").hide();
+            $("#wrapper_will_read").hide();
+            //show #wrapper_readed div
+            $("#wrapper_readed").show();
+        });
+        $("#droped").click(function(){
+            $("#wrapper_read").hide();
+            $("#wrapper_readed").hide();
+            $("#wrapper_will_read").hide();
+            //show #wrapper_droped div
+            $("#wrapper_droped").show();
+        });
+        $("#will_read").click(function(){
+            $("#wrapper_read").hide();
+            $("#wrapper_readed").hide();
+            $("#wrapper_droped").hide();
+            //show #wrapper_will_read div
+            $("#wrapper_will_read").show();
+        });
+
+        $(document).ready(function(){
+            $.ajax({
+                //csrftoken
+                headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                url: "/api/v1/bookmarks.get",
+                type: "GET",
+                dataType: "json",
+                success: function(data){
+                    //get read, readed, droped and will_read comics id's from json and make get request to api for get comics info by url /api/v1/comics.get/<comics_id> and show it in #wrappe_read, #wrapper_readed, #wrapper_droped and #wrapper_will_read
+                    console.log(data);
+                    //get read comics id's
+                    let read = data[0].read;
+                    //get readed comics id's
+                    let readed = data[0].readed;
+                    //get droped comics id's
+                    let droped = data[0].droped;
+                    //get will_read comics id's
+                    let will_read = data[0].will_read;
+
+                    //set read, readed, droped and will_read comics count
+                    $("#read_len").text(read.length);
+                    $("#readed_len").text(readed.length);
+                    $("#droped_len").text(droped.length);
+                    $("#will_read_len").text(will_read.length);
+                    console.log(data[0])
+                    //get read comics info
+                    for(let i = 0; i < read.length; i++){
+                        $.ajax({
+                            url: "/api/v1/comics.get/" + read[i],
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data){
+                                console.log(data);
+                                //show read comics info in #wrapper_read
+                                $("#wrapper_read").append(`<a href='${window.location.href.split("/")[0]}/comics/${read[i]}' class='py-2'><div class='slider-item-image'><img src='${data[i].image}' alt='Comics' class='h-56 w-40 mx-2 rounded-md' /></div><div class='slider-item-title mx-2'><h3 class='text-gray-200'>${data[i].title}</h3></div></a>`);
+                            }
+                        });
+                    }
+
+                    //get readed comics info
+                    for(let i = 0; i < readed.length; i++){
+                        $.ajax({
+                            url: "/api/v1/comics.get/" + readed[i],
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data){
+                                console.log(data);
+                                //show readed comics info in #wrapper_readed
+                                $("#wrapper_readed").append(`<a href='${window.location.href.split("/")[0]}/comics/${readed[i]}' class='py-2'><div class='slider-item-image'><img src='${data[i].image}' alt='Comics' class='h-56 w-40 mx-2 rounded-md' /></div><div class='slider-item-title mx-2'><h3 class='text-gray-200'>${data[i].title}</h3></div></a>`);
+                            }
+                        });
+                    }
+
+                    //get droped comics info
+                    for(let i = 0; i < droped.length; i++){
+                        $.ajax({
+                            url: "/api/v1/comics.get/" + droped[i],
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data){
+                                console.log(data);
+                                //show droped comics info in #wrapper_droped
+                                $("#wrapper_droped").append(`<a href='${window.location.href.split("/")[0]}/comics/${droped[i]}' class='py-2'><div class='slider-item-image'><img src='${data[i].image}' alt='Comics' class='h-56 w-40 mx-2 rounded-md' /></div><div class='slider-item-title mx-2'><h3 class='text-gray-200'>${data[i].title}</h3></div></a>`);
+                            }
+                        });
+                    }
+
+                    //get will_read comics info
+                    for(let i = 0; i < will_read.length; i++){
+                        $.ajax({
+                            url: "/api/v1/comics.get/" + will_read[i],
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data){
+                                console.log(data);
+                                //show will_read comics info in #wrapper_will_read
+                                $("#wrapper_will_read").append(`<a href='${window.location.href.split("/")[0]}/comics/${will_read[i]}' class='py-2'><div class='slider-item-image'><img src='${data[i].image}' alt='Comics' class='h-56 w-40 mx-2 rounded-md' /></div><div class='slider-item-title mx-2'><h3 class='text-gray-200'>${data[i].title}</h3></div></a>`);
+                            }
+                        });
+                    }
+
+                    //div's where not exists comics info add div with text "Пусто"
+                    if(read.length == 0){
+                        $("#wrapper_read").append("<div class='p-56 bg-zinc-900 rounded-md text-center items-center'><h3 class='text-gray-200'>Пусто</h3></div>");
+                    }
+
+                    if(readed.length == 0){
+                        $("#wrapper_readed").append("<div class='p-56 bg-zinc-900 rounded-md text-center items-center'><h3 class='text-gray-200'>Пусто</h3></div>");
+                    }
+
+                    if(droped.length == 0){
+                        $("#wrapper_droped").append("<div class='p-56 bg-zinc-900 rounded-md text-center items-center'><h3 class='text-gray-200'>Пусто</h3></div>");
+                    }
+                    
+                    if(will_read.length == 0){
+                        $("#wrapper_will_read").append("<div class='p-56 bg-zinc-900 rounded-md text-center items-center'><h3 class='text-gray-200'>Пусто</h3></div>");
+                    }
+
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+    

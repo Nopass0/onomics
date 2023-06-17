@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.dispatch import receiver
 from sorl.thumbnail import ImageField, get_thumbnail
+from django.db.models.signals import post_save
 #from users.models import User
 
 STATUS_CHOICES = (
@@ -15,11 +17,12 @@ class Comic(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='theme/static/images/covers', verbose_name='Обложка') # Width: 180px, Height: 270px
-    price = models.IntegerField(verbose_name='Цена')
-    slug = models.SlugField()
+    image = models.ImageField(upload_to=f'theme/static/covers/', verbose_name='Обложка') # Width: 180px, Height: 270px
+    price = models.IntegerField(blank=True, null=True, verbose_name='Цена')
+    slug = models.SlugField(blank=True, null=True)
 
     #status, author, views, likes
+    #author = models.OneToOneField(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
     author = models.ForeignKey(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
     status = models.CharField(max_length=12,
                               choices=STATUS_CHOICES,
@@ -35,8 +38,16 @@ class Comic(models.Model):
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     comments = models.ManyToManyField('Comment', blank=True, related_name='comments', verbose_name='Комментарии')
 
+    #function on delete
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return "/comics/%i/" % self.id
     
 
 class Genre(models.Model):
@@ -55,13 +66,14 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+#Comment model for comics, charapters and blocks, with likes and author and text and date and etc.
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
-    text = models.TextField(verbose_name='Комментарий')
-    author = models.ForeignKey(User, blank=False, default=None, verbose_name='Автор', on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Текст')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+    #likes = models.IntegerField(default=0, verbose_name='Лайки')
 
-    reply_id = models.OneToOneField('self', default=0, null=True, blank=True, verbose_name='Ответ на', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
@@ -70,6 +82,8 @@ class Charapter(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, verbose_name='Название')
     text = models.TextField()
+
+    isPrivate = models.BooleanField(default=False)
     
     comic_id = models.ForeignKey('Comic', on_delete=models.CASCADE)
 
@@ -82,7 +96,26 @@ class Charapter(models.Model):
 
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to='theme/images/blocks', verbose_name='Изображение') # Width: 800px, Height: 1080px
+    image = models.ImageField(upload_to=f'blocks/{id}', verbose_name='Изображение') # Width: 800px, Height: 1080px
     charapter_id = models.ForeignKey('Charapter', on_delete=models.CASCADE)
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='bl_comments', verbose_name='Комментарии')
+
+#bookmarks model: id, user, read(many to many), readed(many to many), droped(many to many), will_read(many to many)
+class Bookmark(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    read = models.ManyToManyField('Comic', blank=True, related_name='read', verbose_name='Прочитано')
+    readed = models.ManyToManyField('Comic', blank=True, related_name='readed', verbose_name='Читаю')
+    droped = models.ManyToManyField('Comic', blank=True, related_name='droped', verbose_name='Брошено')
+    will_read = models.ManyToManyField('Comic', blank=True, related_name='will_read', verbose_name='Буду читать')
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+    def save_bookmark(sender, instance, created, **kwargs):
+        user = instance
+        if created:
+            bookmark = Bookmark(user=user)
+            bookmark.save()
