@@ -7,40 +7,48 @@
 {% endblock %}
   
 {% block content %}
-<div class="mx-24 md:mx-64 backdrop-blur-xl bg-opacity-80 h-screen bg-zinc-900">
+<div class="mx-0 w-full xl:w-auto xl:mx-24 2xl:mx-64 backdrop-blur-xl bg-opacity-80 h-screen bg-zinc-900">
 <div class="container mx-auto flex pt-6 pb-2 px-4">
-  <div class="flex h-52">
-    <img src="{% static user.profile.avatar %}" class="h-52 w-52 rounded-md" alt="Avatar">
-    <div class="flex flex-wrap ml-4 h-52 w-2/3">
-      <div class="flex flex-wrap w-full sm:w-auto h-52">
-        
-        <div class="h-28 w-full">
-          <h1 class="text-2xl font-bold text-gray-100 flex w-full items-center"><p class="mr-2 w-full flex items-center">{{ user_page.username }} <span class="items-center ml-2">{% bs_icon 'check-lg' color='#42AAFF' size='0.8em'  %}</span></p>
-          </h1>
-          <div class="text-sm text-gray-400">{{ user_page.first_name }} {{ user_page.last_name }}</div>
-          <div class="text-gray-200 text-md">Очень красочное описание профиля. Тут можно многое рассказать о себе!</div>
-        </div>
-        <div class="grid grid-cols-4 gap-4 h-16">
-          <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-            <div class="text-2xl font-bold text-gray-200">12</div>
-            <div class="text-xs text-gray-300">Прочитанные главы</div>
+  <div class="flex h-52 justify-between">
+      <div class="flex">
+        <img src="{% static user_page.profile.avatar %}" class="h-52 w-52 rounded-md" alt="Avatar">
+        <div class="flex flex-wrap ml-4 h-52 w-2/3">
+          <div class="flex flex-wrap w-full sm:w-auto h-52">
+            
+            <div class="h-28 w-full">
+              <h1 class="text-2xl font-bold text-gray-100 flex w-full items-center"><p class="mr-2 w-full flex items-center">{{ user_page.username }}
+                
+                {% if user_page.profile.isVerified %}
+                <span class="items-center ml-2">{% bs_icon 'check-lg' color='#42AAFF' size='0.8em'  %}</span>
+                {% endif %}
+                  
+                </p>
+              </h1>
+              <div class="text-sm text-gray-400">{{ user_page.first_name }} {{ user_page.last_name }}</div>
+              <div class="text-gray-200 text-md">Очень красочное описание профиля. Тут можно многое рассказать о себе!</div>
+            </div>
+            <div class="grid grid-cols-4 gap-4 h-16">
+              <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
+                <div class="text-2xl font-bold text-gray-200">12</div>
+                <div class="text-xs text-gray-300">Прочитанные главы</div>
+              </div>
+              <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
+                <div class="text-2xl font-bold text-gray-200">{{ comics|length }}</div>
+                <div class="text-xs text-gray-300">Работы</div>
+              </div>
+              <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
+                <div class="text-2xl font-bold text-gray-200">{{ followers|length }}</div>
+                <div class="text-xs text-gray-300">Подписчики</div>
+              </div>
+              <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
+                <div class="text-2xl font-bold text-gray-200">78</div>
+                <div class="text-xs text-gray-300">Подписки</div>
+              </div>
+            </div>
+    
           </div>
-          <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-            <div class="text-2xl font-bold text-gray-200">34</div>
-            <div class="text-xs text-gray-300">Лайки</div>
+    
           </div>
-          <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-            <div class="text-2xl font-bold text-gray-200">56</div>
-            <div class="text-xs text-gray-300">Подписчики</div>
-          </div>
-          <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-            <div class="text-2xl font-bold text-gray-200">78</div>
-            <div class="text-xs text-gray-300">Подписки</div>
-          </div>
-        </div>
-
-      </div>
-
       </div>
 
       <div class="w-1/3 flex flex-wrap">
@@ -69,39 +77,77 @@
       
   </div>
 
-  <div class="text-center bg-red-500 my-2 mx-6">
-    {% if isMyProfile and user.profile.email_confirmed == False %}
-      <a class="text-gray-1000 my-2 mx-4" href="{% url 'confirm_email' %}">Подтвердите почту</a>
-    {% endif %}
+  <div class="mx-auto px-4 flex container my-2">
+    <div class="mx-auto w-2/3">
+
+    </div>
+    <div class="w-1/3">
+      {% if isMyProfile and user.profile.email_confirmed == False %}
+      <div class="text-center bg-red-500 py-2 w-full rounded-md">
+          <a class="text-gray-100 py-2 px-4" href="{% url 'confirm_email' %}">Подтвердите почту</a>
+      </div>
+      {% endif %}
+    </div>
   </div>
 
-  <div class="mx-auto px-4 container">
-    <!--My comics if exists-->
-    <h2 class="text-gray-200 text-2xl mt-2 ml-4">
-      
-      {% if isMyProfile %}
-        Мои работы
-        {% else %}
-        Работы автора
-      {% endif %}
-        
-    </h2>
-    {% if comics %}
-    <div class=" mt-2 flex flex-wrap mx-auto">
-      {% for comic in comics %}
-        <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-        <a class="py-4" href="{{ comic.get_absolute_url }}">
-          <div class="slider-item-image">
-            <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+  <div class="mx-auto px-4 flex container">
+    <div class="mx-auto w-2/3">
+          <!--My comics if exists-->
+          <h2 class="text-gray-200 text-2xl mt-2 ml-4">
+            
+            {% if isMyProfile %}
+              Мои работы
+              {% else %}
+              Работы автора
+            {% endif %}
+              
+          </h2>
+          {% if comics %}
+          <div class=" mt-2 flex flex-wrap mx-auto">
+            {% for comic in comics %}
+              <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+              <a class="py-4" href="{{ comic.get_absolute_url }}">
+                <div class="slider-item-image">
+                  <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+                </div>
+                <div class="slider-item-title mx-2">
+                  <h3 class="text-gray-200">{{ comic.title }}</h3>
+                </div>
+              </a>
+            <!--End-->
+            {% endfor %}
           </div>
-          <div class="slider-item-title mx-2">
-            <h3 class="text-gray-200">{{ comic.title }}</h3>
-          </div>
-        </a>
-      <!--End-->
-      {% endfor %}
+          {% endif %}
     </div>
-    {% endif %}
+
+    <div class="w-1/3 h-auto bg-zinc-900 rounded-md backdrop-blur-xl bg-opacity-20r">
+      <div class="w-full flex">
+        <p class="text-lg text-blue-300 w-2/3 py-2 px-4">В сети</p>
+        <p class="text-lg flex- items-center text-blue-300 w-1/3 py-2 px-4 hidden">
+          {% bs_icon 'telegram' color='white' %}
+          {% bs_icon 'discord' color='white' %}
+        </p>
+      </div>
+      <p class="text-md text-blue-100 w-2/3 pt-2 px-4">Подписчики</p>
+      <div class="w-full mt-1 mb-2 py-2 flex flex-wrap bg-zinc-700 backdrop-blur-xl bg-opacity-20 items-center justify-center">
+        
+        <div class="flex flex-wrap w-auto mx-4">
+          {% if followers %}
+          
+          {% for follower in followers  %}
+          <a class="flex flex-wrap text-center h-20 w-20 m-1 rounded-lg justify-center hover:bg-zinc-700" href="{% url 'user_profile' %}?id={{ follower.id }}">
+            <img src="{% static follower.profile.avatar %}" class="h-14 w-14 rounded-full" alt="Avatar">
+            <p class="w-full text-blue-100 truncate">{{ follower.username }}</p>
+          </a>
+          {% endfor %}
+          {% else %}
+          <p class="text-blue-100 text-center w-full py-4 ">Нет подписчиков</p>
+        {% endif %}
+        </div>
+          
+      </div>
+    </div>
+
   </div>
 
 </div>

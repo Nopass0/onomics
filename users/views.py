@@ -71,18 +71,40 @@ def profile(request):
         return redirect('index')
     isMyProfile = True
     #My comics
-    comics = Comic.objects.filter(author=request.user)
-    return render(request, 'profile.html', {'isMyProfile': isMyProfile, 'user_page': request.user, 'comics': comics})
+    comics = Comic.objects.filter(author=request.user)[:10]
+    followers = Follow.objects.filter(user_to=request.user).all()
+    #get id's followers and get all users with this id's
+    
+    followers_users = []
+    for follower in followers:
+        #limit on 10 followers
+        if len(followers_users) > 10:
+            break
+        followers_users.append(User.objects.get(id=follower.id))
+    
+    print(followers)
+    return render(request, 'profile.html', {'isMyProfile': isMyProfile, 'user_page': request.user, 'comics': comics, 'followers': followers_users})
 
 def user_profile(request):
     user_id = request.GET["id"]
     isMyProfile = False
+    followers = []
     if user_id == "0":
         return redirect('profile')
     else:
         user = User.objects.get(id=user_id)
-        comics = Comic.objects.filter(author=user)
-        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile, 'comics': comics})
+        comics = Comic.objects.filter(author=user)[:10]
+        followers = Follow.objects.filter(user_to=user).all()
+
+
+        followers_users = []
+        for follower in followers:
+            #limit on 10 followers
+            if len(followers_users) > 10:
+                break
+            followers_users.append(User.objects.get(id=follower.id))
+        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile, 'comics': comics, 'followers': followers_users})
+        
     
 def confirm_email(request):
     message = ""
