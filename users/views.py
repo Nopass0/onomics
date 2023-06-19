@@ -6,7 +6,10 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.core.mail import EmailMessage
+from rest_framework.views import *
+from rest_framework import generics
 
+from .serializers import *
 from .forms import *
 from .email_code_generator import *
 from .models import *
@@ -164,3 +167,63 @@ def login(request):
 def logoutUser(request):
     logout(request)
     return redirect('index')
+
+#API
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+#Get user by id
+class UserDetail(APIView):
+    def get(self, request, pk):
+        user = User.objects.get(id=pk)
+        #get info without password and email_code
+        serializer = UserSerializer(user)
+
+
+        return Response(serializer.data)
+
+#Update user and profile of this user info
+class UserUpdate(APIView):
+    def put(self, request):
+        if not request.user.is_authenticated:
+            return Response({"error": "not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+        user = request.user
+        profile = Profile.objects.get(user=user)
+
+        serializer = UserSerializer(user, data=request.data)
+        profile_serializer = ProfileSerializer(profile, data=request.data)
+
+        print(serializer)
+        print(profile_serializer)
+
+        if serializer.is_valid() and profile_serializer.is_valid():
+            #if value is empty, then don't update this field
+            #email, email_confirmed, password, is_superuser, is_staff, is_active, date_joined, profile.isBanned, profile.isVerified, profile.experience, profile.level, profile.pins, profile.main_pin, profile.ismoderator, profile.regdate, profile.balance, profile.bdate dont't update
+            print(request.data)
+            print(serializer.is_valid())
+            print(profile_serializer.is_valid())
+            
+            #array with fields for check is empty or not
+            fields = ["last_name", "first_name"]
+
+            #update user
+            for field in fields:
+                if request.data[field] != "":
+                    setattr(user, field, request.data[field])
+            user.save()
+
+            #update profile
+
+            #array with fields for check is empty or not
+            fieldsProfile = ["nickname", "avatar", "description"]
+
+            for field in fieldsProfile:
+                if request.data[field] != "":
+                    setattr(profile, field, request.data[field])
+            profile.save()
+
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#user edit for nickname, avatar, description, last_name, first_name

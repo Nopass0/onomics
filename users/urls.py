@@ -16,4 +16,10 @@ urlpatterns = [
 
     path("template/", template_view, name="template_view"),
 
+    #API
+    path("api/v1/users.get/", UserList.as_view()),
+    path("api/v1/users.get/<int:pk>/", UserDetail.as_view()),
+    #update user
+    path("api/v1/user.update", UserUpdate.as_view(), name="user.update"),
+
 ]

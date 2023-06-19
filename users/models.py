@@ -25,8 +25,8 @@ class Profile(models.Model):
     description = models.TextField(blank=True, verbose_name='Описание')
 
     level = models.IntegerField(default=0, verbose_name="Уровень")
-    expirence = models.IntegerField(default=0, verbose_name="Опыт")
-    expirence_unitl_next_level = models.IntegerField(default=0, verbose_name="Опыт нужный для перехода на следующий уровень")
+    experience = models.IntegerField(default=0, verbose_name="Опыт")
+    experience_unitl_next_level = models.IntegerField(default=0, verbose_name="Опыт нужный для перехода на следующий уровень")
 
     bdate = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
     regdate = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время регистрации")
@@ -91,8 +91,8 @@ class Pin(models.Model):
     image = models.ImageField(default='pins/default.jpg', upload_to='pins/', verbose_name='Значок')
     level = models.IntegerField(default=0, verbose_name="Уровень значка")
     name = models.CharField(max_length=50, verbose_name="Название значка")
-    expirence = models.IntegerField(default=0, verbose_name="Опыт значка")
-    expirence_unitl_next_level = models.IntegerField(default=0, verbose_name="Опыт нужный для перехода на следующий уровень значка")
+    experience = models.IntegerField(default=0, verbose_name="Опыт значка")
+    experience_unitl_next_level = models.IntegerField(default=0, verbose_name="Опыт нужный для перехода на следующий уровень значка")
 
     def __str__(self):
         return f'{self.user.username} Pin' 

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% load bootstrap_icons %}
+  
+{% block content %}
+<div class="mx-0 w-full xl:w-auto xl:mx-24 2xl:mx-64">
+  <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4">
+    <div class="px-4 pt-4 w-full sm:w-1/3 bg-zinc-900 rounded-md py-2">
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'person-badge-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Информация об аккаунте</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'shield-lock-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Пароль и конфеденциальность</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'brush-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Кастомизация</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'credit-card-2-back-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Банковские карты</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'wallet-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Баланс</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'bar-chart-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Статистика</p>
+      </div>
+    </div>
+    <div class="px-4 pt-4 w-full sm:w-2/3">
+      <h1 class="text-gray-100 text-xl mx-2">Информация об аккаунте</h1>
+      <div id="avatar_label" class="flex flex-wrap w-full mx-2 mb-2">
+        <label for="avatar" class="text-gray-100 w-full mx-2">Аватар</label>
+      </div>
+      <div class="mt-4 flex flex-wrap">
+        <img src="{% static user.profile.avatar %}" id="avatar_img" class="h-52 w-52 rounded-md" alt="Avatar">
+        <!--Input for upload avatar-->
+        <input type="file" name="avatar" id="avatar" class="outline-0 border-none
+        bg-zinc-900 rounded-md text-gray-100 outline-none w-full">
+      </div>
+      <div class="mt-4 flex flex-wrap" id="content_wrapper">
+        <div id="nickname" class="flex flex-wrap w-1/3 mx-2 mb-2">
+            <label for="nickname" class="text-gray-100 w-full mx-2">Прозвище</label>
+            <input type="text" name="nickname" id="nickname" placeholder="Прозвище" class="outline-0 border-none
+            bg-zinc-900 rounded-md text-gray-100 outline-none">
+        </div>
+        <div id="first_name" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <label for="first_name" class="text-gray-100 w-full mx-2">Имя</label>
+          <input type="text" name="first_name" id="first_name" placeholder="Имя" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none">
+        </div>
+        <div id="last_name" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <label for="last_name" class="text-gray-100 w-full mx-2">Фамилия</label>
+          <input type="text" name="last_name" id="last_name" placeholder="Фамилия" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none">
+        </div>
+        <div id="last_name" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <label for="select_naming" class="text-gray-100 w-full mx-2">Выберите как к вам обращатся</label>
+          <select name="select_naming" id="select_naming" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none">
+            <option value="nickname">По прозвищу</option>
+            <option value="first_name_last_name">По имени и фамилии</option>
+          </select>
+        </div>
+        <div id="description" class="flex flex-wrap w-full mx-2 mb-2">
+          <label for="description" class="text-gray-100 w-full mx-2">Описание профиля</label>
+          <textarea type="text" name="description" id="description" placeholder="Фамилия" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none w-full">
+          </textarea>
+        </div>
+        <div id="save" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <input type="button" name="save" id="save_btn" value="Сохранить" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!--Scripts-->
+  <script>
+    //on avatar selected change img
+    let avatar_btn = document.querySelector('#avatar')
+    //on change avatar_btn
+    avatar_btn.addEventListener('change', function() {
+      console.log('avatar selected')
+      //get file
+      let file = this.files[0]
+      //check file
+      if (file) {
+        //create reader
+        let reader = new FileReader()
+        //onload
+        reader.onload = function() {
+          //get result
+          let result = reader.result
+          //set src to avatar
+          let avatar = document.querySelector('#avatar_img')
+          avatar.src = result
+        }
+        //read data
+        reader.readAsDataURL(file)
+      }
+    })
+
+    //on click save_btn send data to server
+    document.querySelector('#save_btn').addEventListener('click', function() {
+      //get data
+      let nickname = document.querySelector('#nickname').value
+      let first_name = document.querySelector('#first_name').value
+      let last_name = document.querySelector('#last_name').value
+      let avatar = document.querySelector('#avatar').value
+      let description = document.querySelector('#description').value
+      let select_naming = document.querySelector('#select_naming').value
+      //send data to server
+      $.ajax({
+        url: "{% url 'user.update' %}",
+        type: 'PUT',
+        data: {
+          'nickname': nickname,
+          'first_name': first_name,
+          'last_name': last_name,
+          'avatar': avatar,
+          'description': description,
+          //'select_naming': select_naming,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    })
+
+    /*
+    $.ajax({
+          url: '/api/v1/user.update/',
+          type: 'PUT',
+          data: {
+            'nickname': $('#nickname').val(),
+            'first_name': $('#first_name').val(),
+            'last_name': $('#last_name').val(),
+            'avatar': $('#avatar').val(),
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            console.log(data);
+          }
+        });
+    */
+    //ajax
+
+  </script>
+{% endblock %}

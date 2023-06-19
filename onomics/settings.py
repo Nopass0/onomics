@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zqat*j%1%x-m*h1i#fnw%$rznxef*kw#@s(#(_ay1xkdj)jca0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e3bc-188-18-20-98.ngrok-free.app', 'localhost']
+ALLOWED_HOSTS = ['e3bc-188-18-20-98.ngrok-free.app', 'localhost', '127.0.0.1']
 
 #NPM_BIN_PATH = "node_modules/.bin"
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
