@@ -14,14 +14,6 @@ from .forms import *
 from .email_code_generator import *
 from .models import *
 
-# Create your views here.
-'''
-class SignUp(CreateView):
-    form_class = EmailUserCreationForm #UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "register.html"
-'''
-
 def sendEmailActivationCode(user):
     email = EmailMessage(
     'Код подтверждения почты',
