@@ -14,6 +14,9 @@
       </div>
       <div class="w-full sm:w-40 flex flex-col">
         <a href="#" class="w-full text-center text-gray-200 my-2 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">Читать</a>
+        {% if comic.author == user %}
+        <a href="{% url 'editComicsPage' comic.id %}" class="w-full text-center text-gray-200 my-2 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">Редактировать</a>
+        {% else %}
         <select name="bookmark" id="bookmark" class="w-full outline-none outline-0 border-none text-center cursor-pointer text-gray-200 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">
           <option value="del" {% if bookmark == 'del' %}selected{% endif %}>В закладки</option>
           <option value="will_read" {% if bookmark == 'will_read' %}selected{% endif %}>Буду читать</option>
@@ -21,6 +24,7 @@
           <option value="readed" {% if bookmark == 'readed' %}selected{% endif %}>Прочитано</option>
           <option value="droped" {% if bookmark == 'droped' %}selected{% endif %}>Брошено</option>
         </select>
+        {% endif %}
         <div class="flex text-left bg-zinc-800 rounded-md my-2">
           <p class="text-gray-200 text-center w-1/2 border-r border-zinc-500 py-1 sm:py-0">Рейтинг<br> <span class="text-gray-400">{{ comic.rating }}</span></p>
           <p class="text-gray-200 text-center w-1/2 border-l border-zinc-500 py-1 sm:py-0">Статус<br> <span class="text-gray-400">{{ comic.status }}</span></p>

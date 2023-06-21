@@ -12,6 +12,12 @@ STATUS_CHOICES = (
     ("Anonce", "Анонс")
 )
 
+MODERATION_STATUS_CHOICES = (
+    ("inspect", "На рассмотрении"),
+    ("cancelled ", "Отклонено"),
+    ("accepted", "Одобренно")
+)
+
 # Create your models here.
 class Comic(models.Model):
     id = models.AutoField(primary_key=True)
@@ -83,6 +89,11 @@ class Charapter(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     text = models.TextField()
 
+    moderation_status = models.CharField(max_length=12,
+                              choices=MODERATION_STATUS_CHOICES,
+                              default="inspect",
+                              verbose_name="Статус модерации")
+    
     isPrivate = models.BooleanField(default=False)
     
     comic_id = models.ForeignKey('Comic', on_delete=models.CASCADE)

@@ -110,14 +110,14 @@
           <div class="flex flex-wrap sm:h-72 items-center justify-center sm:justify-normal ">
             {% for comic in comics %}
               <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху--> 
-              <div class="my-2 ">
+              <a class="my-2 " href="{{ comic.get_absolute_url }}">
                 <div class="slider-item-image flex justify-center">
                   <img src="{{ comic.image.url }}" alt="Comics" class="h-96 w-72 mx-4 sm:h-56 sm:w-40 sm:mx-2 rounded-md" />
                 </div>
                 <div class="slider-item-title mx-2">
                   <h3 class="text-gray-200 truncate text-lg text-center py-2">{{ comic.title }}</h3>
                 </div>
-              </div>
+            </a>
               <!--End-->
             {% endfor %}
             </div>

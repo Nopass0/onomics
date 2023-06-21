@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% load bootstrap_icons %}
+  
+{% block content %}
+<div class="mx-0 w-full xl:w-auto xl:mx-24 2xl:mx-64">
+  <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4">
+    <div class="px-4 pt-4 w-full sm:w-1/3 bg-zinc-900 rounded-md py-2">
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'person-badge-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Информация о комиксе</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'shield-lock-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Главы</p>
+      </div>
+      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+        <p class="mx-2">{% bs_icon 'brush-fill' color='white' size='1.2em' %}</p>
+        <p class="w-full text-gray-100 py-2 items-center">Статистика</p>
+      </div>
+    </div>
+    <div class="px-4 pt-4 w-full sm:w-2/3">
+      <h1 class="text-gray-100 text-xl mx-2">Информация о комиксе/h1>
+      <div id="avatar_label" class="flex flex-wrap w-full mx-2 mb-2">
+        <label for="avatar" class="text-gray-100 w-full mx-2">Обложка</label>
+      </div>
+      <div class="mt-4 flex flex-wrap">
+        <img src="{% static comic.image %}" id="avatar_img" class="h-52 w-52 rounded-md" alt="Avatar">
+        <!--Input for upload avatar-->
+        <input type="file" name="avatar" id="avatar" class="outline-0 border-none
+        bg-zinc-900 rounded-md text-gray-100 outline-none w-full">
+      </div>
+      <div class="mt-4 flex flex-wrap" id="content_wrapper">
+        <div id="nickname" class="flex flex-wrap w-1/3 mx-2 mb-2">
+            <label for="nickname" class="text-gray-100 w-full mx-2">Название</label>
+            <input type="text" name="nickname" id="nickname" placeholder="Прозвище" class="outline-0 border-none
+            bg-zinc-900 rounded-md text-gray-100 outline-none">
+        </div>
+        <!--Tags and genres-->
+        <div id="description" class="flex flex-wrap w-full mx-2 mb-2">
+          <label for="description" class="text-gray-100 w-full mx-2">Описание профиля</label>
+          <textarea type="text" name="description" id="description" placeholder="Фамилия" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none w-full">
+          </textarea>
+        </div>
+        <div id="save" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <input type="button" name="save" id="save_btn" value="Сохранить" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  <!--Jquery-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+{% endblock %}

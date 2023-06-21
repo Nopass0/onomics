@@ -34,6 +34,8 @@ class Profile(models.Model):
     isBannded = models.BooleanField(default=False, verbose_name="Забанен")
     isOnline = models.BooleanField(default=False, verbose_name="Онлайн")
 
+    isNickname = models.BooleanField(default=False, verbose_name="Звать ли по прозвищу")
+
     isVerified = models.BooleanField(default=False, verbose_name="Верифицирован")
 
     country = models.ForeignKey('Country', on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Страна")

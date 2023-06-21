@@ -124,7 +124,14 @@ def addComicsPage(request):
 
     return render(request, 'addComicsPage.html', {'form': form, 'message': message})
 
-
+def editComicsPage(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    comic = Comic.objects.get(id=id)
+    if comic.author == request.user:
+        return render(request, "comics_edit.html", {"comic": comic})
+    else:
+        return redirect("404")
 #API
 
 #bookmarks API (GET) with check is user authenticated
