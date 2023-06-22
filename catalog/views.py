@@ -230,6 +230,32 @@ class ComicsInfoAPIView(APIView):
         serializer = ComicSerializer(comics, many=True)
         return Response(serializer.data)
 
+class ComicUpdateAPIView(APIView):
+    def put(self, request, id):
+        if request.user.is_authenticated:
+            comic = Comic.objects.get(id=id)
+            if comic.author != request.user:
+                return Response({'error': 'Access denied'})
+            #check is data valid
+            serializer = ComicMiniSerializer(data=request.data)
+            if serializer.is_valid():
+                #print('valid')
+                if request.data.get('title') != None:
+                    comic.title = request.data.get('title')
+
+                if request.data.get('description') != None:
+                    comic.description = request.data.get('description')
+
+                if request.data.get('image') != None:
+                    comic.image = request.data.get('image')
+
+                comic.save()
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Data is not valid'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+
 class ComicAPIView(generics.ListAPIView):
     queryset = Comic.objects.all()
     serializer_class = ComicSerializer

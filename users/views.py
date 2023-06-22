@@ -174,6 +174,24 @@ class UserDetail(APIView):
 
 
         return Response(serializer.data)
+    
+#follow
+class FollowOnUser(APIView):
+    def post(self, request, id):
+        if not request.user.is_authenticated:
+            return Response({"error": "not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+        follow = None
+        try:
+            follow = Follow.objects.filter(user_from=request.user, user_to=User.objects.get(id=id))
+        except Follow.DoesNotExist:
+            follow = None
+        if follow == None:
+            follow = Follow.objects.create(user_from=request.user, user_to=User.objects.get(id=id))
+            follow.save()
+            return Response("Followed")
+        else:
+            follow.delete()
+            return Response("Unfollowed")
 
 #Update user and profile of this user info
 class UserUpdate(APIView):

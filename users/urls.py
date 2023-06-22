@@ -23,6 +23,8 @@ urlpatterns = [
     path("api/v1/users.get/<int:pk>/", UserDetail.as_view()),
     #update all information about user
     path("api/v1/user.update", UserUpdate.as_view(), name="user.update"),
+
+    path('api/v1/follow.post', FollowOnUser.as_view()),
     #set online API
     
     #get is user online

@@ -73,7 +73,9 @@
     <!--Button 'Редактировать' if isMyProfile-->
     
     {% if isMyProfile %}
-      <a href="{% url 'index' %}" id="edit_profile" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Редактировать профиль</a>
+    <a href="{% url 'index' %}" id="edit_profile" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Редактировать профиль</a>
+    {% else %}
+    <a href="{% url 'index' %}" id="edit_profile" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Отслеживать изменения</a>
     {% endif %}
       
   </div>
