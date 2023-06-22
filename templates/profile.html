@@ -75,7 +75,13 @@
     {% if isMyProfile %}
     <a href="{% url 'index' %}" id="edit_profile" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Редактировать профиль</a>
     {% else %}
-    <a href="{% url 'index' %}" id="edit_profile" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">Отслеживать изменения</a>
+    <button id="follow_btn" onclick="follow();" class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md hover:bg-blue-500 text-md">
+      {% if isFollower %}
+      Отслеживать изменения
+      {% else %}
+      Перестать отслеживать
+      {% endif %}
+    </button>
     {% endif %}
       
   </div>
@@ -162,6 +168,7 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const ctx = document.getElementById('chart');
@@ -186,5 +193,22 @@
   });
 
 
+//follow
+function follow() {
+  $.ajax({
+        url: '/api/v1/follow.post/{{user_page.id}}',
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          'X-CSRFToken': '{{csrf_token}}'
+        },
+        success: function(response) {
+          console.log(response);
+          if (response == 'Followed')
+            document.querySelector('#follow_btn').innerText = 'Перестать отслеживать'
+          else document.querySelector('#follow_btn').innerText = 'Отслеживать изменения'
+        }
+  });
+}
 </script>
 {% endblock %}

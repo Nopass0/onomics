@@ -24,7 +24,7 @@ urlpatterns = [
     #update all information about user
     path("api/v1/user.update", UserUpdate.as_view(), name="user.update"),
 
-    path('api/v1/follow.post', FollowOnUser.as_view()),
+    path('api/v1/follow.post/<int:id>', FollowOnUser.as_view()),
     #set online API
     
     #get is user online
