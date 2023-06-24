@@ -10,7 +10,9 @@ Onomics is a webcomic platform that allows authors to upload their comics and ea
 5. Install all requirements 'pip install -r requirements.txt'
 6. Install tailwind. Write in console 'python manage.py tailwind install' 
 7. Start tailwind. Write in console 'python manage.py tailwind start'
-8. Open second console and write 'python manage.py runserver'
+8. Open second console and write 'python manage.py makemigrations'
+9. Write 'python manage.py migrate'
+10. Write 'python manage.py runserver'
 
 
 ## Futures
