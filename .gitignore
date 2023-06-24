@@ -2,14 +2,14 @@
 ../myenv
 /node_modules
 /myenv
-/onomics/catalog/_pycache_
+/onomics/catalog/__pycache__
 /onomics/users/__pycache__
 /onomics/theme/__pycache__
 /onomics/onomics/__pycache__
 /onomics/catalog/migrations
 /onomics/users/migrations
 /onomics/db.sqlite3
-/catalog/_pycache_
+/catalog/__pycache__
 /users/__pycache__
 /theme/__pycache__
 /onomics/__pycache__
