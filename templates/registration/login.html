@@ -2,8 +2,8 @@
 {% load static tailwind_tags %}
 {% block content %}
 <!--<div class="md:w-1/4"></div>-->
-  <!--Блок с формой входа, полями для логина и пароля, внопкой входа и ссылки на регистрацию. На большом экране блок должен быть определенного цвета и блоком по середине экрана-->
-  <!--<div class="w-auto flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-60 md:my-32 md:mx-20">
+<!--Блок с формой входа, полями для логина и пароля, внопкой входа и ссылки на регистрацию. На большом экране блок должен быть определенного цвета и блоком по середине экрана-->
+<!--<div class="w-auto flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-60 md:my-32 md:mx-20">
     <h1 class="text-4xl text-center py-4 text-gray-100 w-full">Вход</h1>
     <input type="text" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="Логин" />
     <input type="password" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2" placeholder="Пароль" />
@@ -11,11 +11,20 @@
     <a href="#" class="w-full mx-4 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2 text-center hover:bg-emerald-500 cursor-pointer">Регистрация</a>
   </div>
 <div class="md:w-1/4"></div>-->
-<form method="post" class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
-  <h1 class="reg_register--text text-left px-12 text-gray-100 w-full">Вход</h1>
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="reg_log_in w-full mx-4 text-center  text-gray-200 mb-4">Вход</button>
-  <a href="{% url 'signup' %}" class="reg_had--acc w-full mx-4 px-2 py-2 text-center">Зарегистрироватся</a>
+<form method="post"
+  class="reg_block--div flex justify-center bg-zinc-900 mx-auto rounded-lg shadow-xl my-32 md:w-[450px] h-[440px]">
+  <div class="flex flex-col justify-center">
+    <h1 class="reg_register--text text-left text-gray-300 mb-6 font-bold text-lg">Войти в аккаунт</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a href="#!"
+      class="text-[#5fa9c1] font-light text-sm text-right mb-4 mt-2 duration-[400ms] hover:text-[#3f7081] active:text-[#3f7081]">Забыли
+      пароль?</a>
+    <button type="submit"
+      class="reg_log_in text-center text-white mt-3 mb-12 bg-[#5fa9c1] py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Войти</button>
+    <p class="font-light text-xs text-center text-white">Ещё нет аккаунта?</p>
+    <a href="{% url 'signup' %}"
+      class="reg_had--acc mx-4 px-2 py-2 text-center text-[#5fa9c1] duration-[400ms] hover:text-[#3f7081] active:text-[#3f7081]">Зарегистрироватся</a>
+  </div>
 </form>
 {% endblock %}

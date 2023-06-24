@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
 	username = forms.CharField(
+		label='',
 		max_length=25,
 		min_length=4,
 		required=True,
 		widget=forms.TextInput(
 				attrs={
-					"placeholder": "First Name",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
 		)
@@ -21,60 +22,67 @@ class SignUpForm(UserCreationForm):
 		widget=forms.TextInput(
 				attrs={
 					"placeholder": "Last Name",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+					"class": "mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
 		)
 	avatar = forms.ImageField(
 	    widget=forms.FileInput(
 		    attrs={
-			    "class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2",
+			    "class": "mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2",
             }
         ),
     )
     '''
     
 	first_name = forms.CharField(
+		label='',
 		max_length=254,
 		widget=forms.TextInput(
 			attrs={
-				"placeholder": "Имя",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Имя",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 		)
 	)
 
 	last_name = forms.CharField(
+		label='',
 		max_length=254,
 		widget=forms.TextInput(
 			attrs={
-				"placeholder": "Фамилия",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Фамилия",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 		)
 	)
 
 	email = forms.EmailField(
+		label='',
 		max_length=254,
 		widget=forms.EmailInput(
 			attrs={
-				"placeholder": "Email",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Email",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 		)
 	)
 
-	password1 = forms.CharField(widget=forms.PasswordInput(
+	password1 = forms.CharField(
+		label='',
+		widget=forms.PasswordInput(
 		attrs={
-				"placeholder": "Пароль",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Пароль",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 	))
 
-	password2 = forms.CharField(widget=forms.PasswordInput(
+	password2 = forms.CharField(
+		label='',
+		widget=forms.PasswordInput(
 		attrs={
-				"placeholder": "Повторите пароль",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Повторите пароль",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 	))
 
@@ -85,52 +93,60 @@ class SignUpForm(UserCreationForm):
 
 class SignUpProfile(forms.Form):
 	bdate = forms.DateField(
+		label='',
 		required=True,
 		widget=forms.DateInput(
 				attrs={
-					"placeholder": "Дата рождения",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2",
+					"placeholder": "*Дата рождения",
+					"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2",
 					"id": "datetimepicker"
 				}
 			)
 	)
     
 	CHOICES = (('m', 'Мужской'),('f', 'Женский'),)
-	gender = forms.ChoiceField(choices=CHOICES, widget=forms.Select(
+	gender = forms.ChoiceField(
+		label='',
+		choices=CHOICES,
+		widget=forms.Select(
 		attrs={
-			"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2",
+			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-5 py-2 cursor-pointer",
 		}
 	))
 
 class LoginUserForm(forms.Form):
     username = forms.CharField(
+	    label='',
 		max_length=25,
 		min_length=4,
 		required=True,
 		widget=forms.TextInput(
 				attrs={
-					"placeholder": "Ник",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+					"placeholder": "*Логин/Почта",
+					"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
 		)
     
-    password = forms.CharField(widget=forms.PasswordInput(
+    password = forms.CharField(
+	    label='',
+		widget=forms.PasswordInput(
 		attrs={
-				"placeholder": "Пароль",
-				"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				"placeholder": "*Пароль",
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 			}
 	))
     
 class ConfirmEmail(forms.Form):
     code = forms.CharField(
+		label='',
 		max_length=4,
 		min_length=4,
 		required=True,
 		widget=forms.TextInput(
 				attrs={
 					"placeholder": "Код",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+					"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
 		)
