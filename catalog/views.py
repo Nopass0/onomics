@@ -95,7 +95,7 @@ def comicsPage(request, id):
 
 def catalogue(request):
     comics = Comic.objects.all()
-    chapters = chapters.objects.filter(comic_id=1).order_by('id')
+    chapters = Chapter.objects.filter(comic_id=1).order_by('id')
     return render(request, 'catalog.html', {'comics': comics, 'chapters': chapters})
 
 def error404(request):

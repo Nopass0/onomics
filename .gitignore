@@ -16,3 +16,4 @@
 /catalog/migrations
 /users/migrations
 /db.sqlite3
+/theme/static/css/dist/styles.css
