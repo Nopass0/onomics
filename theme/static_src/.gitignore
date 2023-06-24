@@ -1,1 +1,3 @@
 node_modules
+theme\static\css\dist\styles.css
+..\..\theme\static\css\dist\styles.css
