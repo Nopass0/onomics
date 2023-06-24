@@ -16,13 +16,16 @@ urlpatterns = [
     path('catalogue/', views.catalogue, name='catalogue'),
     path('comics/<int:id>/', views.comicsPage, name='comicsPage'),
     path('comics/add', views.addComicsPage, name='addComicsPage'),
-
+    path('comics/edit/<int:id>', views.editComicsPage, name='editComicsPage'),
 
     path('404/', views.error404, name='404'),
     path('api/v1/comics.get.all', ComicAPIView.as_view()),
     path('api/v1/comics.get/<int:id>', ComicsInfoAPIView.as_view()),
+    path('api/v1/comics.put/<int:id>', ComicUpdateAPIView.as_view()),
+
     path('api/v1/tags.get', TagAPIView.as_view()),
     path('api/v1/genres.get', GenreAPIView.as_view()),
+
     path('api/v1/bookmarks.get', BookmarksAPIView.as_view()),
     path('api/v1/bookmarks.post', BookmarksAddAPIView.as_view()),
     path('api/v1/bookmarks.delete/<int:id>/', BookmarksDeleteAPIView.as_view()),

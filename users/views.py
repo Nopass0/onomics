@@ -14,14 +14,6 @@ from .forms import *
 from .email_code_generator import *
 from .models import *
 
-# Create your views here.
-'''
-class SignUp(CreateView):
-    form_class = EmailUserCreationForm #UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "register.html"
-'''
-
 def sendEmailActivationCode(user):
     email = EmailMessage(
     'Код подтверждения почты',
@@ -32,6 +24,14 @@ def sendEmailActivationCode(user):
     )
     email.send()
 
+def isFollower(user_from, user_to):
+    try:
+        follow = Follow.objects.filter(user_from=user_from, user_to=user_to)
+    except Follow.DoesNotExist:
+        follow = None
+    if not follow.exists():
+        return False
+    return True
 
 def signup(request):
     if request.user.is_authenticated:
@@ -83,7 +83,7 @@ def profile(request):
         #limit on 10 followers
         if len(followers_users) > 10:
             break
-        followers_users.append(User.objects.get(id=follower.id))
+        followers_users.append(User.objects.get(id=follower.user_from.id))
     
     print(followers)
     return render(request, 'profile.html', {'isMyProfile': isMyProfile, 'user_page': request.user, 'comics': comics, 'followers': followers_users})
@@ -99,14 +99,19 @@ def user_profile(request):
         comics = Comic.objects.filter(author=user)[:10]
         followers = Follow.objects.filter(user_to=user).all()
 
+        isUserFollower = not Follow.objects.filter(user_from=request.user, user_to=user_id).exists()
 
         followers_users = []
         for follower in followers:
             #limit on 10 followers
             if len(followers_users) > 10:
                 break
-            followers_users.append(User.objects.get(id=follower.id))
-        return render(request, 'profile.html', {'user_page': user, 'isMyProfile': isMyProfile, 'comics': comics, 'followers': followers_users})
+            followers_users.append(User.objects.get(id=follower.user_from.id))
+        return render(request, 'profile.html', {'user_page': user, 
+                                                'isMyProfile': isMyProfile, 
+                                                'comics': comics, 
+                                                'followers': followers_users,
+                                                'isFollower': isUserFollower})
         
     
 def confirm_email(request):
@@ -182,6 +187,25 @@ class UserDetail(APIView):
 
 
         return Response(serializer.data)
+    
+#follow
+class FollowOnUser(APIView):
+    def post(self, request, id):
+        if not request.user.is_authenticated:
+            return Response({"error": "not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+        follow = None
+        #print(Follow.objects.filter(user_from=request.user, user_to=User.objects.get(id=id)))
+        try:
+            follow = Follow.objects.filter(user_from=request.user, user_to=User.objects.get(id=id))
+        except Follow.DoesNotExist:
+            return Response("Error")
+        if not follow.exists():
+            follow = Follow.objects.create(user_from=request.user, user_to=User.objects.get(id=id))
+            follow.save()
+            return Response("Followed")
+        else:
+            follow.delete()
+            return Response("Unfollowed")
 
 #Update user and profile of this user info
 class UserUpdate(APIView):

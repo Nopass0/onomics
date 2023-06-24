@@ -19,6 +19,15 @@ class ComicSerializer(serializers.ModelSerializer):
         model = Comic
         fields = ('id', 'title', 'description', 'image', 'slug', 'tags', 'genres', 'rating', 'comments')
 
+class ComicMiniSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(read_only=True, many=True)
+    genres = GenreSerializer(read_only=True, many=True)
+    
+    class Meta:
+        model = Comic
+        fields = ('title', 'description', 'image', 'tags', 'genres')
+
+
 #bookmarks serializer
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:

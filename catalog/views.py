@@ -124,7 +124,14 @@ def addComicsPage(request):
 
     return render(request, 'addComicsPage.html', {'form': form, 'message': message})
 
-
+def editComicsPage(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    comic = Comic.objects.get(id=id)
+    if comic.author == request.user:
+        return render(request, "comics_edit.html", {"comic": comic})
+    else:
+        return redirect("404")
 #API
 
 #bookmarks API (GET) with check is user authenticated
@@ -222,6 +229,32 @@ class ComicsInfoAPIView(APIView):
         comics = Comic.objects.filter(id=id)
         serializer = ComicSerializer(comics, many=True)
         return Response(serializer.data)
+
+class ComicUpdateAPIView(APIView):
+    def put(self, request, id):
+        if request.user.is_authenticated:
+            comic = Comic.objects.get(id=id)
+            if comic.author != request.user:
+                return Response({'error': 'Access denied'})
+            #check is data valid
+            serializer = ComicMiniSerializer(data=request.data)
+            if serializer.is_valid():
+                #print('valid')
+                if request.data.get('title') != None:
+                    comic.title = request.data.get('title')
+
+                if request.data.get('description') != None:
+                    comic.description = request.data.get('description')
+
+                if request.data.get('image') != None:
+                    comic.image = request.data.get('image')
+
+                comic.save()
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Data is not valid'})
+        else:
+            return Response({'error': 'User is not authenticated'})
 
 class ComicAPIView(generics.ListAPIView):
     queryset = Comic.objects.all()

@@ -17,9 +17,23 @@ urlpatterns = [
     path("template/", template_view, name="template_view"),
 
     #API
+    #get all users
     path("api/v1/users.get/", UserList.as_view()),
+    #get user by id
     path("api/v1/users.get/<int:pk>/", UserDetail.as_view()),
-    #update user
+    #update all information about user
     path("api/v1/user.update", UserUpdate.as_view(), name="user.update"),
 
+    path('api/v1/follow.post/<int:id>', FollowOnUser.as_view()),
+    #set online API
+    
+    #get is user online
+
+    #set base user info (first_name, last_name, description, avatar and nickname)
+
+    #get base user info (first_name, last_name, description, avatar and nickname)
+
+    #get user background
+
+    #set user background (if permission 'isPremium' is true) 
 ]
