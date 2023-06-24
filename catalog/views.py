@@ -1,9 +1,11 @@
 import asyncio
+import os
 from django.shortcuts import redirect, render
 from rest_framework import generics
 from django.core.files.storage import FileSystemStorage
 import random, string
 from rest_framework.views import *
+from django.http import QueryDict
 
 from .serializers import *
 from .models import *
@@ -63,7 +65,7 @@ def comicsPage(request, id):
     isCommentsExists = False
     comices = Comic.objects.exclude(id=id).order_by('id')
     genres = comics.genres.all()
-    charapters = Charapter.objects.filter(comic_id=id).order_by('id')
+    chapters = Chapter.objects.filter(comic_id=id).order_by('id')
     comments = comics.comments.all()
     #get bookmark for current user and comic and set 'read' if it comic exist in read list of user, also with other bookmarks
     bookmark = 'del'
@@ -84,7 +86,7 @@ def comicsPage(request, id):
                                             'comic': comics,
                                             'comices': comices,
                                             'genres': genres, 
-                                            'charapters': charapters, 
+                                            'chapters': chapters, 
                                             'isCommentsExists': isCommentsExists,
                                             'comments': comments,
                                             'bookmark': bookmark,
@@ -93,8 +95,8 @@ def comicsPage(request, id):
 
 def catalogue(request):
     comics = Comic.objects.all()
-    charapters = Charapter.objects.filter(comic_id=1).order_by('id')
-    return render(request, 'catalog.html', {'comics': comics, 'charapters': charapters})
+    chapters = chapters.objects.filter(comic_id=1).order_by('id')
+    return render(request, 'catalog.html', {'comics': comics, 'chapters': chapters})
 
 def error404(request):
     return render(request, '404.html')
@@ -129,7 +131,9 @@ def editComicsPage(request, id):
         return redirect('login')
     comic = Comic.objects.get(id=id)
     if comic.author == request.user:
-        return render(request, "comics_edit.html", {"comic": comic})
+        chapters = Chapter.objects.filter(comic_id=id).order_by('id')
+        return render(request, "comics_edit.html", {"comic": comic,
+                                                    "chapters": chapters})
     else:
         return redirect("404")
 #API
@@ -238,20 +242,25 @@ class ComicUpdateAPIView(APIView):
                 return Response({'error': 'Access denied'})
             #check is data valid
             serializer = ComicMiniSerializer(data=request.data)
+            
             if serializer.is_valid():
-                #print('valid')
-                if request.data.get('title') != None:
-                    comic.title = request.data.get('title')
+                put = request.data
+                if put.get('title') != '':
+                    comic.title = put.get('title')
 
-                if request.data.get('description') != None:
-                    comic.description = request.data.get('description')
+                if put.get('description') != '':
+                    comic.description = put.get('description')
 
-                if request.data.get('image') != None:
-                    comic.image = request.data.get('image')
+                if len(request.FILES) != 0:
+                    if len(comic.image) > 0:
+                        os.remove(comic.image.path)
+                    comic.image = request.FILES['image']
+
 
                 comic.save()
                 return Response(serializer.data)
             else:
+                print(serializer.errors)
                 return Response({'error': 'Data is not valid'})
         else:
             return Response({'error': 'User is not authenticated'})

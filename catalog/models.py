@@ -84,7 +84,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
-class Charapter(models.Model):
+class Chapter(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, verbose_name='Название')
     text = models.TextField()
@@ -100,7 +100,7 @@ class Charapter(models.Model):
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='ch_comments', verbose_name='Комментарии')
 
-    #blocks - images with comic charapter
+    #blocks - images with comic chapter
 
     def __str__(self):
         return self.name
@@ -108,7 +108,7 @@ class Charapter(models.Model):
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to=f'blocks/{id}', verbose_name='Изображение') # Width: 800px, Height: 1080px
-    charapter_id = models.ForeignKey('Charapter', on_delete=models.CASCADE)
+    charapter_id = models.ForeignKey('chapter', on_delete=models.CASCADE)
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='bl_comments', verbose_name='Комментарии')
 

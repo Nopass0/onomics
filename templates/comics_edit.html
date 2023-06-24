@@ -6,20 +6,20 @@
 <div class="mx-0 w-full xl:w-auto xl:mx-24 2xl:mx-64">
   <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4">
     <div class="px-4 pt-4 w-full sm:w-1/3 bg-zinc-900 rounded-md py-2">
-      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+      <div id='tab_1_btn' class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'person-badge-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Информация о комиксе</p>
       </div>
-      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+      <div id='tab_2_btn' class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'shield-lock-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Главы</p>
       </div>
-      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+      <div id='tab_3_btn' class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'brush-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Статистика</p>
       </div>
     </div>
-    <div class="px-4 pt-4 w-full sm:w-2/3">
+    <div id="tab_1" class="px-4 pt-4 w-full sm:w-2/3">
       <h1 class="text-gray-100 text-xl mx-2">Информация о комиксе</h1>
       <div id="avatar_label" class="flex flex-wrap w-full mx-2 mb-2">
         <label for="avatar" class="text-gray-100 w-full mx-2">Обложка</label>
@@ -39,8 +39,9 @@
         <!--Tags and genres-->
         <div id="comic_description" class="flex flex-wrap w-full mx-2 mb-2">
           <label for="description" class="text-gray-100 w-full mx-2">Описание профиля</label>
-          <textarea type="text" value="{{ comic.description}}" name="description" id="description" placeholder="Фамилия" class="outline-0 border-none
+          <textarea type="text" name="description" id="description" placeholder="Описание" class="outline-0 border-none
           bg-zinc-900 rounded-md text-gray-100 outline-none w-full">
+            {{ comic.description}}
           </textarea>
         </div>
         <div id="save" class="flex flex-wrap w-1/3 mx-2 mb-2">
@@ -48,6 +49,33 @@
           bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400">
         </div>
       </div>
+    </div>
+    <div id="tab_2" class="px-4 pt-4 w-full sm:w-2/3 hidden">
+      <h1 class="text-gray-100 text-xl mx-2">Главы</h1>
+        <div id="addChapter" class="flex flex-wrap w-1/3 mx-2 mb-2">
+          <input type="button" name="addChapter" onclick="edit();" id="addChapter_btn" value="Добавить главу" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400">
+        </div>
+        <div class="">
+          {% for charapter in charapters  %}
+          <a class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
+            {{ charapter.name }}
+            <div class="flex">
+              <!--Edit button-->
+              <div class="mx-2 bg-zinc-400">
+                <a href="{% url 'edit_charapter' charapter.id %}">
+                  {% bs_icon 'pencil-square' color='white' size='1.2em' %}
+                </a>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+          
+      </div>
+    </div>
+    <div id="tab_3" class="px-4 pt-4 w-full sm:w-2/3 hidden">
+      <h1 class="text-gray-100 text-xl mx-2">Главы</h1>
+
     </div>
   </div>
 </div>
@@ -59,27 +87,56 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
+    //Change active tab using .hidden class
+    $('#tab_1_btn').on('click', function() {
+      $('#tab_1').removeClass('hidden');
+      $('#tab_2').addClass('hidden');
+      $('#tab_3').addClass('hidden');
+    });
+    $('#tab_2_btn').on('click', function() {
+      $('#tab_1').addClass('hidden');
+      $('#tab_2').removeClass('hidden');
+      $('#tab_3').addClass('hidden');
+    });
+    $('#tab_3_btn').on('click', function() {
+      $('#tab_1').addClass('hidden');
+      $('#tab_2').addClass('hidden');
+      $('#tab_3').removeClass('hidden');
+    });
+    //on change avatar input change cover
+    $('#avatar').on('change', function() {
+      let input = document.querySelector('#avatar');
+      let file = input.files[0];
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        $('#cover').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(file);
+    });
     function edit() {
-        data = {
-            'title': document.querySelector('#title').value,
-            'description': document.querySelector('#description').value,
-            'image': document.querySelector('#avatar').value,
-            'tags': [],
-            'genres': []
-        }
-        console.log(data)
+        //get and read image file and add to data object to submit to django server
+        let form_data = new FormData()
+        let input = document.querySelector('#avatar')
+        const file = input.files[0]
+        form_data.append('image', file)
+        form_data.append('title', document.querySelector('#title').value)
+        form_data.append('description', document.querySelector('#description').value)
+        console.log(form_data)
+
         $.ajax({
-        url: `/api/v1/comics.put/{{ comic.id }}`,
-        type: 'PUT',
-        dataType: 'json',
-        data: data,
-        headers: {
-          'X-CSRFToken': '{{ csrf_token }}'
-        },
-        success: function(response) {
-          console.log(response);
-        }
-      });
+          url: `/api/v1/comics.put/{{ comic.id }}`,
+          type: 'PUT',
+          dataType: 'json',
+          data: form_data,
+          processData: false,
+          contentType: false,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          success: function(response) {
+            console.log(response);
+          }
+        })
     }
   </script>
 {% endblock %}
