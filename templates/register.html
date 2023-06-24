@@ -1,31 +1,39 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% block content %}
-<form method="post" class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
-    <h1 class="reg_register--text text-left px-12 text-gray-100 w-full">Регистрация</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ profile_form.as_p }}
-    <button type="submit" class="reg_log_in w-full mx-4 text-center  text-gray-200 mb-4">Зарегистрироватся</button>
-    <a href="{% url 'login_view' %}" class="reg_had--acc w-full mx-4 px-2 py-2 text-center">Войти</a>
+<form method="post"
+    class="reg_block--div flex justify-center bg-zinc-900 rounded-lg shadow-xl mx-auto my-32 md:w-[450px] md:h-[630px]">
+    <div class="flex flex-col justify-center">
+        <h1 class="reg_register--text text-gray-300 font-bold text-lg">Регистрация</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit"
+            class="reg_log_in text-center text-white mt-3 mb-12 bg-[#5fa9c1] py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Зарегистрироватся</button>
+        <h3 class="font-light text-white text-xs text-center">Уже есть аккаунт?</h3>
+        <a href="{% url 'login_view' %}" class="reg_had--acc mx-4 px-2 py-2 text-center text-[#5fa9c1] duration-[400ms] hover:text-[#3f7081] active:text-[#3f7081]">Войти</a>
+    </div>
 </form>
 {% endblock %}
 
 
 {% block scripts %}
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
 
-    <!-- Fengyuan Chen's Datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<!-- Fengyuan Chen's Datepicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+    integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+    integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 
-    <script>
-        $(function () {
-            $("#datetimepicker").datepicker({
-                format: 'yyyy-mm-dd',
-            });
+<script>
+    $(function () {
+        $("#datetimepicker").datepicker({
+            format: 'yyyy-mm-dd',
         });
-    </script>
+    });
+</script>
 {% endblock scripts %}
-    
