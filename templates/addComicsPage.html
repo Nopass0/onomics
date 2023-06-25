@@ -2,14 +2,14 @@
 {% load static tailwind_tags %}
 {% block content %}
 
-
-<div class="flex flex-wrap mx-20 my-10">
-    <form method="post" class="flex flex-wrap md:w-80 md:my-32 md:mx-20" enctype="multipart/form-data" >
+<form method="post" class="flex justify-center mx-auto my-32 md:w-[450px] md:h-[630px]" enctype="multipart/form-data">
+    <div class="flex flex-col justify-center">
+        <h2 class="text-white font-bold text-lg text-center">Добавить комикс</h2>
         <p class="text-red-600">{{ message }}</p>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="w-full mx-4 text-center text-gray-200 mb-4">Добавить комикс</button>
-    </form>
-</div>
+        <button type="submit" class="text-center text-white mt-3 mb-12 bg-[#5fa9c1] py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Добавить комикс</button>
+    </div>
+</form>
 
 {% endblock %}

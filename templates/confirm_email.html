@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% block content %}
-
-<div class="text-center mt-20 font-bold text-6xl text-zinc-100">
-  Введите код, который был отправлен вам на почту
-</div>
-<div class="text-center text-2xl text-gray-400">
-    <form method="post" class="reg_block--div flex flex-wrap justify-between bg-zinc-900 rounded-lg shadow-xl md:w-80 md:my-32 md:mx-20">
-        <p class="text-gray-200">{{ message }}</p>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="w-full mx-4 text-center text-gray-200 mb-4">Подтвердить</button>
-    </form>
-</div>
+<form method="post"
+  class="reg_block--div flex justify-center  my-32 md:w-[450px] h-[630px] mx-auto bg-zinc-900 rounded-lg shadow-xl">
+  <div class="flex flex-col justify-center items-center">
+    <h1 class="reg_register--text text-white font-bold text-lg mb-12">Подтвердите свой Email</h1>
+    <h3 class="text-white text-base text-center mb-4"> Введите код, который был отправлен вам на почту</h3>
+    <p class="text-gray-200">{{ message }}</p>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="text-center mt-6 text-white bg-[#5fa9c1] py-[5px] px-10 border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Подтвердить</button>
+  </div>
+</form>
 
 {% endblock %}
