@@ -17,6 +17,8 @@ urlpatterns = [
     path('comics/<int:id>/', views.comicsPage, name='comicsPage'),
     path('comics/add', views.addComicsPage, name='addComicsPage'),
     path('comics/edit/<int:id>', views.editComicsPage, name='editComicsPage'),
+    path('comics/chapter/<int:id>', views.chapterPage, name='chapterPage'),
+    path('comics/chapter/edit/<int:id>', views.chapterEditPage, name='chapterEditPage'),
 
     path('404/', views.error404, name='404'),
     path('api/v1/comics.get.all', ComicAPIView.as_view()),

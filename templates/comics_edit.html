@@ -62,7 +62,7 @@
         </div>
         <div class="w-full" id="chapters">
           {% for chapter in chapters  %}
-          <a id="_chapter" class="text-gray-200 cursor-pointer flex w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
+          <a id="_chapter" href="{{ chapter.get_absolute_edit_url }}" class="text-gray-200 cursor-pointer flex w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
             <p class="mx-2">
               <div class="mr-2 w-10 flex">{% bs_icon 'hash' color='white' size='1.2em' %}
                 <p class="ml-1" id="sequence_number">{{ chapter.sequence_number }}</p>

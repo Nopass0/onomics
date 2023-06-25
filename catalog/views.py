@@ -137,6 +137,30 @@ def editComicsPage(request, id):
                                                     "chapters": chapters})
     else:
         return redirect("404")
+    
+#chapter page
+def chapterPage(request, id):
+    isAuth = False
+    if request.user.is_authenticated:
+        isAuth = True
+    chapter = Chapter.objects.get(id=id)
+    comic = Comic.objects.get(id=chapter.comic_id.id)
+    if comic.author == request.user:
+        return render(request, "chapter.html", {"chapter": chapter, "comic": comic, "isAuth": isAuth})
+    else:
+        return redirect("404")
+    
+#chapter edit page
+def chapterEditPage(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    chapter = Chapter.objects.get(id=id)
+    comic = Comic.objects.get(id=chapter.comic_id.id)
+    if comic.author == request.user:
+        return render(request, "chapter_edit.html", {"chapter": chapter, "comic": comic})
+    else:
+        return redirect("404")
+
 #API
 
 #bookmarks API (GET) with check is user authenticated

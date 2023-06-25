@@ -106,6 +106,13 @@ class Chapter(models.Model):
 
     def __str__(self):
         return '{0} - {1} - {2}'.format(self.id, self.name, self.sequence_number)
+    
+    #get absolute url
+    def get_absolute_url(self):
+        return "/comics/chapter/%i" % (self.id)
+    #get absolute edit url
+    def get_absolute_edit_url(self):
+        return "/comics/chapter/edit/%i" % (self.id)
 
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
