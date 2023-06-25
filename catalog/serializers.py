@@ -33,7 +33,8 @@ class ComicMiniSerializer(serializers.ModelSerializer):
 class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
-        fields = ('name', 'isPrivate')
+        fields = ('name', 'isPrivate', 'sequence_number')
+        extra_kwargs = { 'name': {'required': True}, 'isPrivate': {'required': False}, 'sequence_number': {'required': False} }
 
 #bookmarks serializer
 class BookmarkSerializer(serializers.ModelSerializer):

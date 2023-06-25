@@ -53,20 +53,24 @@
     <div id="tab_2" class="px-4 pt-4 w-full sm:w-2/3 hidden">
       <h1 class="text-gray-100 text-xl mx-2">Главы</h1>
         <div id="addChapter" class="flex flex-wrap w-1/3 mx-2 mb-2">
-          <input type="button" name="addChapter" onclick="edit();" id="addChapter_btn" value="Добавить главу" class="outline-0 border-none
-          bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400">
+          <button name="addChapter" onclick="addChapter()" id="addChapter_btn" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none hover:bg-blue-400 p-2 duration-[400ms]">
+          {% bs_icon 'plus-lg' color='white' size='1.2em' %}
+          </button>
+          <input type="text" name="addChapterInput" onclick="" id="addChapter_name" class="outline-0 border-none
+          bg-zinc-900 rounded-md text-gray-100 outline-none p-2 duration-[400ms]">
         </div>
-        <div class="">
-          {% for charapter in charapters  %}
-          <a class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
-            {{ charapter.name }}
-            <div class="flex">
-              <!--Edit button-->
-              <div class="mx-2 bg-zinc-400">
-                <a href="{% url 'edit_charapter' charapter.id %}">
-                  {% bs_icon 'pencil-square' color='white' size='1.2em' %}
-                </a>
-            </div>
+        <div class="w-full" id="chapters">
+          {% for chapter in chapters  %}
+          <a id="_chapter" class="text-gray-200 cursor-pointer flex w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
+            <p class="mx-2">
+              <div class="mr-2 w-10 flex">{% bs_icon 'hash' color='white' size='1.2em' %}
+                <p class="ml-1" id="sequence_number">{{ chapter.sequence_number }}</p>
+              </div>
+              <p class="w-full" id="chapter_name">{{ chapter.name }}</p>
+              <button onclick="deleteChapter({{ chapter.id }})" class="mx-2 p-2 bg-zinc-900 hover:bg-zinc-700 rounded-md" id="chapter_delete">{% bs_icon 'trash-fill' color='white' size='1.2em' %}</button>
+              <p class="hidden" id="chapter_id">{{ chapter.id }}</p>
+            </p>
           </a>
           {% endfor %}
         </div>
@@ -85,6 +89,8 @@
 {% block scripts %}
   <!--Jquery-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!--Sortable-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
 
   <script>
     //Change active tab using .hidden class
@@ -113,6 +119,165 @@
       }
       reader.readAsDataURL(file);
     });
+
+    let sortable = new Sortable(chapters, {
+      animation: 150,
+      ghostClass: 'bg-zinc-500',
+      onEnd: function(evt) {
+        //get all chapters id's and sequence numbers, then send it to django server
+        let chapters = document.querySelectorAll('#chapters a');
+        let chapters_data = {};
+        for (let i = 0; i < chapters.length; i++) {
+          let chapter = {
+            id: chapters[i].querySelector('#chapter_id').innerHTML,
+            sequence_number: i + 1
+          }
+          chapters_data[i] = chapter;
+        }
+        let form_data = new FormData();
+
+        //chapter data to dict 
+        //chapters_data = $.param(chapters_data);
+
+        form_data.append('chapters', JSON.stringify(chapters_data));
+
+        //send data to server
+        $.ajax({
+          url: `/api/v1/chapters_seqence_numbers.put/{{ comic.id }}`,
+          type: 'PUT',
+          dataType: 'json',
+          data: form_data,
+          processData: false,
+          contentType: false,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          success: function(response) {
+            console.log(response);
+            //change sequence numbers in html code
+            for (let i = 0; i < chapters.length; i++) {
+              chapters[i].querySelector('#sequence_number').innerHTML = i + 1;
+            }
+          }
+        })
+
+      }
+    });
+    //delete chapter on click #chapter_delete api/v1/chapter.delete/<int:id>
+    function deleteChapter(id) {
+      $.ajax({
+        url: `/api/v1/chapter.delete/${id}`,
+        type: 'DELETE',
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        success: function(response) {
+          console.log(response);
+          //delete chapter from list
+          let chapter = document.querySelectorAll(`#_chapter`)
+          //find chapter with id and delete it
+          for (let i = 0; i < chapter.length; i++) {
+            if (chapter[i].querySelector('#chapter_id').innerHTML == id) {
+              chapter[i].remove();
+            }
+            //change sequence numbers in html code after delete chapter and send it to server
+            let chapters = document.querySelectorAll('#chapters a');
+            let chapters_data = {};
+            for (let i = 0; i < chapters.length; i++) {
+              let chapter = {
+                id: chapters[i].querySelector('#chapter_id').innerHTML,
+                sequence_number: i + 1
+              }
+              chapters_data[i] = chapter;
+            }
+            let form_data = new FormData();
+
+            //chapter data to dict
+            //chapters_data = $.param(chapters_data);
+
+            form_data.append('chapters', JSON.stringify(chapters_data));
+
+            //send data to server
+            $.ajax({
+              url: `/api/v1/chapters_seqence_numbers.put/{{ comic.id }}`,
+              type: 'PUT',
+              dataType: 'json',
+              data: form_data,
+              processData: false,
+              contentType: false,
+              headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+              },
+              success: function(response) {
+                console.log(response);
+                //change sequence numbers in html code
+                for (let i = 0; i < chapters.length; i++) {
+                  chapters[i].querySelector('#sequence_number').innerHTML = i + 1;
+                }
+              }
+            })
+
+          }
+        }
+      })
+    }
+
+
+    //add chapter
+    function addChapter() {
+      let name = document.querySelector('#addChapter_name').value;
+      let form_data = new FormData();
+      form_data.append('name', name);
+      $.ajax({
+        url: `/api/v1/chapters.post/{{ comic.id }}`,
+        type: 'POST',
+        dataType: 'json',
+        data: form_data,
+        processData: false,
+        contentType: false,
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        success: function(response) {
+          console.log(response);
+          //add new chapter to list
+          let newChapter = document.createElement('a');
+          newChapter.classList.add('text-gray-200', 'cursor-pointer', 'flex', 'w-full', 'bg-zinc-800', 'hover:bg-zinc-500', 'rounded-md', 'px-4', 'py-2', 'mx-2', 'mb-1');
+
+          let newChapterText = document.createElement('p');
+          newChapterText.classList.add('mx-2');
+
+          let newChapterNumber = document.createElement('p');
+          newChapterNumber.classList.add('mr-2', 'w-10');
+          //add icon and number
+          let newChapterNumberIcon = document.createElement('p');
+          newChapterNumberIcon.classList.add('flex');
+          newChapterNumberIcon.innerHTML = `{% bs_icon "hash" color="white" size="1.2em" %}`;
+          let newChapterNumberText = document.createElement('p');
+          newChapterNumberText.classList.add('ml-1');
+          newChapterNumberText.innerHTML = response[0].sequence_number;
+
+          let newChapterName = document.createElement('p');
+          newChapterName.classList.add('w-full');
+          newChapterName.innerHTML = response[0].name;
+
+          newChapterNumber.append(newChapterNumberIcon);
+          newChapterNumber.append(newChapterNumberText);
+          newChapterText.append(newChapterNumber);
+          newChapterText.append(newChapterName);
+          newChapter.append(newChapterText);
+
+          document.querySelector('#addChapter').after(newChapter);
+
+
+
+        }
+      })
+    }
+
     function edit() {
         //get and read image file and add to data object to submit to django server
         let form_data = new FormData()

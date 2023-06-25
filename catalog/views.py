@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 from django.shortcuts import redirect, render
 from rest_framework import generics
@@ -131,7 +132,7 @@ def editComicsPage(request, id):
         return redirect('login')
     comic = Comic.objects.get(id=id)
     if comic.author == request.user:
-        chapters = Chapter.objects.filter(comic_id=id).order_by('id')
+        chapters = Chapter.objects.filter(comic_id=id).order_by('sequence_number')
         return render(request, "comics_edit.html", {"comic": comic,
                                                     "chapters": chapters})
     else:
@@ -276,3 +277,95 @@ class GenreAPIView(generics.ListAPIView):
 class TagAPIView(generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+class ChapterAPIView(generics.ListAPIView):
+    queryset = Chapter.objects.all()
+    serializer_class = ChapterSerializer
+
+class ChapterAddAPIView(APIView):
+    def post(self, request, id):
+        if request.user.is_authenticated:
+            serializer = ChapterSerializer(data=request.data)
+            if serializer.is_valid():
+                #get comic by id, check is it exist, check is user author of this comic, if yes then add chapter to comic(name)
+                comic = Comic.objects.filter(id=id)
+                if comic.exists():
+                    if comic[0].author == request.user:
+                        #get last sequence number of chapters and add 1 to it
+                        last_chapter = Chapter.objects.filter(comic_id=comic[0]).order_by('-sequence_number')
+                        if last_chapter.exists():
+                            sequence = last_chapter[0].sequence_number + 1
+                        else:
+                            sequence = 1
+                        chapter = Chapter.objects.create(comic_id=comic[0], name=request.data.get('name'), sequence_number=sequence)
+                        chapter.save()
+                        #get all data of chapter and return it
+                        chapter = Chapter.objects.filter(id=chapter.id)
+                        serializer = ChapterSerializer(chapter, many=True)
+                        return Response(serializer.data)
+                    else:
+                        return Response({'error': 'Access denied'})
+                else:
+                    return Response({'error': 'Comic is not exist'})
+            else:
+                return Response({'error': 'Data is not valid'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+        
+class ChapterUpdateSeqenceNumberAPIView(APIView):
+    #get many chapters by comic id and update them, by chapter id in request.data object
+    def put(self, request, id):
+        if request.user.is_authenticated:
+            comic = Comic.objects.filter(id=id)
+            if comic.exists():
+                if comic[0].author == request.user:
+                    #get all chapters by comic id
+                    chapters = Chapter.objects.filter(comic_id=comic[0])
+                    if chapters.exists():
+                        #check is data valid
+                        serializer = ChapterSerializer(data=request.data, many=True)
+                        if serializer.is_valid():
+                            put = request.data
+                            #print((list(put.dict().values())[0]))
+                            #string = (list(put.dict().values())[0]) convert string to json
+                            s = json.loads((list(put.dict().values())[0]))
+                            #print(s["0"])
+                            #get chapters id's, name's and sequence_number's from put dict and update chapters by id
+                            for i in range(len(s)):
+                                chapter = Chapter.objects.get(id=s[str(i)]["id"])
+                                #check is chapter sequence_number field exist
+                                if s[str(i)]["sequence_number"] != None:
+                                    chapter.sequence_number = s[str(i)]["sequence_number"]
+                                chapter.save()
+                            #get all data of chapters and return it
+                            chapters = Chapter.objects.filter(comic_id=comic[0])
+                            serializer = ChapterSerializer(chapters, many=True)
+                            return Response(serializer.data)
+                        else:
+                            return Response({'error': 'Data is not valid'})
+                    else:
+                        return Response({'error': 'Chapters is not exist'})
+                else:
+                    return Response({'error': 'Access denied'})
+            else:
+                return Response({'error': 'Comic is not exist'})
+        else:
+            return Response({'error': 'User is not authenticated'})
+        
+class ChapterDeleteAPIView(APIView):
+    #delete chapter by id
+    def delete(self, request, id):
+        if request.user.is_authenticated:
+            chapter = Chapter.objects.filter(id=id)
+            if chapter.exists():
+                #get comic by chapter id and check is user author of this comic
+                author = Comic.objects.filter(id=chapter[0].comic_id.id)[0].author
+                if author == request.user:
+                    chapter[0].delete()
+                    return Response({'success': 'Chapter deleted'})
+                else:
+                    return Response({'error': 'Access denied'})
+            else:
+                return Response({'error': 'Chapter is not exist'})
+        else:
+            return Response({'error': 'User is not authenticated'})

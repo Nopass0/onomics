@@ -98,17 +98,21 @@ class Chapter(models.Model):
     
     comic_id = models.ForeignKey('Comic', on_delete=models.CASCADE)
 
+    sequence_number = models.IntegerField(null=True, verbose_name='Номер главы в комиксе')
+
     comments = models.ManyToManyField('Comment', blank=True, related_name='ch_comments', verbose_name='Комментарии')
 
     #blocks - images with comic chapter
 
     def __str__(self):
-        return self.name
+        return '{0} - {1} - {2}'.format(self.id, self.name, self.sequence_number)
 
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to=f'blocks/{id}', verbose_name='Изображение') # Width: 800px, Height: 1080px
     charapter_id = models.ForeignKey('chapter', on_delete=models.CASCADE)
+
+    sequence_number = models.IntegerField(null=True, verbose_name='Номер блока в главе')
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='bl_comments', verbose_name='Комментарии')
 

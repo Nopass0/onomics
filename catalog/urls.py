@@ -23,6 +23,10 @@ urlpatterns = [
     path('api/v1/comics.get/<int:id>', ComicsInfoAPIView.as_view()),
     path('api/v1/comics.put/<int:id>', ComicUpdateAPIView.as_view()),
 
+    path('api/v1/chapters.post/<int:id>', ChapterAddAPIView.as_view()),
+    path('api/v1/chapters_seqence_numbers.put/<int:id>', ChapterUpdateSeqenceNumberAPIView.as_view()),
+    path('api/v1/chapter.delete/<int:id>', ChapterDeleteAPIView.as_view()),
+
     path('api/v1/tags.get', TagAPIView.as_view()),
     path('api/v1/genres.get', GenreAPIView.as_view()),
 
