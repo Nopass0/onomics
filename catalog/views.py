@@ -66,7 +66,7 @@ def comicsPage(request, id):
     isCommentsExists = False
     comices = Comic.objects.exclude(id=id).order_by('id')
     genres = comics.genres.all()
-    chapters = Chapter.objects.filter(comic_id=id).order_by('id')
+    chapters = Chapter.objects.filter(comic_id=id).order_by('sequence_number')
     comments = comics.comments.all()
     #get bookmark for current user and comic and set 'read' if it comic exist in read list of user, also with other bookmarks
     bookmark = 'del'
@@ -155,9 +155,12 @@ def chapterEditPage(request, id):
     if not request.user.is_authenticated:
         return redirect('login')
     chapter = Chapter.objects.get(id=id)
+    blocks = Block.objects.filter(chapter_id=id).order_by('sequence_number')
     comic = Comic.objects.get(id=chapter.comic_id.id)
     if comic.author == request.user:
-        return render(request, "chapter_edit.html", {"chapter": chapter, "comic": comic})
+        return render(request, "chapter_edit.html", {"chapter": chapter,
+                                                      "comic": comic,
+                                                      "blocks": blocks})
     else:
         return redirect("404")
 
