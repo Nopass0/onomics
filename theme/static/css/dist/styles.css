@@ -1016,6 +1016,10 @@ select {
   height: 440px;
 }
 
+.h-\[630px\] {
+  height: 630px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -1500,6 +1504,11 @@ select {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-lg {
