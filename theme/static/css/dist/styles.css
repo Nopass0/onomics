@@ -876,6 +876,10 @@ select {
   margin-left: 0.125rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1273,6 +1277,11 @@ select {
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-zinc-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(113 113 122 / var(--tw-bg-opacity));
 }
 
 .bg-zinc-600 {

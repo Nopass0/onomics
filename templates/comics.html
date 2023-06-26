@@ -1,6 +1,7 @@
 
 {% extends "base.html" %}
 {% load static tailwind_tags %}
+{% load bootstrap_icons %}
 {% block content %}
 <div class="px-2 py-4 xl:px-20 sm:mx-4 sm:my-4 w-full h-full flex flex-wrap sm:flex-nowrap justify-center ">
     <div class="w-full h-auto sm:w-40 sm:h-64 flex flex-wrap justify-center sm:justify-between">
@@ -73,9 +74,13 @@
           </div>
           <div class="w-full flex flex-wrap my-4">
             <h2 class="text-gray-200 text-2xl w-full mx-4 my-2">Главы</h2>
-            {% for charapter in charapters %}
-            <a class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
-              {{ charapter.name }}
+            {% for chapter in chapters %}
+            <a href="{{ chapter.get_absolute_url }}" class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
+              <div class="mr-2 w-10 flex">
+                {% bs_icon 'hash' color='white' size='1.2em' %}
+                <p class="ml-1" id="sequence_number">{{ chapter.sequence_number }}</p>
+              </div>
+              <p class="w-full" id="chapter_name">{{ chapter.name }}</p>
               <div class="flex">
                 <img src="{% static 'eye.svg' %}" alt="views" class="w-4 h-4 mx-2">
                 2.5K

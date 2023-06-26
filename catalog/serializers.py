@@ -26,10 +26,19 @@ class ComicMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comic
         fields = ('title', 'description', 'image', 'tags', 'genres')
+        extra_kwargs = { 'title': {'required': False}, 'description': {'required': False}, 'image': {'required': False}, 'tags': {'required': False}, 'genres': {'required': False} }
 
+
+#Chapter serializer
+class ChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chapter
+        fields = ('name', 'isPrivate', 'sequence_number')
+        extra_kwargs = { 'name': {'required': True}, 'isPrivate': {'required': False}, 'sequence_number': {'required': False} }
 
 #bookmarks serializer
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = ('read', 'readed', 'droped', 'will_read')
+
