@@ -110,7 +110,7 @@ def privicy(request):
 
 def addComicsPage(request):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('login_view')
     form = addComicsForm()
     message = ""
     if request.method == "POST":
@@ -129,7 +129,7 @@ def addComicsPage(request):
 
 def editComicsPage(request, id):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('login_view')
     comic = Comic.objects.get(id=id)
     if comic.author == request.user:
         chapters = Chapter.objects.filter(comic_id=id).order_by('sequence_number')
@@ -153,7 +153,7 @@ def chapterPage(request, id):
 #chapter edit page
 def chapterEditPage(request, id):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('login_view')
     chapter = Chapter.objects.get(id=id)
     blocks = Block.objects.filter(chapter_id=id).order_by('sequence_number')
     comic = Comic.objects.get(id=chapter.comic_id.id)
@@ -249,7 +249,7 @@ class BookmarksUpdateAPIView(APIView):
 
                 bookmark.save()
             
-                return Response(serializer.data)
+                return Response(str(bookmark.readed.all()) + ' okey')
             else:
                 return Response({'error': 'Data is not valid'})
         else:
