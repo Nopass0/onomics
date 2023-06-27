@@ -117,7 +117,7 @@ class Chapter(models.Model):
 class Block(models.Model):
     id = models.AutoField(primary_key=True)
     image = models.ImageField(upload_to=f'blocks/{id}', verbose_name='Изображение') # Width: 800px, Height: 1080px
-    charapter_id = models.ForeignKey('chapter', on_delete=models.CASCADE)
+    chapter_id = models.ForeignKey('chapter', on_delete=models.CASCADE)
 
     sequence_number = models.IntegerField(null=True, verbose_name='Номер блока в главе')
 
