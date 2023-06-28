@@ -1037,10 +1037,6 @@ select {
   height: 440px;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .h-\[500px\] {
   height: 500px;
 }
@@ -1049,11 +1045,6 @@ select {
   height: 630px;
 }
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> f8ec7b0f38990d8e6d50006e4abf18b21c06ad3f
->>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .h-auto {
   height: auto;
 }
@@ -1066,44 +1057,6 @@ select {
   height: 100vh;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-.h-\[900px\] {
-  height: 900px;
-}
-
-.h-\[1080px\] {
-  height: 1080px;
-}
-
-.h-\[1080rem\] {
-  height: 1080rem;
-}
-
-.h-\[800px\] {
-  height: 800px;
-}
-
-.h-\[600px\] {
-  height: 600px;
-}
-
-.h-\[500px\] {
-  height: 500px;
-}
-
-.h-\[540px\] {
-  height: 540px;
-}
-
-.h-\[630px\] {
-  height: 630px;
-}
-
->>>>>>> f8ec7b0f38990d8e6d50006e4abf18b21c06ad3f
->>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .w-1\/2 {
   width: 50%;
 }
@@ -1168,13 +1121,6 @@ select {
   width: 2.25rem;
 }
 
-<<<<<<< HEAD
-=======
-.w-\[200px\] {
-  width: 200px;
-}
-
->>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .w-\[850px\] {
   width: 850px;
 }
@@ -1668,6 +1614,16 @@ select {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -1691,36 +1647,6 @@ select {
 .text-zinc-400 {
   --tw-text-opacity: 1;
   color: rgb(161 161 170 / var(--tw-text-opacity));
-}
-
-.text-green-700 {
-  --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity));
-}
-
-.text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
-.text-green-400 {
-  --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
-}
-
-.text-green-300 {
-  --tw-text-opacity: 1;
-  color: rgb(134 239 172 / var(--tw-text-opacity));
-}
-
-.text-red-500 {
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
-.text-red-400 {
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
 }
 
 .shadow-lg {
@@ -2139,13 +2065,10 @@ body {
 
   .md\:h-\[630px\] {
     height: 630px;
-<<<<<<< HEAD
-=======
   }
 
   .md\:h-\[900px\] {
     height: 900px;
->>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
   }
 
   .md\:w-1\/2 {

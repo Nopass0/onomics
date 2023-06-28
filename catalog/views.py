@@ -118,6 +118,7 @@ def addComicsPage(request):
         if form.is_valid():
             comics = form.save(commit=False)
             comics.author = request.user
+            comics.image = request.FILES['image']
             comics.save()
             
             return redirect(comics)

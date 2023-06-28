@@ -24,7 +24,7 @@
             <button id="button_drag" type="button"
                 class="bg-[#5fa9c1] px-5 py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Выберите
                 файл</button>
-            <input id="input_drag" type="file" hidden>
+            <input id="input_drag" name="image" type="file" hidden>
         </div>
 
         <button type="submit"
@@ -64,6 +64,7 @@
     dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         file = e.dataTransfer.files[0];
+        input.files = e.dataTransfer.files;
         showFile();
     });
 
