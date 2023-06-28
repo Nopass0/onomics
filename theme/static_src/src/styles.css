@@ -110,3 +110,9 @@ background: #fff;}
 #check:checked ~ .slider .slider-item {
     transform: translateX(0);
 }
+
+#form_addComicsPage .drag-area.active {
+    border-style: solid;
+    border-color: aquamarine;
+    transition: all .3s;
+}

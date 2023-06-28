@@ -869,8 +869,20 @@ select {
   margin-bottom: 1rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.mb-7 {
+  margin-bottom: 1.75rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
 }
 
 .ml-0 {
@@ -931,6 +943,10 @@ select {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mt-7 {
+  margin-top: 1.75rem;
 }
 
 .mt-96 {
@@ -1021,6 +1037,10 @@ select {
   height: 440px;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .h-\[500px\] {
   height: 500px;
 }
@@ -1029,6 +1049,11 @@ select {
   height: 630px;
 }
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> f8ec7b0f38990d8e6d50006e4abf18b21c06ad3f
+>>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .h-auto {
   height: auto;
 }
@@ -1041,6 +1066,44 @@ select {
   height: 100vh;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+.h-\[900px\] {
+  height: 900px;
+}
+
+.h-\[1080px\] {
+  height: 1080px;
+}
+
+.h-\[1080rem\] {
+  height: 1080rem;
+}
+
+.h-\[800px\] {
+  height: 800px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
+.h-\[500px\] {
+  height: 500px;
+}
+
+.h-\[540px\] {
+  height: 540px;
+}
+
+.h-\[630px\] {
+  height: 630px;
+}
+
+>>>>>>> f8ec7b0f38990d8e6d50006e4abf18b21c06ad3f
+>>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .w-1\/2 {
   width: 50%;
 }
@@ -1105,6 +1168,13 @@ select {
   width: 2.25rem;
 }
 
+<<<<<<< HEAD
+=======
+.w-\[200px\] {
+  width: 200px;
+}
+
+>>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
 .w-\[850px\] {
   width: 850px;
 }
@@ -1225,6 +1295,10 @@ select {
   border-width: 2px;
 }
 
+.border-\[3px\] {
+  border-width: 3px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -1239,6 +1313,10 @@ select {
 
 .border-r {
   border-right-width: 1px;
+}
+
+.border-dashed {
+  border-style: dashed;
 }
 
 .border-none {
@@ -1391,6 +1469,11 @@ select {
   padding-right: 1rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1429,6 +1512,11 @@ select {
 .py-\[5px\] {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.py-\[7px\] {
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .pb-2 {
@@ -1605,6 +1693,36 @@ select {
   color: rgb(161 161 170 / var(--tw-text-opacity));
 }
 
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
+}
+
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
+}
+
+.text-green-300 {
+  --tw-text-opacity: 1;
+  color: rgb(134 239 172 / var(--tw-text-opacity));
+}
+
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
@@ -1755,6 +1873,12 @@ body {
 
 #check:checked ~ .slider .slider-item {
   transform: translateX(0);
+}
+
+#form_addComicsPage .drag-area.active {
+  border-style: solid;
+  border-color: aquamarine;
+  transition: all .3s;
 }
 
 .first\:rounded-l-md:first-child {
@@ -2015,6 +2139,13 @@ body {
 
   .md\:h-\[630px\] {
     height: 630px;
+<<<<<<< HEAD
+=======
+  }
+
+  .md\:h-\[900px\] {
+    height: 900px;
+>>>>>>> 05352b9aa2220edbec0948eecf2f73617061bde9
   }
 
   .md\:w-1\/2 {

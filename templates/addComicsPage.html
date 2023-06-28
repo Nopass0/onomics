@@ -2,14 +2,93 @@
 {% load static tailwind_tags %}
 {% block content %}
 
-<form method="post" class="flex justify-center mx-auto my-32 md:w-[450px] md:h-[630px]" enctype="multipart/form-data">
-    <div class="flex flex-col justify-center">
-        <h2 class="text-white font-bold text-lg text-center">Добавить комикс</h2>
+<form id="form_addComicsPage" method="post" class="flex justify-center items-center bg-zinc-900 rounded-lg shadow-xl mx-auto my-32 md:w-[450px]  md:h-[900px]"
+    enctype="multipart/form-data">
+    <div class="flex flex-col justify-center ">
+        <h2 class="text-white font-bold text-lg mb-8">Добавить комикс</h2>
         <p class="text-red-600">{{ message }}</p>
+
+        <!-- Catalog/forms.py -->
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="text-center text-white mt-3 mb-12 bg-[#5fa9c1] py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Добавить комикс</button>
+        <p id="drag-alert" class="text-red-500 mt-5 hidden">Файл не является картинкой или размер файла превышает 25мб<br>Попробуйте снова</p>
+        <div id="drag-area"
+            class="drag-area mt-7 mb-7 text-white flex flex-col justify-center items-center border-dashed border-[3px] rounded-xl border-[#5fa9c1] py-10 px-10 ">
+            <div class="icon mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
+                    class="bi bi-image-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z" />
+                </svg></div>
+            <header id="title-drag" class="mb-4 font-light text-lg">Переместите обложку</header>
+            <span id="subtitle-drag" class="mb-4 font-light text-center">Или</span>
+            <button id="button_drag" type="button"
+                class="bg-[#5fa9c1] px-5 py-[5px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Выберите
+                файл</button>
+            <input id="input_drag" type="file" hidden>
+        </div>
+
+        <button type="submit"
+            class="text-center text-white mt-3 bg-[#5fa9c1] py-[7px] border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Добавить
+            комикс</button>
     </div>
 </form>
+<script>
+    const dropArea = document.getElementById('drag-area'),
+        button = document.getElementById('button_drag'),
+        input = document.getElementById('input_drag'),
+        title_drag = document.getElementById('title-drag'),
+        alert_drag = document.getElementById('drag-alert'),
+        subtitle_drag = document.getElementById('subtitle-drag');
+    let file;
 
+    button.onclick = () => {
+        console.log('test');
+        input.click();
+
+    }
+
+    input.addEventListener('change', function () {
+        file = this.files[0];
+        showFile();
+    });
+
+    dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.classList.add('active');
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+        dropArea.classList.remove("active");
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        file = e.dataTransfer.files[0];
+        showFile();
+    });
+
+    function showFile() {
+        let fileType = file.type;
+        let validExtensions = ["image/jpeg", "image/jpg", "image/png","application/pdf"];
+        if (validExtensions.includes(fileType) && (file.size/1024) < 25000) {
+            let fileReader = new FileReader();
+            fileReader.onload = () => {
+                title_drag.textContent= `Обложка добавлена`;
+                title_drag.classList.add('text-green-400');
+                subtitle_drag.classList.add('hidden');
+                button.textContent = 'Добавить новый файл';
+                alert_drag.classList.add('hidden');
+            }
+            fileReader.readAsDataURL(file);
+        } else {
+            title_drag.textContent = `Переместите обложку`;
+            title_drag.classList.remove('text-green-400');
+            subtitle_drag.classList.remove('hidden');
+            alert_drag.classList.remove('hidden');
+            dropArea.classList.remove("active");
+        }
+    }
+
+
+</script>
 {% endblock %}
