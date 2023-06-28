@@ -19,7 +19,6 @@ class RestrictedFileField(forms.FileField):
         250MB - 214958080
         500MB - 429916160
 """
-
     def __init__(self, *args, **kwargs):
         self.content_types = kwargs.pop("content_types")
         self.max_upload_size = kwargs.pop("max_upload_size")
@@ -45,34 +44,42 @@ class RestrictedFileField(forms.FileField):
 
 class addComicsForm(forms.ModelForm):
     title = forms.CharField(
+        label='',
 		max_length=70,
 		min_length=4,
 		required=True,
 		widget=forms.TextInput(
 				attrs={
-					"placeholder": "Название",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+					"placeholder": "*Название",
+					"class": "w-full outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
 		)
     description = forms.CharField(
+        label='',
         max_length=3000,
 		min_length=5,
 		required=True,
-		widget=forms.TextInput(
+		widget=forms.Textarea(
 				attrs={
-					"placeholder": "Описание",
-					"class": "w-full mx-12 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+                    "style": "max-height:300px; min-height:70px; resize:none;",
+					"placeholder": "*Описание",
+					"class": " outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
 				}
 			)
     )
+    # image = forms.ImageField(
+    #      label = '',
+    #      required=True,
 
+    # )
     class Meta:
       model = Comic
-      fields = ['title','description','image']
+      fields = ['title','description']
 
 class addCommentForm(forms.ModelForm):
-    comment_input = forms.CharField(label="", widget=forms.Textarea(
+    comment_input = forms.CharField(label="", 
+        widget=forms.Textarea(
         attrs={
             "placeholder": "Комментарий",
 			"class": "w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"
