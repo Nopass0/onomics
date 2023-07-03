@@ -33,6 +33,9 @@ def bookmarks(request):
 def vk(request):
     return redirect('https://vk.com/onomics')
 
+def telegram(request):
+    return redirect('https://t.me/onomics')
+
 def admin_panel(request):
     return redirect('/admin')
 
@@ -62,16 +65,23 @@ def comicsPage(request, id):
     else:
         formComment = addCommentForm(auto_id=False)
 
+    #get view by user and comic
+    if isAuth:
+        comicViewers = Comic.objects.get(id=id).views.get_or_create(user=request.user)
+
+    comicViews = Comic.objects.get(id=id).views.count()
+
     #Проверка на наличие комментариев
     isCommentsExists = False
     comices = Comic.objects.exclude(id=id).order_by('id')
     genres = comics.genres.all()
-    chapters = Chapter.objects.filter(comic_id=id).order_by('sequence_number')
+    chapters = Chapter.objects.filter(comic=id).order_by('sequence_number')
+
     comments = comics.comments.all()
     #get bookmark for current user and comic and set 'read' if it comic exist in read list of user, also with other bookmarks
     bookmark = 'del'
     if isAuth:
-        bookmarks = Bookmark.objects.filter(user=request.user)[0]
+        bookmarks = Bookmark.objects.get_or_create(user=request.user)[0]
         if comics in bookmarks.read.all():
             bookmark = 'read'
         elif comics in bookmarks.readed.all():
@@ -91,12 +101,13 @@ def comicsPage(request, id):
                                             'isCommentsExists': isCommentsExists,
                                             'comments': comments,
                                             'bookmark': bookmark,
-                                            'isAuth': isAuth
+                                            'isAuth': isAuth,
+                                            'comicViews': comicViews
                                             })
 
 def catalogue(request):
     comics = Comic.objects.all()
-    chapters = Chapter.objects.filter(comic_id=1).order_by('id')
+    chapters = Chapter.objects.filter(comic=1).order_by('id')
     return render(request, 'catalog.html', {'comics': comics, 'chapters': chapters})
 
 def error404(request):
@@ -118,6 +129,7 @@ def addComicsPage(request):
         if form.is_valid():
             comics = form.save(commit=False)
             comics.author = request.user
+            comics.image = request.FILES['image']
             comics.save()
             
             return redirect(comics)
@@ -132,7 +144,7 @@ def editComicsPage(request, id):
         return redirect('login_view')
     comic = Comic.objects.get(id=id)
     if comic.author == request.user:
-        chapters = Chapter.objects.filter(comic_id=id).order_by('sequence_number')
+        chapters = Chapter.objects.filter(comic=id).order_by('sequence_number')
         return render(request, "comics_edit.html", {"comic": comic,
                                                     "chapters": chapters})
     else:
@@ -144,7 +156,7 @@ def chapterPage(request, id):
     if request.user.is_authenticated:
         isAuth = True
     chapter = Chapter.objects.get(id=id)
-    comic = Comic.objects.get(id=chapter.comic_id.id)
+    comic = Comic.objects.get(id=chapter.comic.id)
     if comic.author == request.user:
         return render(request, "chapter.html", {"chapter": chapter, "comic": comic, "isAuth": isAuth})
     else:
@@ -155,8 +167,8 @@ def chapterEditPage(request, id):
     if not request.user.is_authenticated:
         return redirect('login_view')
     chapter = Chapter.objects.get(id=id)
-    blocks = Block.objects.filter(chapter_id=id).order_by('sequence_number')
-    comic = Comic.objects.get(id=chapter.comic_id.id)
+    blocks = Block.objects.filter(chapter=id).order_by('sequence_number')
+    comic = Comic.objects.get(id=chapter.comic.id)
     if comic.author == request.user:
         return render(request, "chapter_edit.html", {"chapter": chapter,
                                                       "comic": comic,
@@ -319,12 +331,12 @@ class ChapterAddAPIView(APIView):
                 if comic.exists():
                     if comic[0].author == request.user:
                         #get last sequence number of chapters and add 1 to it
-                        last_chapter = Chapter.objects.filter(comic_id=comic[0]).order_by('-sequence_number')
+                        last_chapter = Chapter.objects.filter(comic=comic[0]).order_by('-sequence_number')
                         if last_chapter.exists():
                             sequence = last_chapter[0].sequence_number + 1
                         else:
                             sequence = 1
-                        chapter = Chapter.objects.create(comic_id=comic[0], name=request.data.get('name'), sequence_number=sequence)
+                        chapter = Chapter.objects.create(comic=comic[0], name=request.data.get('name'), sequence_number=sequence)
                         chapter.save()
                         #get all data of chapter and return it
                         chapter = Chapter.objects.filter(id=chapter.id)
@@ -347,7 +359,7 @@ class ChapterUpdateSeqenceNumberAPIView(APIView):
             if comic.exists():
                 if comic[0].author == request.user:
                     #get all chapters by comic id
-                    chapters = Chapter.objects.filter(comic_id=comic[0])
+                    chapters = Chapter.objects.filter(comic=comic[0])
                     if chapters.exists():
                         #check is data valid
                         serializer = ChapterSerializer(data=request.data, many=True)
@@ -365,7 +377,7 @@ class ChapterUpdateSeqenceNumberAPIView(APIView):
                                     chapter.sequence_number = s[str(i)]["sequence_number"]
                                 chapter.save()
                             #get all data of chapters and return it
-                            chapters = Chapter.objects.filter(comic_id=comic[0])
+                            chapters = Chapter.objects.filter(comic=comic[0])
                             serializer = ChapterSerializer(chapters, many=True)
                             return Response(serializer.data)
                         else:
@@ -386,7 +398,7 @@ class ChapterDeleteAPIView(APIView):
             chapter = Chapter.objects.filter(id=id)
             if chapter.exists():
                 #get comic by chapter id and check is user author of this comic
-                author = Comic.objects.filter(id=chapter[0].comic_id.id)[0].author
+                author = Comic.objects.filter(id=chapter[0].comic.id)[0].author
                 if author == request.user:
                     chapter[0].delete()
                     return Response({'success': 'Chapter deleted'})
@@ -396,3 +408,17 @@ class ChapterDeleteAPIView(APIView):
                 return Response({'error': 'Chapter is not exist'})
         else:
             return Response({'error': 'User is not authenticated'})
+
+#get all blocks by chapter id api (GET)
+class BlockAPIView(APIView):
+    def get(self, request, id):
+        blocks = Block.objects.filter(chapter=id)
+        serializer = BlockSerializer(blocks, many=True)
+        return Response(serializer.data)
+    
+#get one block by chapter id and sequnce number of block api (GET)
+class BlockOneAPIView(APIView):
+    def get(self, request, id, sequence_number):
+        blocks = Block.objects.filter(chapter=id, sequence_number=sequence_number)
+        return Response(blocks.values())
+

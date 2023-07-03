@@ -3,7 +3,7 @@
 {% load bootstrap_icons %}
 
 {% block body_settings %}
-  style="background-image: url('{% static 'back3.jpg'  %}');"
+  test_style="background-image: url('{% static 'back3.jpg'  %}');"
 {% endblock %}
   
 {% block content %}
@@ -30,7 +30,7 @@
             </div>
             <div class="grid grid-cols-4 gap-4 h-16">
               <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-                <div class="text-2xl font-bold text-gray-200">12</div>
+                <div class="text-2xl font-bold text-gray-200">{{ chapterViews|length }}</div>
                 <div class="text-xs text-gray-300">Прочитанные главы</div>
               </div>
               <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
@@ -42,7 +42,7 @@
                 <div class="text-xs text-gray-300">Подписчики</div>
               </div>
               <div class="text-center bg-zinc-900 backdrop-blur-sm bg-opacity-20 rounded-lg p-4">
-                <div class="text-2xl font-bold text-gray-200">78</div>
+                <div class="text-2xl font-bold text-gray-200">{{ follows|length }}</div>
                 <div class="text-xs text-gray-300">Подписки</div>
               </div>
             </div>
