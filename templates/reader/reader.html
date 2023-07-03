@@ -1,0 +1,67 @@
+{% load static tailwind_tags %}
+{% load bootstrap_icons %}
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onomics | Reader</title>
+    <link rel="icon" type="image/ico" href="{% static 'images/favico.ico' %}">
+    {% tailwind_css %}
+    <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+</head>
+<body class="flex flex-col h-screen relative">
+    <header
+    class="fixed top-0 left-0 right-0 z-50 flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1" id="header">
+    <div class="flex items-center">
+      <a href="/"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-8 w-8 rounded-full" /></a>
+      <nav class="flex items-center">
+        <a href="{{ comic.get_absolute_url }}" class="px-4 py-1 text-gray-100 hover:text-gray-300 truncate">№{{ chapter.sequence_number }} - {{ chapter.name }}</a>
+      </nav>
+    </div>
+    <div class="w-auto">
+      <!--<button class="px-4 py-4 text-gray-700 hover:text-gray-900">Sign In</button>-->
+      {% if user.is_authenticated %}
+      <div class="relative">
+        <button class="menu-profile px-4 py-2 text-gray-100 hover:text-gray-300">
+          <img src="{% static user.profile.avatar %}" alt="User" class="h-8 w-8 rounded-full" />
+        </button>
+        <div class="menu-profile-menu absolute right-0 w-48 rounded-lg bg-zinc-800 py-4 shadow-xl">
+          <a href="{% url 'profile' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'person-square' %}<p class="mx-2">Профиль</p></a>
+          {% if user.is_staff %}
+          <a href="{% url 'admin-panel' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'shield-fill' %}<p class="mx-2">Админ-панель</p></a>
+          {% endif %}
+          <a href="{% url 'addComicsPage' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'plus-square-fill' %}<p class="mx-2">Добавить комикс</p></a>
+          <a href="{% url 'addComicsPage' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'bell-fill' %}<p class="mx-2">Уведомления</p></a>
+          <a href="{% url 'bookmarks' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'tags-fill' %}<p class="mx-2">Закладки</p></a>
+          <a href="{% url 'logout' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'x-square-fill' %}<p class="mx-2">Выйти</p></a>
+        </div>
+      </div>
+      {% else %}
+      <div class="relative my-2">
+        <a href="{% url 'login_view' %}" class="px-2 text-gray-100 hover:text-gray-300 truncate py-4 h-8">Войти</a>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  <!--Canvas reader-->
+    <div id="blocks_container" class="flex flex-col items-center justify-center">
+        
+    </div>
+    <div id="bottom_menu" class="w-full fixed flex justify-center items-center bottom-0 mb-20">
+      <div id="menu" class="bg-zinc-900 rounded-lg px-4 py-2 flex flex-wrap justify-between">
+        <div class="px-2 hover:bg-zinc-800 rounded-lg items-center">{% bs_icon 'reply' color="white" size="1.5em" %}</div>
+        <div class="px-2 hover:bg-zinc-800 rounded-lg items-center">{% bs_icon 'heart' color="white" size="1.5em" %}</div>
+        <div class="px-2 hover:bg-zinc-800 rounded-lg items-center">{% bs_icon 'chat' color="white" size="1.5em" %}</div>
+      </div>
+    </div>
+    <div class="w-full sm:w-[800px] h-12 hidden"></div>
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="ch_id" id="ch_id" value="{{ chapter.id }}">
+</body>
+<!--Jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/reader.js' %}"></script>
+</html>

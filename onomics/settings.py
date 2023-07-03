@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zqat*j%1%x-m*h1i#fnw%$rznxef*kw#@s(#(_ay1xkdj)jca0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e3bc-188-18-20-98.ngrok-free.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['cdf5-51-158-190-177.ngrok-free.app', 'localhost', '127.0.0.1']
 
 #NPM_BIN_PATH = "node_modules/.bin"
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'theme',
     'catalog',
     'users',
+    #'sberbank'
 ]
 
 LOGIN_REDIRECT_URL = 'index'
@@ -54,13 +55,16 @@ LOGOUT_REDIRECT_URL = "login"
 
 LOGIN_URL = "login"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG == True:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-#EMAIL_HOST = 'host here'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'your user here'
-#EMAIL_HOST_PASSWORD = 'your password'
-#EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'galin.bahdan@yandex.ru'
+EMAIL_HOST_PASSWORD = 'uaaydnwtpbeiurje'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'galin.bahdan@yandex.ru'
 
 ###AUTHENTICATION_BACKENDS = (
 #    'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
@@ -101,13 +105,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'catalog.context_processors.nowYear'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'onomics.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

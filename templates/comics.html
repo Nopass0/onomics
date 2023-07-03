@@ -54,7 +54,7 @@
           <div class="flex sm:float-left w-full sm:w-auto py-2 justify-center sm:justify-none">
             <div id="views" class="flex items-center bg-zinc-800 py-2 px-4 rounded-l-lg justify-between">
               <img src="{% static 'eye.svg' %}" alt="views" class="w-8 h-4">
-              <span class="text-gray-200 py-1 px-2">2.4K</span>
+              <span class="text-gray-200 py-1 px-2">{{ comicViews }}</span>
             </div>
             <div id="likes" class="flex items-center bg-zinc-800 py-2 px-4 justify-between">
               <img src="{% static 'heart.svg' %}" alt="likes" class="w-8 h-4">
@@ -83,7 +83,7 @@
               <p class="w-full" id="chapter_name">{{ chapter.name }}</p>
               <div class="flex">
                 <img src="{% static 'eye.svg' %}" alt="views" class="w-4 h-4 mx-2">
-                2.5K
+                {{ chapter.get_views }}
               </div>
             </a>
             {% endfor %}

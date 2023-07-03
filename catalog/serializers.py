@@ -42,3 +42,9 @@ class BookmarkSerializer(serializers.ModelSerializer):
         model = Bookmark
         fields = ('read', 'readed', 'droped', 'will_read')
 
+class BlockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Block
+        fields = ('image', 'sequence_number')
+        extra_kwargs = { 'image': {'required': False}, 'sequence_number': {'required': False} }
+

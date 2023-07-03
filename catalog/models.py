@@ -18,6 +18,44 @@ MODERATION_STATUS_CHOICES = (
     ("accepted", "Одобренно")
 )
 
+class View(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время')
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+    def save_view(sender, instance, created, **kwargs):
+        user = instance
+        if created:
+            view = View(user=user)
+            view.save()
+
+    class Meta:
+        verbose_name = 'Просмотр'
+        verbose_name_plural = 'Просмотры'
+
+class Like(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата и время')
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+    def save_like(sender, instance, created, **kwargs):
+        user = instance
+        if created:
+            like = Like(user=user)
+            like.save()
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+
 # Create your models here.
 class Comic(models.Model):
     id = models.AutoField(primary_key=True)
@@ -35,8 +73,7 @@ class Comic(models.Model):
                               default="Anonce",
                               verbose_name="Статус")
 
-    views = models.IntegerField(default=0, verbose_name="Количество просмотров")
-    likes = models.IntegerField(default=0, verbose_name="Количество лайков")
+    views = models.ManyToManyField('View', blank=True, related_name='co_views', verbose_name='Просмотры')
 
     tags = models.ManyToManyField('Tag', blank=True, related_name='tags', verbose_name='Теги')
     genres = models.ManyToManyField('Genre', blank=True, related_name='genres', verbose_name='Жанры')
@@ -77,7 +114,7 @@ class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     text = models.TextField(verbose_name='Текст')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
-    #likes = models.IntegerField(default=0, verbose_name='Лайки')
+    likes = models.ManyToManyField(Like, blank=True, related_name='cm_likes', verbose_name='Лайки')
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -96,28 +133,38 @@ class Chapter(models.Model):
     
     isPrivate = models.BooleanField(default=False)
     
-    comic_id = models.ForeignKey('Comic', on_delete=models.CASCADE)
+    comic = models.ForeignKey('Comic', on_delete=models.CASCADE)
 
     sequence_number = models.IntegerField(null=True, verbose_name='Номер главы в комиксе')
 
     comments = models.ManyToManyField('Comment', blank=True, related_name='ch_comments', verbose_name='Комментарии')
 
+    views = models.ManyToManyField(View, blank=True, related_name='ch_views', verbose_name='Просмотры')
+    likes = models.ManyToManyField(Like, blank=True, related_name='ch_likes', verbose_name='Лайки')
     #blocks - images with comic chapter
 
     def __str__(self):
         return '{0} - {1} - {2}'.format(self.id, self.name, self.sequence_number)
     
+    def get_views(self):
+        return self.views.count()
+    
+    def get_likes(self):
+        return self.likes.count()
+    
+    def get_comments(self):
+        return self.comments.count()
+
     #get absolute url
     def get_absolute_url(self):
-        return "/comics/chapter/%i" % (self.id)
+        return "/reader/%i/%i" % (self.comic.id, self.sequence_number)
     #get absolute edit url
     def get_absolute_edit_url(self):
         return "/comics/chapter/edit/%i" % (self.id)
 
 class Block(models.Model):
-    id = models.AutoField(primary_key=True)
-    image = models.ImageField(upload_to=f'blocks/{id}', verbose_name='Изображение') # Width: 800px, Height: 1080px
-    chapter_id = models.ForeignKey('chapter', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='theme/static/blocks/', verbose_name='Изображение') # Width: 800px, Height: 1080px
+    chapter = models.ForeignKey('chapter', on_delete=models.CASCADE)
 
     sequence_number = models.IntegerField(null=True, verbose_name='Номер блока в главе')
 
@@ -141,3 +188,4 @@ class Bookmark(models.Model):
         if created:
             bookmark = Bookmark(user=user)
             bookmark.save()
+        

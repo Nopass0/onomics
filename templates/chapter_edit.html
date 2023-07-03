@@ -11,18 +11,6 @@
         <!--Images files input-->
         <input type="file" name="blocks_input" id="blocks_input">
         <div id="blocks_container" class="flex flex-wrap">
-          {% for block in blocks.all %}
-            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 py-2">
-              <div class="bg-gray-800 rounded-lg shadow-lg">
-                <div class="px-2 py-2">
-                  <img src="{{ block.image.url }}" alt="">
-                </div>
-                <div class="px-2 py-2">
-                  <a href="#" class="text-gray-100 text-sm">Редактировать</a>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
           <!--Test-->
           <div class="w-full px-2 py-2">
             <div class="bg-gray-800 rounded-lg shadow-lg ">
@@ -91,6 +79,18 @@
             });
             reader.readAsDataURL(file);
         }
+    });
+
+    //blocks_container sortable
+    let sortable = new Sortable(blocks_container, {
+      animation: 150,
+      ghostClass: 'bg-gray-700',
+      chosenClass: 'bg-gray-800',
+      dragClass: 'bg-gray-800',
+      handle: '.handle',
+      onEnd: function(evt){
+        console.log(evt);
+      }
     });
   </script>
 {% endblock %}

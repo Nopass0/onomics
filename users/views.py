@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 #from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login as dj_login, logout
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from rest_framework.views import *
 from rest_framework import generics
 
@@ -14,15 +14,16 @@ from .forms import *
 from .email_code_generator import *
 from .models import *
 
+#send email with activation code
 def sendEmailActivationCode(user):
+    profile = Profile.objects.get(user=user)
     email = EmailMessage(
-    'Код подтверждения почты',
-    profile.email_code,
-    'from@example.com',
-    [user.email],
-    ['bcc@example.com'],
+        'Onomics: Активация аккаунта',
+        'Ваш код активации: ' + profile.email_code,
+        to=[user.email]
     )
     email.send()
+    
 
 def isFollower(user_from, user_to):
     try:
@@ -55,8 +56,7 @@ def signup(request):
             profile.email_code = generate_email_code(4)
             profile.save()
 
-            if settings.DEBUG == False:
-                sendEmailActivationCode(user)
+            sendEmailActivationCode(user)
 
             user = authenticate(username=username, password=password)
 
@@ -71,11 +71,14 @@ def signup(request):
 
 def profile(request):
     if not request.user.is_authenticated:
-        return redirect('index')
+        return redirect('login_view')
     isMyProfile = True
     #My comics
     comics = Comic.objects.filter(author=request.user)[:10]
     followers = Follow.objects.filter(user_to=request.user).all()
+    follows = Follow.objects.filter(user_from=request.user).all()
+    chapterViews = View.objects.filter(user=request.user).all()
+    print(chapterViews)
     #get id's followers and get all users with this id's
     
     followers_users = []
@@ -85,8 +88,13 @@ def profile(request):
             break
         followers_users.append(User.objects.get(id=follower.user_from.id))
     
-    print(followers)
-    return render(request, 'profile.html', {'isMyProfile': isMyProfile, 'user_page': request.user, 'comics': comics, 'followers': followers_users})
+    
+    return render(request, 'profile.html', {'isMyProfile': isMyProfile,
+                                            'user_page': request.user,
+                                            'comics': comics,
+                                            'followers': followers_users,
+                                            'follows': follows,
+                                            'chapterViews': chapterViews})
 
 def user_profile(request):
     user_id = request.GET["id"]
@@ -101,6 +109,9 @@ def user_profile(request):
 
         isUserFollower = not Follow.objects.filter(user_from=request.user, user_to=user_id).exists()
 
+        follows = Follow.objects.filter(user_from=user).all()
+        chapterViews = View.objects.filter(user=user).all()
+
         followers_users = []
         for follower in followers:
             #limit on 10 followers
@@ -111,7 +122,9 @@ def user_profile(request):
                                                 'isMyProfile': isMyProfile, 
                                                 'comics': comics, 
                                                 'followers': followers_users,
-                                                'isFollower': isUserFollower})
+                                                'isFollower': isUserFollower,
+                                                'follows': follows,
+                                                'chapterViews': chapterViews})
         
     
 def confirm_email(request):
