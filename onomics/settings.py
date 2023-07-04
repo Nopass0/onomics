@@ -66,16 +66,10 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'galin.bahdan@yandex.ru'
 
-###AUTHENTICATION_BACKENDS = (
-#    'social_auth.backends.contrib.vkontakte.VKontakteOAuth2Backend',
-#    'social_auth.backends.facebook.FacebookBackend',
-#    'social_auth.backends.google.GoogleOAuth2Backend',
-#    'social_auth.backends.twitter.TwitterBackend',
-#    'social_auth.backends.contrib.yandex.YandexOAuth2Backend',
-#    'social_auth.backends.contrib.mailru.MailruBackend',
-#    'social_auth.backends.contrib.odnoklassniki.OdnoklassnikiBackend',
-#    'django.contrib.auth.backends.ModelBackend',
-#)
+
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 25
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

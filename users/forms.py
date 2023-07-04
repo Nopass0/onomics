@@ -110,7 +110,7 @@ class SignUpProfile(forms.Form):
 		choices=CHOICES,
 		widget=forms.Select(
 		attrs={
-			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-5 py-2 cursor-pointer",
+			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-7 py-2 cursor-pointer",
 		}
 	))
 
@@ -151,3 +151,66 @@ class ConfirmEmail(forms.Form):
 			)
 		)
     
+
+class ProfileSettings(forms.Form):
+	
+	nickname = forms.CharField(
+		label='',
+		max_length=25,
+		min_length=4,
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+	
+	name = forms.CharField(
+		label='',
+		max_length=25,
+		min_length=4,
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+	
+	last_name = forms.CharField(
+		label='',
+		max_length=25,
+		min_length=4,
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+    
+
+	CHOICES = (('n', 'По прозвищу'),('f', 'По имени и фамилии'),)
+	choose_name = forms.ChoiceField(
+		label='',
+		choices=CHOICES,
+		required=False,
+		widget=forms.Select(
+		attrs={
+			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-7 py-2 cursor-pointer",
+		}
+	))
+
+	description = forms.CharField(
+		label="",
+		required=False,
+        widget=forms.Textarea(
+        attrs={
+            "placeholder": "Комментарий",
+			"class": "w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"
+        })
+	)

@@ -78,7 +78,7 @@ test_style="background-image: url('{% static 'back3.jpg' %}');"
     <!--Button 'Редактировать' if isMyProfile-->
 
     {% if isMyProfile %}
-    <a href="{% url 'index' %}" id="edit_profile"
+    <a href="{% url 'profile_settings' %}" id="edit_profile"
       class="bg-zinc-900 text-gray-100 px-3 py-2 ml-0.5 rounded-md duration-300 active:bg-[#5fa9c1] hover:bg-[#5fa9c1] max-md:bg-[#5fa9c1] text-md">Редактировать
       профиль</a>
     {% else %}
