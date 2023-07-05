@@ -11,7 +11,7 @@ from reader.reader import *
 urlpatterns = [
     path('', views.index, name='index'),
     path('terms-of-use', views.termsOfUse, name='termsOfUse'),
-    path('privicy', views.privicy, name='privicy'),
+    path('privacy', views.privacy, name='privacy'),
     path('vk', views.vk, name='vk'),
     path('telegram', views.telegram, name='telegram'),
     path('admin-panel', views.admin_panel, name='admin-panel'),

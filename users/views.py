@@ -186,6 +186,41 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
+def profile_edit(request):
+    if not request.user.is_authenticated:
+          return redirect('index')    
+    form = ProfileSettings()
+    if request.method == 'POST':
+        form = ProfileSettings(request.POST, request.FILES)
+        if form.is_valid():
+            #if avatar exists files is not empty
+            avatar = request.FILES['avatar'] if 'avatar' in request.FILES else None
+            nickname = form.cleaned_data.get('nickname')
+            name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            isNickname = form.cleaned_data.get('isNickname')
+            description = form.cleaned_data.get('description')
+            user = request.user
+            profile = Profile.objects.get(user=user)
+            if avatar != None:
+                profile.avatar = avatar
+            profile.nickname = nickname
+            user.first_name = name
+            user.last_name = last_name
+            profile.description = description
+            profile.isNickname = isNickname
+            print(profile.isNickname)
+            print(profile.description)
+            print(profile.nickname)
+            print(profile.avatar)
+            print(user.first_name)
+            print(user.last_name)
+            user.save()
+            profile.save()
+
+    else: form = ProfileSettings()
+    return render(request, 'profile_settings.html', {'form': form})
+
 #API
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()

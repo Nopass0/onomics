@@ -20,7 +20,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=25, blank=True, verbose_name='Ник')
     
     gender = models.CharField(choices=GENDERS, max_length=1, default='m', verbose_name='Пол')
-    avatar = models.ImageField(default='avatars/default.jpg', upload_to='avatars/', verbose_name='Аватар')
+    avatar = models.ImageField(default='avatars/default.jpg', upload_to='theme/static/avatars/', verbose_name='Аватар')
 
     description = models.TextField(blank=True, verbose_name='Описание')
 
@@ -69,6 +69,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile' 
+
+    def get_avatar_url(self):
+        return f'{self.avatar}'
 
     class Meta:
         verbose_name = 'Пользователи'

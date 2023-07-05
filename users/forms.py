@@ -110,7 +110,7 @@ class SignUpProfile(forms.Form):
 		choices=CHOICES,
 		widget=forms.Select(
 		attrs={
-			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-5 py-2 cursor-pointer",
+			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-7 py-2 cursor-pointer",
 		}
 	))
 
@@ -151,3 +151,60 @@ class ConfirmEmail(forms.Form):
 			)
 		)
     
+
+class ProfileSettings(forms.Form):
+	
+	nickname = forms.CharField(
+		label='',
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+	
+	first_name = forms.CharField(
+		label='',
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+	
+	last_name = forms.CharField(
+		label='',
+		required=False,
+		widget=forms.TextInput(
+				attrs={
+					"placeholder": "*Никнейм",
+					"class": "outline-0 border-none outline-none mt-6 my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+				}
+			)
+		)
+    
+
+	#checkbox isNickame
+	isNickname = forms.BooleanField(
+		label='',
+		required=False,
+		widget=forms.CheckboxInput(
+			attrs={
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+			}
+		)
+	)
+
+	description = forms.CharField(
+		label="",
+		required=False,
+        widget=forms.Textarea(
+        attrs={
+            "placeholder": "Комментарий",
+			"class": "w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"
+        })
+	)

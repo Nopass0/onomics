@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Onomics | Reader</title>
+    <title>Onomics | Чтение {{comic.title}} Глава {{chapter.sequence_number}} - {{chapter.name}}</title>
     <link rel="icon" type="image/ico" href="{% static 'images/favico.ico' %}">
     {% tailwind_css %}
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
@@ -26,7 +26,7 @@
       {% if user.is_authenticated %}
       <div class="relative">
         <button class="menu-profile px-4 py-2 text-gray-100 hover:text-gray-300">
-          <img src="{% static user.profile.avatar %}" alt="User" class="h-8 w-8 rounded-full" />
+          <img src="{{ user.profile.avatar.url }}" alt="User" class="h-8 w-8 rounded-full" />
         </button>
         <div class="menu-profile-menu absolute right-0 w-48 rounded-lg bg-zinc-800 py-4 shadow-xl">
           <a href="{% url 'profile' %}" class="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'person-square' %}<p class="mx-2">Профиль</p></a>
