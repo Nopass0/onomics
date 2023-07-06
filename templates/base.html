@@ -125,11 +125,11 @@
 
         <ul class="mx-4">
           <li>
-            <a href="{% url 'catalogue' %}">
-              {% if request.path == '/messages/' %}
-              {% bs_icon 'chat' color='#67CADA' size='24px' %}
+            <a href="{% url 'bookmarks' %}">
+              {% if request.path == '/bookmarks/' %}
+              {% bs_icon 'tags' color='#67CADA' size='24px' %}
                 {% else %}
-                {% bs_icon 'chat' color='#F5F5F5' size='24px' %}
+                {% bs_icon 'tags' color='#F5F5F5' size='24px' %}
                 {% endif %}
             </a>
           </li>
