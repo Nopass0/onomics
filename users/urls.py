@@ -16,7 +16,7 @@ urlpatterns = [
 
     path("template/", template_view, name="template_view"),
 
-    path('profile_settings/',Profile_settingsForm, name='profile_settings'),
+    path('profile_settings/',profile_edit, name='profile_edit'),
     #API
     #get all users
     path("api/v1/users.get/", UserList.as_view()),

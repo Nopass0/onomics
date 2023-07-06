@@ -186,29 +186,38 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
-def Profile_settingsForm(request):
+def profile_edit(request):
     if not request.user.is_authenticated:
           return redirect('index')    
     form = ProfileSettings()
     if request.method == 'POST':
-        print(form.is_valid())
-        if True:
-            print(request)
-            nickname = request.POST['nickname']
-            name = request.POST['name']
-            last_name = request.POST['last_name']
-            choose_name = request.POST['choose_name']
-            description = request.POST['description']
+        form = ProfileSettings(request.POST, request.FILES)
+        if form.is_valid():
+            #if avatar exists files is not empty
+            avatar = request.FILES['avatar'] if 'avatar' in request.FILES else None
+            nickname = form.cleaned_data.get('nickname')
+            name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            isNickname = form.cleaned_data.get('isNickname')
+            description = form.cleaned_data.get('description')
             user = request.user
-            print(user)
-            user.profile.nickname = nickname
+            profile = Profile.objects.get(user=user)
+            if avatar != None:
+                profile.avatar = avatar
+            profile.nickname = nickname
             user.first_name = name
             user.last_name = last_name
-            user.profile.description = description
-            if choose_name == 'По прозвищу':
-                user.profile.isNickname = True
-            else: user.profile.isNickname = False
+            profile.description = description
+            profile.isNickname = isNickname
+            print(profile.isNickname)
+            print(profile.description)
+            print(profile.nickname)
+            print(profile.avatar)
+            print(user.first_name)
+            print(user.last_name)
             user.save()
+            profile.save()
+
     else: form = ProfileSettings()
     return render(request, 'profile_settings.html', {'form': form})
 

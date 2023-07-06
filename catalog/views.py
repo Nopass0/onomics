@@ -116,8 +116,8 @@ def error404(request):
 def termsOfUse(request):
     return render(request, 'terms-of-use.html')
 
-def privicy(request):
-    return render(request, 'privicy.html')
+def privacy(request):
+    return render(request, 'privacy.html')
 
 def addComicsPage(request):
     if not request.user.is_authenticated:

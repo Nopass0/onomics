@@ -1,6 +1,9 @@
 
 {% extends "base.html" %}
 {% load static tailwind_tags %}
+
+{% block pagename %}Главная{% endblock %}
+
 {% block content %}
 <!--Создать слайдер с классом slider на всю ширину экрана и высотой 264 px, где все -->
 {% if isComicsExists %}

@@ -156,8 +156,6 @@ class ProfileSettings(forms.Form):
 	
 	nickname = forms.CharField(
 		label='',
-		max_length=25,
-		min_length=4,
 		required=False,
 		widget=forms.TextInput(
 				attrs={
@@ -167,10 +165,8 @@ class ProfileSettings(forms.Form):
 			)
 		)
 	
-	name = forms.CharField(
+	first_name = forms.CharField(
 		label='',
-		max_length=25,
-		min_length=4,
 		required=False,
 		widget=forms.TextInput(
 				attrs={
@@ -182,8 +178,6 @@ class ProfileSettings(forms.Form):
 	
 	last_name = forms.CharField(
 		label='',
-		max_length=25,
-		min_length=4,
 		required=False,
 		widget=forms.TextInput(
 				attrs={
@@ -194,16 +188,16 @@ class ProfileSettings(forms.Form):
 		)
     
 
-	CHOICES = (('n', 'По прозвищу'),('f', 'По имени и фамилии'),)
-	choose_name = forms.ChoiceField(
+	#checkbox isNickame
+	isNickname = forms.BooleanField(
 		label='',
-		choices=CHOICES,
 		required=False,
-		widget=forms.Select(
-		attrs={
-			"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-7 py-2 cursor-pointer",
-		}
-	))
+		widget=forms.CheckboxInput(
+			attrs={
+				"class": "outline-0 border-none outline-none my-1 bg-zinc-800 text-gray-200 rounded-lg px-2 py-2"
+			}
+		)
+	)
 
 	description = forms.CharField(
 		label="",

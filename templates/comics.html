@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% load bootstrap_icons %}
+{% block pagename %}Комикс {{ comic.title }}{% endblock %}
 {% block content %}
 <div class="px-2 py-4 xl:px-20 sm:mx-4 sm:my-4 w-full h-full flex flex-wrap sm:flex-nowrap justify-center ">
     <div class="w-full h-auto sm:w-40 sm:h-64 flex flex-wrap justify-center sm:justify-between">

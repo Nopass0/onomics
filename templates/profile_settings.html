@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% load bootstrap_icons %}
-
+{% block pagename %}Настройки профиля{% endblock %}
 {% block content %}
 <div class="mx-0 xl:mx-24 2xl:mx-64">
   <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4 max-sm:justify-center">
@@ -39,8 +39,8 @@
       </div>
       <!-- Form -->
       <form action="" method="post" enctype="multipart/form-data">
-        <div class="mt-4 flex flex-col">
-          <img src="{% static user.profile.avatar %}" id="avatar_img" class="h-52 w-52 rounded-md mb-4" alt="Avatar">
+        <div class="mt-4 flex flex-col justify-center sm:justify-normal">
+          <img src="{{ user.profile.avatar.url }}" id="avatar_img" class="h-52 w-52 rounded-md mb-4" alt="Avatar">
           <!--Input for upload avatar-->
           <input type="file" name="avatar" id="avatar"
             class="relative m-0 block min-w-0 sm:w-[300px] flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition
@@ -56,17 +56,17 @@
               <!-- {{form.as_p}}  -->
               <div id="nickname" class="flex flex-col mr-3">
                 <label for="nickname" class="text-gray-100 ml-1 max-sm:ml-[6px] max-sm:mb-1 mb-2">Прозвище:</label>
-                <input type="text" name="nickname" id="nickname" placeholder="Прозвище" class="outline-0 border-none
+                <input type="text" name="nickname" id="nickname" placeholder="Прозвище" value="{% if user.profile.nickname %}{{user.profile.nickname}}{% else %}{{user.username}}{% endif %}" class="outline-0 border-none
               bg-[#171717] rounded-md text-gray-100 outline-none max-sm:mb-3">
               </div>
               <div id="first_name" class="flex flex-col mr-3">
                 <label for="first_name" class="text-gray-100 ml-1 max-sm:ml-[6px] max-sm:mb-1 mb-2">Имя:</label>
-                <input type="text" name="first_name" id="first_name" placeholder="Имя" class="outline-0 border-none
+                <input type="text" name="first_name" id="first_name" placeholder="Имя" value="{{user.first_name}}" class="outline-0 border-none
             bg-[#171717] rounded-md text-gray-100 outline-none max-sm:mb-3">
               </div>
               <div id="last_name" class="flex flex-col mr-3">
                 <label for="last_name" class="text-gray-100 ml-1 max-sm:ml-[6px] max-sm:mb-1 mb-2">Фамилия:</label>
-                <input type="text" name="last_name" id="last_name" placeholder="Фамилия" class="outline-0 border-none
+                <input type="text" name="last_name" id="last_name" placeholder="Фамилия" value="{{user.last_name}}" class="outline-0 border-none
             bg-[#171717] rounded-md text-gray-100 outline-none max-sm:mb-3">
               </div>
             </div>
@@ -75,17 +75,23 @@
               <div id="last_name" class="flex sm:justify-center sm:items-center mb-4 max-sm:flex-col">
                 <label for="select_naming" class="text-gray-100 mr-3 max-sm:ml-[6px] max-sm:mb-2">Выберите как к вам
                   обращатся:</label>
+                  <input type="checkbox" name="isNickname" id="isNickname" class="hidden" {% if user.profile.isNickname %}checked{% endif %}>
                 <select name="select_naming" id="select_naming" class="outline-0 border-none
               bg-[#171717] rounded-md text-gray-100 outline-none">
+                  {% if user.profile.isNickname %}
                   <option value="nickname">По прозвищу</option>
                   <option value="first_name_last_name">По имени и фамилии</option>
+                  {% else %}
+                  <option value="first_name_last_name">По имени и фамилии</option>
+                  <option value="nickname">По прозвищу</option>
+                  {% endif %}
                 </select>
               </div>
               <div id="description" class="flex flex-col mb-5">
                 <label for="description" class="text-gray-100 ml-1 mb-3">Описание профиля:</label>
-                <textarea type="text" name="description" id="description" class="outline-0 border-none
+                <textarea type="text" name="description" id="description" placeholder="Описание" class="outline-0 border-none
               bg-[#171717] rounded-md text-gray-100 outline-none"
-                  style="resize: vertical; max-height: 200px; min-height: 50px;"></textarea>
+                  style="resize: vertical; max-height: 200px; min-height: 50px;">{{user.profile.description}}</textarea>
 
               </div>
               <div id="save" class="flex">
@@ -105,14 +111,14 @@
         <p class="mx-2">{% bs_icon 'person-badge-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Информация об аккаунте</p>
       </div>
-      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+      {% comment %} <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'shield-lock-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Пароль и конфеденциальность</p>
       </div>
       <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'brush-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Кастомизация</p>
-      </div>
+      </div> {% endcomment %}
       <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'credit-card-2-back-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Банковские карты</p>
@@ -121,10 +127,10 @@
         <p class="mx-2">{% bs_icon 'wallet-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Баланс</p>
       </div>
-      <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
+      {% comment %} <div class="w-full items-center flex justify-center cursor-pointer hover:bg-zinc-800 rounded-md">
         <p class="mx-2">{% bs_icon 'bar-chart-fill' color='white' size='1.2em' %}</p>
         <p class="w-full text-gray-100 py-2 items-center">Статистика</p>
-      </div>
+      </div> {% endcomment %}
     </div>
   </div>
 </div>
@@ -137,75 +143,39 @@
 
 <!--Scripts-->
 <script>
-  // //on avatar selected change img
-  // let avatar_btn = document.querySelector('#avatar')
-  // //on change avatar_btn
-  // avatar_btn.addEventListener('change', function () {
-  //   console.log('avatar selected')
-  //   //get file
-  //   let file = this.files[0]
-  //   //check file
-  //   if (file) {
-  //     //create reader
-  //     let reader = new FileReader()
-  //     //onload
-  //     reader.onload = function () {
-  //       //get result
-  //       let result = reader.result
-  //       //set src to avatar
-  //       let avatar = document.querySelector('#avatar_img')
-  //       avatar.src = result
-  //     }
-  //     //read data
-  //     reader.readAsDataURL(file)
-  //   }
-  // })
+  let avatar_btn = document.querySelector('#avatar')
+  //on change avatar_btn
+  avatar_btn.addEventListener('change', function () {
+    console.log('avatar selected')
+    //get file
+    let file = this.files[0]
+    //check file
+    if (file) {
+      //create reader
+      let reader = new FileReader()
+      //onload
+      reader.onload = function () {
+        //get result
+        let result = reader.result
+        //set src to avatar
+        let avatar = document.querySelector('#avatar_img')
+        avatar.src = result
+      }
+      //read data
+      reader.readAsDataURL(file)
+    }
+  })
 
-  // //on click save_btn send data to server
-  // document.querySelector('#save_btn').addEventListener('click', function () {
-  //   //get data
-  //   let nickname = document.querySelector('#nickname').value
-  //   let first_name = document.querySelector('#first_name').value
-  //   let last_name = document.querySelector('#last_name').value
-  //   let avatar = document.querySelector('#avatar').value
-  //   let description = document.querySelector('#description').value
-  //   let select_naming = document.querySelector('#select_naming').value
-  //   //send data to server
-  //   $.ajax({
-  //     url: "{% url 'user.update' %}",
-  //     type: 'PUT',
-  //     data: {
-  //       'nickname': nickname,
-  //       'first_name': first_name,
-  //       'last_name': last_name,
-  //       'avatar': avatar,
-  //       'description': description,
-  //       //'select_naming': select_naming,
-  //       'csrfmiddlewaretoken': '{{ csrf_token }}'
-  //     },
-  //     success: function (data) {
-  //       console.log(data);
-  //     }
-  //   });
-  // })
-
-  /*
-  $.ajax({
-        url: '/api/v1/user.update/',
-        type: 'PUT',
-        data: {
-          'nickname': $('#nickname').val(),
-          'first_name': $('#first_name').val(),
-          'last_name': $('#last_name').val(),
-          'avatar': $('#avatar').val(),
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(data) {
-          console.log(data);
-        }
-      });
-  */
-    //ajax
-
+  //on change select_naming
+  let select_naming = document.querySelector('#select_naming')
+  select_naming.addEventListener('change', function () {
+    //set value to isNickname input checked if nickname selected else False. If first_name_last_name selected set not checked
+    let isNickname = document.querySelector('#isNickname')
+    if (this.value == 'nickname') {
+      isNickname.checked = true
+    } else {
+      isNickname.checked = false
+    }
+  })
 </script>
 {% endblock %}
