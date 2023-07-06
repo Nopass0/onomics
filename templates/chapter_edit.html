@@ -1,85 +1,99 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% load bootstrap_icons %}
-  
+
 {% block content %}
-<div class="mx-0 w-full h-full xl:w-auto xl:mx-24 2xl:mx-64">
-  <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4">
-    
-    <div id="tab_3" class="px-4 pt-4 w-full">
-        <h1 class="text-gray-100 text-xl mx-2">Глава №{{ chapter.sequence_number }} - {{ chapter.name }}</h1>
+<div class="mx-0 w-full h-screen xl:w-auto xl:mx-24 2xl:mx-64 rounded-md">
+  <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4 bg-[#171717]">
+
+    <div id="tab_3" class="px-5 pt-5 w-full">
+      <div class="flex flex-col justify-center items-center">
+        <h1 class="text-gray-100 text-xl mt-2 mb-5">Глава №{{ chapter.sequence_number }} - {{ chapter.name }}</h1>
         <!--Images files input-->
-        <input type="file" name="blocks_input" id="blocks_input">
-        <div id="blocks_container" class="flex flex-wrap">
-          <!--Test-->
-          <div class="w-full px-2 py-2">
-            <div class="bg-gray-800 rounded-lg shadow-lg ">
-              <div class="py-2 w-full flex justify-center">
-                <img src="{% static 'blocks/800x1080.png' %}" alt="" class="w-[850px] sm:w-[756px] md:w-[896px] h-[500px] sm:h-[1080px] md:h-[1280px]">
-              </div>
-              <div class="px-2 py-2">
-                <a href="}" class="text-gray-100 text-sm">Удалить</a>
-              </div>
+        <div class="flex justify-between items-center w-full mb-10">
+          <button id="button_input" type="button"
+          class="bg-[#5fa9c1] px-5 py-[5px] border-2 rounded-md border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Выберите
+          файл</button>
+        <button id="button_delete" type="button"
+          class="bg-red-500 px-5 py-[5px] border-2 rounded-md border-red-500 duration-[400ms] hover:bg-red-700 hover:border-red-700 active:bg-red-700 active:border-red-700">Удалить
+          выбранное</button>
+        </div>
+        <input name="blocks_input" id="blocks_input" type="file" multiple hidden>
+      </div>
+
+      <div id="blocks_container" class="flex flex-wrap items-center max-sm:justify-center max-sm:flex-col">
+        <div class="mx-2 my-2">
+          <div class="px-5 py-2 bg-[#1b1b1c] rounded-lg shadow-lg flex flex-col">
+            <div class="flex items-center justify-between">
+              <h1 class="pl-3 text-white text-base font-bold">1</h1>
+              <input type="checkbox"
+                class="mr-2 text-[#5fa9c1] bg-gray-100 border-gray-300 rounded focus:ring-[#5fa9c1]   focus:ring-2 w-4 h-4">
+            </div>
+            <div class="px-2 py-2">
+              <img src="" alt="" class="w-40 h-60">
+            </div>
+            <div class="px-2 py-2">
+              <a href="#" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</a>
             </div>
           </div>
-          <div class="w-full px-2 py-2">
-            <div class="bg-gray-800 rounded-lg shadow-lg ">
-              <div class="py-2 w-full flex justify-center">
-                <img src="{% static 'blocks/800x1080.png' %}" alt="" class="w-[850px] sm:w-[756px] md:w-[896px] h-[500px] sm:h-[1080px] md:h-[1280px]">
-              </div>
-              <div class="px-2 py-2">
-                <a href="}" class="text-gray-100 text-sm">Удалить</a>
-              </div>
-            </div>
-          </div>
-          <div class="w-full px-2 py-2">
-            <div class="bg-gray-800 rounded-lg shadow-lg ">
-              <div class="py-2 w-full flex justify-center">
-                <img src="{% static 'blocks/800x1080.png' %}" alt="" class="w-[850px] sm:w-[756px] md:w-[896px] h-[500px] sm:h-[1080px] md:h-[1280px]">
-              </div>
-              <div class="px-2 py-2">
-                <a href="}" class="text-gray-100 text-sm">Удалить</a>
-              </div>
-            </div>
-          </div>
-          <!--End test-->
+        </div>
+
+
+      </div>
+
     </div>
-
   </div>
-</div>
 
-{% endblock %}
+  {% endblock %}
 
-{% block scripts %}
+  {% block scripts %}
   <!--Jquery-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!--Sortable-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
   <script>
+
+    const button_input = document.getElementById('button_input'),
+      input_file = document.getElementById('blocks_input');
+    var number_page = 1;
+
     //blocks_input change event listener
-    $('#blocks_input').change(function(){
+    $('#blocks_input').change(function () {
+
       //add blocks to blocks_container
-        for (let i = 0; i < this.files.length; i++) {
-            const file = this.files[i];
-            const reader = new FileReader();
-            reader.addEventListener('load', function(){
-            const block = `
-                <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-2 py-2">
-                <div class="bg-gray-800 rounded-lg shadow-lg">
-                    <div class="px-2 py-2">
-                    <img src="${this.result}" alt="" class="w-32 h-52">
-                    </div>
-                    <div class="px-2 py-2">
-                    <a href="#" class="text-gray-100 text-sm">Редактировать</a>
-                    </div>
-                </div>
-                </div>
+      for (let i = 0; i < this.files.length; i++) {
+        const file = this.files[i];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          const block = `
+        <div class="mx-2 my-2">
+          <div class="px-5 py-2 bg-[#1b1b1c] rounded-lg shadow-lg flex flex-col">
+            <div class="flex items-center justify-between">
+              <h1 class="pl-3 text-white text-base font-bold">${number_page}</h1>
+              <input type="checkbox"
+                class="mr-2 text-[#5fa9c1] bg-gray-100 border-gray-300 rounded focus:ring-[#5fa9c1]   focus:ring-2 w-4 h-4">
+            </div>
+            <div class="px-2 py-2">
+              <img src="${this.result}" alt="" class="w-40 h-60">
+            </div>
+            <div class="px-2 py-2">
+              <a href="#" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</a>
+            </div>
+          </div>
+        </div>
             `;
-            $('#blocks_container').append(block);
-            });
-            reader.readAsDataURL(file);
-        }
+
+          $('#blocks_container').append(block);
+          number_page += 1;
+        });
+        reader.readAsDataURL(file);
+      }
     });
+
+    button_input.onclick = () => {
+      input_file.click();
+    }
 
     //blocks_container sortable
     let sortable = new Sortable(blocks_container, {
@@ -88,9 +102,9 @@
       chosenClass: 'bg-gray-800',
       dragClass: 'bg-gray-800',
       handle: '.handle',
-      onEnd: function(evt){
+      onEnd: function (evt) {
         console.log(evt);
       }
     });
   </script>
-{% endblock %}
+  {% endblock %}
