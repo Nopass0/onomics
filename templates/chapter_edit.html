@@ -1,13 +1,8 @@
 {% extends "base.html" %}
 {% load static tailwind_tags %}
 {% load bootstrap_icons %}
-<<<<<<< HEAD
-
-=======
-{% block pagename %}Редактирование главы{% endblock %}
->>>>>>> 6268f7500a75b65fa58b5953c9a4b7fa1284ade9
 {% block content %}
-<div class="mx-0 w-full h-screen xl:w-auto xl:mx-24 2xl:mx-64 rounded-md">
+<div class="mx-0 w-full xl:w-auto xl:mx-24 2xl:mx-64 rounded-md">
   <div class="container mx-auto flex flex-wrap pt-6 pb-2 px-4 bg-[#171717]">
 
     <div id="tab_3" class="px-5 pt-5 w-full">
@@ -17,8 +12,8 @@
         <div class="flex justify-between items-center w-full mb-10">
           <button id="button_input" type="button"
           class="bg-[#5fa9c1] px-5 py-[5px] border-2 rounded-md border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]">Выберите
-          файл</button>
-        <button id="button_delete" type="button"
+          файл(ы)</button>
+        <button id="button_delete_all_checked" type="button"
           class="bg-red-500 px-5 py-[5px] border-2 rounded-md border-red-500 duration-[400ms] hover:bg-red-700 hover:border-red-700 active:bg-red-700 active:border-red-700">Удалить
           выбранное</button>
         </div>
@@ -26,7 +21,7 @@
       </div>
 
       <div id="blocks_container" class="flex flex-wrap items-center max-sm:justify-center max-sm:flex-col">
-        <div class="mx-2 my-2">
+        {% comment %} <div class="mx-2 my-2">
           <div class="px-5 py-2 bg-[#1b1b1c] rounded-lg shadow-lg flex flex-col">
             <div class="flex items-center justify-between">
               <h1 class="pl-3 text-white text-base font-bold">1</h1>
@@ -37,10 +32,10 @@
               <img src="" alt="" class="w-40 h-60">
             </div>
             <div class="px-2 py-2">
-              <a href="#" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</a>
+              <button href="#" id="button_delete" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</button>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
 
 
       </div>
@@ -58,57 +53,150 @@
   <script>
 
     const button_input = document.getElementById('button_input'),
-      input_file = document.getElementById('blocks_input');
-    var number_page = 1;
+      input_file = document.getElementById('blocks_input')
+    let number_page = 1
+    //get last sequence number
+    function getLastSequenceNumber() {
+      let last_sequence_number = 0
+      $('#blocks_container').children().each(function () {
+        let sq_num = parseInt($(this).find('#sq_num').text())
+        if (sq_num > last_sequence_number) {
+          last_sequence_number = sq_num
+        }
+      })
+      return last_sequence_number
+    }
+    function block(image, sq_num, block_id) {
+      return `
+      <div id="block_image" class="mx-2 my-2">
+        <div class="px-5 py-2 bg-[#1b1b1c] rounded-lg shadow-lg flex flex-col">
+          <div class="flex items-center justify-between">
+            <h1 id="sq_num" class="pl-3 text-white text-base font-bold">${sq_num}</h1>
+            <p id="block_id" class="hidden">${block_id}</p>
+            <input type="checkbox"
+              class="mr-2 text-[#5fa9c1] bg-gray-100 border-gray-300 rounded focus:ring-[#5fa9c1]   focus:ring-2 w-4 h-4">
+          </div>
+          <div class="px-2 py-2">
+            <img src="${image}" alt="" class="w-40 h-60">
+          </div>
+          <input type="file" name="block_image_file" id="block_image_file" class="hidden">
+          <div class="px-2 py-2">
+            <button href="#" id="button_delete" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</button>
+          </div>
+        </div>
+      </div>
+          `
+    }
+
+    //on document load send ajax request to get all blocks of chapter api/v1/blocks.get/<int:id> and add blocks to blocks_container
+    $.ajax({
+      url: `/api/v1/blocks.get/{{chapter.id}}`,
+      type: 'GET',
+      success: function (data) {
+        console.log(data)
+        data.forEach(function (item) {
+          $('#blocks_container').append(block(item.image, item.sequence_number, item.id))
+        })
+        //updateSequenceNumbers()
+        initSortable()
+      }
+    })
+
+    function updateSend() {
+      let blocks = []
+      $('#blocks_container').children().each(function (index) {
+        
+        blocks.push({
+          'id': $(this).find('#block_id').text(),
+          'sequence_number': index + 1
+        })
+        
+      })
+      console.log(blocks)
+
+      $.ajax({
+        url: `/api/v1/blocks.update/{{chapter.id}}`,
+        type: 'POST',
+        data: JSON.stringify(blocks),
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        contentType: 'application/json',
+        processData: false,
+        cache: false,
+        success: function (data) {
+          console.log(data)
+        }
+      })
+    }
+
+
+    //update sequence_numbers of blocks function
+    function updateSequenceNumbers() {
+      //get all children of blocks_container and set their sequence_numbers as 1,2,3,4,5...
+      $('#blocks_container').children().each(function (index) {
+        $(this).find('#sq_num').text(index + 1)
+      })
+    }
+
+    function initSortable() {
+      //blocks_container sortable
+      let sortable = new Sortable(blocks_container, {
+        grid: [5, 5],
+        animation: 150,
+        ghostClass: 'bg-gray-700',
+        chosenClass: 'bg-gray-800',
+        dragClass: 'bg-gray-800',
+        onEnd: function (evt) {
+          updateSequenceNumbers()
+          update()
+          console.log(evt)
+        }
+      })    
+    }
+
+    //onclick button_delete delete block where it's button clicked
+    $('#blocks_container').on('click', '#button_delete', function () {
+      $(this).closest('.mx-2').remove()
+      //DELETE
+      updateSequenceNumbers()
+    })
+
+    //onclick button_delete_all_checked delete all checked blocks
+    $('#button_delete_all_checked').click(function () {
+      $('.mx-2').each(function () {
+        if ($(this).find('input[type="checkbox"]').is(':checked')) {
+          $(this).remove()
+        }
+      })
+      updateSequenceNumbers()
+    })
 
     //blocks_input change event listener
     $('#blocks_input').change(function () {
-
+      number_page = getLastSequenceNumber() + 1
       //add blocks to blocks_container
       for (let i = 0; i < this.files.length; i++) {
-        const file = this.files[i];
-        const reader = new FileReader();
-
+        const file = this.files[i]
+        const reader = new FileReader()
+        
         reader.addEventListener('load', function () {
-          const block = `
-        <div class="mx-2 my-2">
-          <div class="px-5 py-2 bg-[#1b1b1c] rounded-lg shadow-lg flex flex-col">
-            <div class="flex items-center justify-between">
-              <h1 class="pl-3 text-white text-base font-bold">${number_page}</h1>
-              <input type="checkbox"
-                class="mr-2 text-[#5fa9c1] bg-gray-100 border-gray-300 rounded focus:ring-[#5fa9c1]   focus:ring-2 w-4 h-4">
-            </div>
-            <div class="px-2 py-2">
-              <img src="${this.result}" alt="" class="w-40 h-60">
-            </div>
-            <div class="px-2 py-2">
-              <a href="#" class="text-red-500 text-sm font-medium hover:text-red-700 duration-300">Удалить</a>
-            </div>
-          </div>
-        </div>
-            `;
-
-          $('#blocks_container').append(block);
-          number_page += 1;
-        });
-        reader.readAsDataURL(file);
+          $('#blocks_container').append(block(this.result, number_page, -1))
+          //dataTransfer add this.result to input file of this block
+          let dataTransfer = new DataTransfer()
+          dataTransfer.items.add(new File([file], file.name))
+          $('#blocks_container').children().last().find('#block_image_file').prop('files', dataTransfer.files) 
+          number_page += 1
+          updateSequenceNumbers()
+        })
+        reader.readAsDataURL(file)
       }
-    });
+      console.log('ok')
+      initSortable()
+    })
 
     button_input.onclick = () => {
-      input_file.click();
+      input_file.click()
     }
-
-    //blocks_container sortable
-    let sortable = new Sortable(blocks_container, {
-      animation: 150,
-      ghostClass: 'bg-gray-700',
-      chosenClass: 'bg-gray-800',
-      dragClass: 'bg-gray-800',
-      handle: '.handle',
-      onEnd: function (evt) {
-        console.log(evt);
-      }
-    });
   </script>
   {% endblock %}
