@@ -81,8 +81,12 @@ class addCommentForm(forms.ModelForm):
     comment_input = forms.CharField(label="", 
         widget=forms.Textarea(
         attrs={
-            "placeholder": "Комментарий",
-			"class": "w-full text-gray-200 mx-2 bg-zinc-800 outline-0 outline-none outline-transparent border-none rounded-md"
+            "id":"chat",
+            "placeholder": "Оставить комментарий...",
+            "class":"block p-2.5 bg-opacity-40 w-full overflow-hidden text-gray-200 outline-0 border-none outline-none rounded-lg bg-zinc-800 duraction-300 placeholder-gray-200 focus:bg-opacity-80 hover:bg-opacity-60 focus:ring-[#5fa9c1] placeholder:text-base placeholder:text-gray-200",
+			# "class": "w-11/12 text-gray-200 placeholder:text-lg bg-zinc-800 ",
+            "style":"max-height:400px; height:50px; resize:none;",
+            "rows":"1"
         }
     ) )
 

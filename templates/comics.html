@@ -4,20 +4,20 @@
 {% load bootstrap_icons %}
 {% block pagename %}Комикс {{ comic.title }}{% endblock %}
 {% block content %}
-<div class="px-2 py-4 xl:px-20 sm:mx-4 sm:my-4 w-full h-full flex flex-wrap sm:flex-nowrap justify-center ">
-    <div class="w-full h-auto sm:w-40 sm:h-64 flex flex-wrap justify-center sm:justify-between">
+<div class="px-2 py-4 sm:mx-4 sm:my-4 sm:w-full flex max-sm:flex-wrap flex-nowrap justify-center" id="comics">
+    <div class="sm:max-w-[260px] sm:max-h-[350px] flex flex-wrap justify-center max-sm:mb-10 sm:justify-between sm:z-10  sm:left-[520px] sm:mr-4">
 
-      <div class="relative">
-        <div class="absolute bottom-0 mt-96 py-2 bg-black sm:hidden bg-opacity-60 h-20 inset-0 z-10 w-full px-4">
+      <div class="">
+        <div class="py-2 sm:hidden h-20 inset-0 z-10 sm:w-full px-4 rounded-lg">
           <h1 class="text-gray-100 text-2xl block sm:hidden">{{ comic.title }}</h1>
-          <p class="text-gray-300 inline sm:hidden">{{ comic.author.first_name}} {{ comic.author.last_name }}</p>
+          <p class="text-gray-300 inline sm:hidden">Автор: {{ comic.author.first_name}} {{ comic.author.last_name }}</p>
         </div>
-        <img src="{{ comic.image.url }}" alt="Cover" class="rounded-md inset-0 w-full sm:w-52 "/>
+        <img src="{{ comic.image.url }}" alt="Cover" class="sm:w-full sm:h-full"/>
       </div>
-      <div class="w-full sm:w-40 flex flex-col">
-        <a href="#" class="w-full text-center text-gray-200 my-2 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">Читать</a>
+      <div class="w-full flex flex-col">
+        <a href="#" class="w-full text-center text-gray-200 my-2 bg-[#4c879a] rounded-md px-4 py-4 sm:py-2 duration-300 hover:bg-[#5fa9c1]">Читать</a>
         {% if comic.author == user %}
-        <a href="{% url 'editComicsPage' comic.id %}" class="w-full text-center text-gray-200 my-2 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">Редактировать</a>
+        <a href="{% url 'editComicsPage' comic.id %}" class="w-full text-center text-gray-200 my-2 duration-300 rounded-md px-4 py-4 sm:py-2 hover:bg-zinc-800 max-sm:hidden">Редактировать</a>
         {% else %}
         <select name="bookmark" id="bookmark" class="w-full outline-none outline-0 border-none text-center cursor-pointer text-gray-200 bg-zinc-800 rounded-md px-4 py-4 sm:py-2 hover:bg-blue-700">
           <option value="del" {% if bookmark == 'del' %}selected{% endif %}>В закладки</option>
@@ -27,148 +27,276 @@
           <option value="droped" {% if bookmark == 'droped' %}selected{% endif %}>Брошено</option>
         </select>
         {% endif %}
-        <div class="flex text-left bg-zinc-800 rounded-md my-2">
+        <a href="#!" class="w-full text-center text-gray-200 my-2 duration-300 rounded-md px-4 py-4 sm:py-2 hover:bg-zinc-800">
+          <div class="flex flex-row text-gray-400 items-center justify-center text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle mr-2" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+            </svg>
+            <h2 class="">Пожаловаться</h2>
+          </div>
+        </a>
+        <!-- <div class="flex text-left bg-zinc-800 rounded-md my-2">
           <p class="text-gray-200 text-center w-1/2 border-r border-zinc-500 py-1 sm:py-0">Рейтинг<br> <span class="text-gray-400">{{ comic.rating }}</span></p>
           <p class="text-gray-200 text-center w-1/2 border-l border-zinc-500 py-1 sm:py-0">Статус<br> <span class="text-gray-400">{{ comic.status }}</span></p>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div class="px-2 sm:px-0 sm:mx-4 w-full sm:w-auto h-full">
-      <h1 class="text-gray-200 text-2xl hidden sm:block">{{ comic.title }}</h1>
-      <div class="">
+    <div class="px-2 sm:px-0 sm:mx-4 w-full sm:w-auto">
+      <h1 class="text-gray-200 text-2xl hidden sm:block mb-1">{{ comic.title }}</h1>
+      <div class="flex flex-col">
         <!--Description-->
-        <p class="text-gray-300 hidden sm:inline">{{ comic.description }}</p>
-        <div id="info" class="">
-          <div class="bg-zinc-800 sm:bg-transparent rounded-lg ">
+        <p class="text-gray-300 hidden sm:inline mb-4">{{ comic.description }}</p>
+        <div id="info" class="flex flex-col">
+          <div class=" sm:bg-transparent rounded-lg mb-5">
             <div class="hidden sm:flex flex-col">
               <p class="text-gray-400">Автор: <span class="text-gray-200">{{ comic.author.first_name}} {{ comic.author.last_name }}</span></p>
             </div>
-            <div class="flex ">
-              <p class="text-gray-400 px-4 py-2">Жанры: </p>
-              <div class="flex flex-wrap mt-2">
+            
+            <!-- Genre -->
+            <div class="flex flex-wrap">
+              <p class="text-gray-400 py-2">Жанры: </p>
+              <div class="flex flex-wrap ml-2">
+                  <div class="flex text-gray-200 bg-zinc-900 rounded-xl px-3 mr-2">
+                    <a href="#!" class="flex items-center hover:text-[#5fa9c1] duration-200">Хентай</a>
+                  </div>
+                  <div class="flex text-gray-200 bg-zinc-900 rounded-xl px-3 mr-2">
+                    <a href="#!" class="flex items-center hover:text-[#5fa9c1] duration-200">Хентай</a>
+                  </div>
+                  <div class="flex text-gray-200 bg-zinc-900 rounded-xl px-3 mr-2">
+                    <a href="#!" class="flex items-center hover:text-[#5fa9c1] duration-200">Хентай</a>
+                  </div>
                   {% for genre in genres %}
                   <span class="text-gray-200 bg-zinc-800 rounded-xl px-2 mx-2 mb-1">{{ genre.name }}</span>
                   {% endfor %}
               </div>
             </div>
           </div>
-          <div class="flex sm:float-left w-full sm:w-auto py-2 justify-center sm:justify-none">
-            <div id="views" class="flex items-center bg-zinc-800 py-2 px-4 rounded-l-lg justify-between">
-              <img src="{% static 'eye.svg' %}" alt="views" class="w-8 h-4">
-              <span class="text-gray-200 py-1 px-2">{{ comicViews }}</span>
-            </div>
-            <div id="likes" class="flex items-center bg-zinc-800 py-2 px-4 justify-between">
-              <img src="{% static 'heart.svg' %}" alt="likes" class="w-8 h-4">
-              <span class="text-gray-200 py-1 px-2">1K</span>
-            </div>
-            <div id="comments" class="flex items-center bg-zinc-800 py-2 px-4 rounded-r-lg justify-between">
-              <img src="{% static 'message_text.svg' %}" alt="comments" class="w-4 h-8">
-              <span class="text-gray-200 py-1 px-2">1K</span>
-            </div>
-            <div id="share" class="mx-4 bg-gray-200 hidden sm:flex px-4 rounded-lg">
-              <div class="float-right mt-4">
-                <script type="text/javascript">
-                  document.write(VK.Share.button(false, {type: "link", text: "Поделится"}));
-                </script>
+
+          <!-- Statistics  -->
+          <div class="w-full mb-5 flex max-lg:flex-wrap">
+            <div class="flex sm:float-left w-full sm:w-auto py-2 px-4 sm:justify-none max-lg:flex-wrap lg:justify-center items-center lg:bg-zinc-800 lg:rounded-lg lg:bg-opacity-50">
+              <div id="stars" class="mr-4">
+                <a href="!#" class="flex justify-center items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" fill="#ff9800" class="bi bi-star-fill mb-[2px] mr-1" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>
+                  <p class="text-gray-200 text-center">9.1 (голосов: 452)</p>
+                </a>
+              </div>
+              <div id="views" class="flex justify-center items-center mr-4">
+                <img src="{% static 'eye.svg' %}" alt="views" class="w-8 h-4">
+                <span class="text-gray-200 py-1 px-2">{{ comicViews }}</span>
+              </div>
+              <div id="likes" class="flex justify-center items-center mr-4">
+                <img src="{% static 'heart.svg' %}" alt="likes" class="w-8 h-4">
+                <span class="text-gray-200 py-1 px-2">1K</span>
+              </div>
+              <div id="Genre" class="flex justify-center items-center mr-4">
+                <a href="!#" class="text-gray-200 hover:text-[#5fa9c1] duration-200">Манхва</a>
+              </div>
+              <div id="year" class="">
+                <p class="text-gray-200">2023</p>
               </div>
             </div>
+              <div id="share" class="max-md:hidden ml-5 flex items-center justify-center bg-gray-200 px-4 py-4 rounded-lg">
+                <div class="">
+                  <script type="text/javascript">
+                    document.write(VK.Share.button(false, {type: "link", text: "Поделиться"}));
+                  </script>
+                </div>
+              </div>
           </div>
-          <div class="w-full flex flex-wrap my-4">
-            <h2 class="text-gray-200 text-2xl w-full mx-4 my-2">Главы</h2>
-            {% for chapter in chapters %}
-            <a href="{{ chapter.get_absolute_url }}" class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
-              <div class="mr-2 w-10 flex">
-                {% bs_icon 'hash' color='white' size='1.2em' %}
-                <p class="ml-1" id="sequence_number">{{ chapter.sequence_number }}</p>
+        
+          <div class="">
+
+            <div class="flex flex-wrap mb-5">
+              <div class="flex flex-col">
+                <div class="mr-5" id="description">
+                  <button class="comics_desc-btn duration-300 relative active hover:bg-zinc-800 p-3 rounded-lg hover:bg-opacity-50">
+                    Описание
+                  </button>
+                </div>
               </div>
-              <p class="w-full" id="chapter_name">{{ chapter.name }}</p>
-              <div class="flex">
-                <img src="{% static 'eye.svg' %}" alt="views" class="w-4 h-4 mx-2">
-                {{ chapter.get_views }}
+  
+              <div class="" id="chapters">
+                <button class="comics_chap-btn duration-300 hover:bg-zinc-800 py-3 px-4 rounded-lg hover:bg-opacity-50 text-gray-200">
+                  Главы (20)
+                </button>
               </div>
-            </a>
-            {% endfor %}
-          </div>
-          <h2 class="text-gray-200 text-2xl mx-4 my-2">Комментарии</h2>
-          <div id="comments" class="w-full flex flex-wrap my-4">
-            
-            {% if isAuth %}
-            <form class="w-full" method="post">
-              {% csrf_token %}
-              {{ formComment.as_p }}
-              <input type="submit" value="Отправить"
-              class="text-gray-200 bg-zinc-800 mx-2 px-4 py-2 rounded-md cursor-pointer hover:bg-blue-500">
-            </form>
-            {% else %}
-            <div class="w-full bg-zinc-800 text-center items-center">
-              <a href="{% url 'login_view' %}" class="text-gray-200">Пожалуйста, войдите в аккаунт чтобы написать комментарий.</a>
             </div>
-            {% endif %}
-              
-            
-            {% if isCommentsExists %}
-            <div class="text-gray-200 mx-2 my-4 w-full h-full">
-              
-              {% for comment in comments  %}
-              <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
-              <img src="{% static comment.author.profile.avatar %}" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
-                <div class="w-full flex flex-wrap">
-                  <span class="w-full text-zinc-400">{{comment.author}}</span>
-                  <span class="w-full">{{comment}}</span>
-                </div>
-                <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
+  
+            <div class="mb-5 max-w-[660px]" id="description--text ">
+              <div class="w-full ml-3">
+                <p class="text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto delectus, minima ipsam accusamus unde voluptates deleniti. Facere repellat nostrum ratione vel, doloremque est cupiditate quo temporibus hic optio id quas.</p>
               </div>
-              {% endfor %}
-                
-              <!--<div class="w-full">
-                <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
-                  <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
-                  <span class="w-full">Очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
-                  <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
-                </div>
-                <div id="sub-comment" class="w-full">
-                  <div class="flex float-right my-2 p-4 bg-zinc-800 rounded-md w-2/3">
-                    <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
-                    <span class="w-full">Ответ на очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
-                    <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
-                  </div>
-                </div>
-                <div id="sub-comment-addtion" class="w-full">
-                  <div class="flex float-right my-2 p-4 rounded-md w-full">
-                    <a href="#" class="">Другие ответы</a>
-                  </div>
-                </div>
-                <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
-                  <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
-                  <span class="w-full">Еще один очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
-                  <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
-                </div>-->
             </div>
 
-            {% else %}
-            <div class="text-gray-200 mx-2 my-4 w-full">
-              <div class="w-full bg-zinc-800 rounded-md text-center py-20">
-                <p class="text-gray-200">Тут пока что нет комментариев, но ты можешь быть первым!</p>
+
+          </div>
+
+
+          <div class="flex flex-col">
+            
+            <div class="description_view">
+              <h2 class="text-gray-200 text-xl mb-3 ">Комментарии 100</h2>
+              <div id="comments" class="w-full flex flex-wrap">
+                
+                {% if isAuth %}
+                <form class="w-full" method="post">
+                  <div class="w-full flex items-center rounded-lg justify-between">
+                    <div class="w-[100%]">
+                      {% csrf_token %}
+                      {{ formComment.as_p }}
+                    </div>
+                    <button type="submit" class="w-[10%] inline-flex justify-center p-2 cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="30" fill="#5fa9c1" class="bi bi-send-fill rotate-[47deg] " viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                      </svg>
+                    </button>
+                   
+                  </div> 
+                </form>
+                {% else %}
+                <div class="w-full bg-zinc-800 text-center items-center">
+                  <a href="{% url 'login_view' %}" class="text-gray-200">Пожалуйста, войдите в аккаунт чтобы написать комментарий.</a>
+                </div>
+                {% endif %}
+                  
+                
+                {% if isCommentsExists %}
+                <div class="text-gray-200 my-4 w-full h-full">
+                  
+                  {% for comment in comments  %}
+                  <div id="comment" class="flex my-2 p-4 items-center">
+                    <img src="{% static comment.author.profile.avatar %}" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                    <div class="w-full flex flex-wrap bg-zinc-800 bg-opacity-40 rounded-md p-4">
+                      <span class="w-full text-zinc-400">{{comment.author}}</span>
+                      <span class="w-full">{{comment}}</span>
+                    </div>
+                    <!-- <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4"> -->
+                  </div>
+                  {% endfor %}
+                    
+                  <!--<div class="w-full">
+                    <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
+                      <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                      <span class="w-full">Очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
+                      <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
+                    </div>
+                    <div id="sub-comment" class="w-full">
+                      <div class="flex float-right my-2 p-4 bg-zinc-800 rounded-md w-2/3">
+                        <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                        <span class="w-full">Ответ на очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
+                        <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
+                      </div>
+                    </div>
+                    <div id="sub-comment-addtion" class="w-full">
+                      <div class="flex float-right my-2 p-4 rounded-md w-full">
+                        <a href="#" class="">Другие ответы</a>
+                      </div>
+                    </div>
+                    <div id="comment" class="flex my-2 p-4 bg-zinc-800 rounded-md">
+                      <img src="https://placehold.jp/150x150.png" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                      <span class="w-full">Еще один очень-очень-очень-очень-очень-очень-очень-очень-очень-очень-очень длинный первый комментарии</span>
+                      <img src="{% static 'heart.svg' %}" alt="like" class="w-8 h-4 mt-4 float-right">
+                    </div>-->
+                </div>
+    
+                {% else %}
+                <div class="text-gray-200 mx-2 my-4 w-full">
+                  <div class="w-full bg-zinc-800 rounded-md text-center py-20">
+                    <p class="text-gray-200">Тут пока что нет комментариев, но ты можешь быть первым!</p>
+                  </div>
+                </div>
+                {% endif %}
+                
               </div>
             </div>
-            {% endif %}
-            
+
+            <div class="hidden" id="chapters_view">
+              <div class="w-full flex flex-wrap my-4">
+                {% for chapter in chapters %}
+                <a href="{{ chapter.get_absolute_url }}" class="text-gray-200 cursor-pointer flex justify-between w-full bg-zinc-800 hover:bg-zinc-500 rounded-md px-4 py-2 mx-2 mb-1">
+                  <div class="mr-2 w-10 flex">
+                    {% bs_icon 'hash' color='white' size='1.2em' %}
+                    <p class="ml-1" id="sequence_number">{{ chapter.sequence_number }}</p>
+                  </div>
+                  <p class="w-full" id="chapter_name">{{ chapter.name }}</p>
+                  <div class="flex">
+                    <img src="{% static 'eye.svg' %}" alt="views" class="w-4 h-4 mx-2">
+                    {{ chapter.get_views }}
+                  </div>
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+
+
+
+
           </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation  -->
+    <div class="flex lg:flex-col max-w-[250px] mr-5 max-lg:hidden">
+      <div id="author" class="w-full mb-10">
+        <h2 class="text-gray-200 text-xl mb-5">Страница автора</h2>
+          <a href="#!" class="flex flex-nowrap">
+            <img src="{{ comic.image.url }}" alt="" class="w-14 h-14 mr-3">
+            <div class="flex flex-wrap">
+              <p class="text-gray-200 text-base">{{ comic.author.first_name}} {{ comic.author.last_name }}</p>
+            </div>
+          </a>
+      </div>
+
+      <!-- {{ comic.author.first_name}} {{ comic.author.last_name }} -->
+      <div id="addition" class="w-full">
+        <h2 class="text-gray-200 text-xl mb-5">Похожее</h2>
+        <div class="">
+          {% for addition in comices %}
+          <a href="/comics/{{ addition.id }}" class="mb-5 flex flex-nowrap">
+            <img src="{{ addition.image.url }}" alt="Cover" class=" h-[105px] w-[70px] mr-3"/>
+            <div class="">
+              <p class="text-base text-gray-200 break-all">{{ addition.title }}</p>
+              <p class="text-base text-gray-400 break-all">Похож по жанрам</p>
+            </div>
+          </a>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
-  <!--<div id="addition" class="w-full mx-2 sm:w-52">
-    <h2 class="text-gray-200 w-full text-2xl mx-4 my-2">Другие комиксы</h2>
-    <div class="bg-zinc-900 w-full rounded-md p-2 px-10 sm:px-0">
-      {% for addition in comices %}
-      <a href="/comics/{{ addition.id }}" class="flex flex-wrap justify-center text-gray-200 my-2">
-        <img src="{{ addition.image.url }}" alt="Cover" class="rounded-md h-92 sm:h-auto w-80 sm:w-96"/>
-        <span class="mx-0 text-lg w-full text-center">{{ addition.title }}</span>
-      </a>
-      {% endfor %}
+  <div class="flex flex-col flex-nowrap w-full lg:hidden">
+    <div id="author" class="w-full ml-5 mb-10">
+      <h2 class="text-gray-200 text-xl mb-5">Страница автора</h2>
+        <a href="#!" class="flex flex-nowrap">
+          <img src="{{ comic.image.url }}" alt="" class="w-14 h-14 mr-3">
+          <div class="flex flex-wrap">
+            <p class="text-gray-200 text-base">{{ comic.author.first_name}} {{ comic.author.last_name }}</p>
+          </div>
+        </a>
     </div>
-  </div>-->
+
+    <!-- {{ comic.author.first_name}} {{ comic.author.last_name }} -->
+    <h2 class="text-gray-200 text-xl mb-5 ml-5">Похожее</h2>
+    <div id="addition" class="w-full bg-zinc-800 bg-opacity-50">
+      <div class="flex flex-row items-center ml-5 my-5">
+        {% for addition in comices %}
+        <a href="/comics/{{ addition.id }}" class="mr-5 flex flex-nowrap">
+          <img src="{{ addition.image.url }}" alt="Cover" class=" h-[105px] w-[70px] mr-3"/>
+          <div class="">
+            <p class="text-base text-gray-200 break-all">{{ addition.title }}</p>
+            <p class="text-base text-gray-400 break-all">Похож по жанрам</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
