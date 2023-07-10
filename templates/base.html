@@ -13,7 +13,7 @@
   <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
 </head>
 
-<body class="flex flex-col h-screen relative " {% block body_settings %} {% endblock %}>
+<body class="flex flex-col h-screen relative bg-[#121212] overflow-x-hidden" {% block body_settings %} {% endblock %}>
   <header
     class="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
     <div class="flex items-center">
@@ -139,7 +139,7 @@
   </header>
   <div class="h-6 mt-6 hidden sm:block"><br></div>
   <div class="w-full">
-    <main class="w-auto flex-grow h-full my-2 box-border pb-24">
+    <main class="w-auto flex-grow h-full my-2 box-border pb-24 overflow-x-hidden">
       {% block content %}
       {% endblock %}
     </main>

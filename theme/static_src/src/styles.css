@@ -116,3 +116,27 @@ background: #fff;}
     border-color: aquamarine;
     transition: all .3s;
 }
+
+#description .comics_desc-btn.active:after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #5fa9c1;
+    border-radius: 10px;
+    margin-top: 6px;
+}
+
+#description .comics_desc-btn.active {
+    color: #5fa9c1;
+}
+
+#chapters .comics_chap-btn.active:after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #5fa9c1;
+    border-radius: 10px;
+    margin-top: 6px;
+
+
+}
