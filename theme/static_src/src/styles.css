@@ -140,3 +140,13 @@ background: #fff;}
 
 
 }
+
+#index_catalog .link_comCatalog--index::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: rgb(29, 29, 29);
+    border-radius: 10px;
+    margin-top: 6px; 
+}

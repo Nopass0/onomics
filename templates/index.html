@@ -5,55 +5,261 @@
 {% block pagename %}Главная{% endblock %}
 
 {% block content %}
+
 <!--Создать слайдер с классом slider на всю ширину экрана и высотой 264 px, где все -->
 {% if isComicsExists %}
-<div id="slider" class="slider h-74 w-auto overflow-y-hidden flex bg-zinc-900">
+<div id="slider" class="slider h-74 w-full overflow-y-hidden flex flex-row flex-nowrap ">
   {% for comic in comics %}
     <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-    <a class="slider-item py-4" href="{{ request.path }}comics/{{ comic.id }}">
-      <div class="slider-item-image">
-        <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+    <a class="slider-item pt-4 pb-1 flex flex-col max-w-[160px] mr-2" href="{{ request.path }}comics/{{ comic.id }}">
+      <div class="slider-item-image mb-2">
+        <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 rounded-sm" />
       </div>
-      <div class="slider-item-title mx-2">
-        <h3 class="text-gray-200">{{ comic.title }}</h3>
+      <div class="flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
+        <p class="mr-2">Комикс</p>
+        <!-- Rate -->
+        <!-- <p class="mr-1">9.1</p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+        </svg> -->
+        <p class="mr-1">1K</p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+          <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+        </svg>
+
+      </div>
+      <div class="slider-item-title">
+        <h3 class="text-gray-200 leading-5">{{ comic.title }}</h3>
       </div>
     </a>
     <!--End-->
   {% endfor %}
 </div>
+
 {% else %}
-<div id="slider" class="slider h-74 w-auto overflow-y-hidden flex bg-zinc-900 justify-center">
+<div id="slider" class="slider h-74 w-auto overflow-y-hidden flex bg-[#171717] justify-center">
   <h4 class="py-16 text-gray-300">Тут пока что пусто</h4>
 </div>
 {% endif %}
+
 <!--comics-catalog-->
-<!--Catalog header-->
-<div class="mx-4 lg:mx-32 mt-4">
-  <h1 class="font-bold text-gray-100 text-2xl">Ваша подборка</h1>
-</div>
-<!--End-->
-<!--comics-catalog-->
-{% if isComicsExists %}
-<div class="mx-4 lg:mx-32 mt-2 flex flex-wrap m-auto">
-  {% for comic in comics %}
-     <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
-     <a class="py-4" href="{{ request.path }}comics/{{ comic.id }}">
-      <div class="slider-item-image">
-        <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 mx-2 rounded-md" />
+<div class="flex flex-col items-center w-full bg-[#171717]">
+  <div class="max-w-[1070px] w-full flex justify-center">
+
+    <!--Catalog header-->
+    <div class="mt-10 flex flex-col">
+      <div class="mt-4">
+        <h1 class=" text-gray-100 text-xl">Ваша подборка</h1>
       </div>
-      <div class="slider-item-title mx-2">
-        <h3 class="text-gray-200">{{ comic.title }}</h3>
+      <!--End-->
+      <!--comics-catalog-->
+      {% if isComicsExists %}
+      <div class=" mt-2 flex flex-nowrap ">
+        {% for comic in comics %}
+           <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+           <a class="link_comCatalog--index py-4 mr-2 max-w-[160px] flex flex-col" href="{{ request.path }}comics/{{ comic.id }}">
+            <div class="slider-item-image">
+              <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 rounded-sm" />
+            </div>
+  
+            <div class="flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
+              <p class="mr-2">Комикс</p>
+              <!-- Rate -->
+              <!-- <p class="mr-1">9.1</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+              </svg> -->
+              <p class="mr-1">1K</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+              </svg>
+      
+            </div>
+            <div class="slider-item-title leading-5">
+              <h3 class="text-gray-200">{{ comic.title }}</h3>
+            </div>
+  
+          </a>
+        <!--End-->
+        {% endfor %}
       </div>
-    </a>
-  <!--End-->
-  {% endfor %}
+    
+    </div>
+  </div>
+  {% else %}
+  <div class="mx-4 lg:mx-32 mt-2 flex flex-wrap m-auto justify-center">
+    <h4 class="py-48 text-gray-300">И тут тоже ничего нет</h4>
+  </div>
+  {% endif %}
+
+
+  <!-- Authors -->
+  <div  class="max-w-[1070px] w-full flex justify-center ">
+    <div class="mt-10 flex flex-col ">
+      <div class="mt-4">
+        <h1 class=" text-gray-100 text-xl">Наши авторы</h1>
+      </div>
+  
+      <div class=" mt-2 flex flex-nowrap ">
+        <a class="mr-2 max-w-[350px] max-h-[140px] bg-[#121212] rounded-lg p-4" href="#!">
+          <div class="flex flex-row w-full h-full">
+            <img src="../bec4ddb473c53454a27cfeb798924785.jpg" alt="" class="w-[100px] h-[100px] ">
+            <div class="flex flex-col text-sm max-w-[200px] w-full ml-3">
+              <p class="text-gray-100 mb-3">Nikita Gestalt</p>
+              <p class=" text-[#919191]">Подписчики: 1800</p>
+              <p class=" text-[#919191]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ut incidunt ad mollitia.</p>
+            </div>
+          </div>
+        </a>
+         
+          <a class="mr-2 max-w-[350px] max-h-[140px] bg-[#121212] rounded-lg p-4" href="#!">
+            <div class="flex flex-row w-full h-full">
+              <img src="../bec4ddb473c53454a27cfeb798924785.jpg" alt="" class="w-[100px] h-[100px] ">
+              <div class="flex flex-col text-sm max-w-[200px] w-full ml-3">
+                <p class="text-gray-100 mb-3">Nikita Gestalt</p>
+                <p class=" text-[#919191]">Подписчики: 1800</p>
+                <p class=" text-[#919191]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ut incidunt ad mollitia.</p>
+              </div>
+            </div>
+          </a>
+  
+          <a class="mr-2 max-w-[350px] max-h-[140px] bg-[#121212] rounded-lg p-4" href="#!">
+            <div class="flex flex-row w-full h-full">
+              <img src="../bec4ddb473c53454a27cfeb798924785.jpg" alt="" class="w-[100px] h-[100px] ">
+              <div class="flex flex-col text-sm max-w-[200px] w-full ml-3">
+                <p class="text-gray-100 mb-3">Nikita Gestalt</p>
+                <p class=" text-[#919191]">Подписчики: 1800</p>
+                <p class=" text-[#919191]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non ut incidunt ad mollitia.</p>
+              </div>
+            </div>
+          </a>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="mt-10">
+
+  </div>
 </div>
-{% else %}
-<div class="mx-4 lg:mx-32 mt-2 flex flex-wrap m-auto justify-center">
-  <h4 class="py-48 text-gray-300">И тут тоже ничего нет</h4>
+
+<!-- Catalog -->
+<div id="index_catalog" class="h-screen bg-[#121212] w-full">
+  <div class="max-w-[1070px] w-full mx-auto flex flex-row flex-nowrap pt-10">
+    
+    <!-- Up Button -->
+    <div class="mt-10 flex flex-col">
+
+    </div>
+
+    <!-- Catalog -->
+    <div class="flex max-w-[680px]  w-full">
+      <div class="flex flex-col w-full">
+        <h1 class="text-gray-100 text-xl mb-10">Последние обновления</h1>
+        <div class="flex flex-col mr-5">
+          {% for comic in comics %}
+             <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+             <div class="link_comCatalog--index flex flex-col">
+
+               <a class=" flex flex-row py-7" href="{{ request.path }}comics/{{ comic.id }}">
+                <div class="slider-item-image mr-5">
+                  <img src="{{ comic.image.url }}" alt="Comics" class=" w-[64px] h-[96px]" />
+                </div>
+  
+                <div class="flex flex-col">
+  
+                  <div class="slider-item-title leading-5 mb-2">
+                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold text-sm mb-2">{{ comic.title }}</h3>
+                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold">Том 3. Глава 243</h3>
+                  </div>
+                
+  
+                  <!-- <div class="flex flex-row flex-nowrap text-[#919191] font-semibold text-xs mb-3">
+                    <p class="mr-2">Комикс</p> -->
+                    <!-- Rate -->
+                    <!-- <p class="mr-1">9.1</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                    <p class="mr-1">1K</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                    
+  
+                  </div> -->
+                  
+                  <h3 class="text-[#919191] text-xs font-bold">13 минут назад</h3>
+  
+                </div>
+      
+              </a>
+             </div>
+          <!--End-->
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Authors -->
+    <div class="max-w-[390px] w-full flex flex-col">
+      <div class="flex flex-col w-full">
+        <h1 class=" text-gray-100 text-xl mb-10">Поплуярно сегодня</h1>
+        <!--End-->
+        <!--comics-catalog-->
+        <div class="flex flex-col mr-5">
+          {% for comic in comics %}
+             <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+             <div class=" flex flex-col">
+
+               <a class=" flex flex-row py-7" href="{{ request.path }}comics/{{ comic.id }}">
+                <div class="slider-item-image mr-5">
+                  <img src="{{ comic.image.url }}" alt="Comics" class=" w-[64px] h-[96px]" />
+                </div>
+  
+                <div class="flex flex-col">
+  
+                  <div class="slider-item-title leading-5 mb-2">
+                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold text-sm mb-2">{{ comic.title }}</h3>
+                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold">Том 3. Глава 243</h3>
+                  </div>
+                
+  
+                  <!-- <div class="flex flex-row flex-nowrap text-[#919191] font-semibold text-xs mb-3">
+                    <p class="mr-2">Комикс</p> -->
+                    <!-- Rate -->
+                    <!-- <p class="mr-1">9.1</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                    <p class="mr-1">1K</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                    
+  
+                  </div> -->
+                  
+                  <h3 class="text-[#919191] text-xs font-bold">13 минут назад</h3>
+  
+                </div>
+      
+              </a>
+             </div>
+          <!--End-->
+          {% endfor %}
+        </div>
+
+    </div>
+  </div>
 </div>
-{% endif %}
+
 {% endblock %}
+
 
 {% block scripts %}
 <script src="{% static 'slider.js' %}"></script>
