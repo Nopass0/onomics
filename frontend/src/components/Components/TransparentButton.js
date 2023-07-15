@@ -12,7 +12,7 @@ export class TransparentLink extends React.Component {
 
     render() {
         return (
-            <Link to={this.link} class="w-full text-center text-gray-200 my-2 duration-300 rounded-md px-4 py-4 sm:py-2 hover:bg-zinc-800 max-sm:hidden">{this.text}</Link>
+            <Link to={this.link} className="w-full text-center text-gray-200 my-2 duration-300 rounded-md px-4 py-4 sm:py-2 hover:bg-zinc-800 max-sm:hidden">{this.text}</Link>
         )
     }
 }

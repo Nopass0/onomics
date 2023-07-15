@@ -44,7 +44,7 @@ export function Header() {
             </div>
             ) : (
                 <div className="relative my-2">
-                    <button className="px-2 text-gray-100 hover:text-gray-300 truncate h-8">Войти</button>
+                    <Link to="signin" className="px-2 text-gray-100 hover:text-gray-300 truncate h-8">Войти</Link>
                 </div>
             )}
             

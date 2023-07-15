@@ -13,7 +13,7 @@ export class GenreWrap extends React.Component {
 
     render() {
         return (
-            <div class="flex flex-wrap ml-2">
+            <div className="flex flex-wrap ml-2">
                 {this.children}
             </div>
         )

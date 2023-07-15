@@ -19,7 +19,7 @@ os.system('CALL myenv.bat && python manage.py makemigrations')
 os.system('CALL myenv.bat && python manage.py migrate')
 
 #run the command python manage.py collectstatic
-os.system('CALL myenv.bat && python manage.py collectstatic')
+# os.system('CALL myenv.bat && python manage.py collectstatic')
 
 #print question "You want to create super user now?(y/n)". if y create superuser, if n don't create superuser, if repeat the question
 while True:
