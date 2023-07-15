@@ -18,6 +18,7 @@
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
     "babel-loader": "^9.1.3",
+    "lorem-ipsum": "^2.0.8",
     "postcss": "^8.4.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,10 +36,14 @@
     "@babel/plugin-syntax-jsx"
   ],
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "axios": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^6.8.1",
+    "emoji-mart": "^5.5.2",
     "postcss-loader": "^7.3.3",
+    "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.1",
     "style-loader": "^3.3.3"
   }

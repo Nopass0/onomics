@@ -3,25 +3,23 @@ import os
 #check if the virtual environment is already created or not and create it if not
 if not os.path.exists('../myenv'):
     os.system('python -m venv ../myenv')
-#activate the virtual environment
-os.system('myenv\\Scripts\\activate')
 
 #install all the requirements
-os.system('pip install -r requirements.txt')
+os.system('CALL myenv.bat && pip install -r requirements.txt')
 
-os.system('cd frontend && npm install')
+os.system('CALL myenv.bat && cd frontend && npm install')
 
 #run the command npm run build
-os.system('cd frontend && npm run build')
+os.system('CALL myenv.bat && cd frontend && npm run build')
 
 #run the command python manage.py makemigrations
-os.system('python manage.py makemigrations')
+os.system('CALL myenv.bat && python manage.py makemigrations')
 
 #run the command python manage.py migrate
-os.system('python manage.py migrate')
+os.system('CALL myenv.bat && python manage.py migrate')
 
 #run the command python manage.py collectstatic
-os.system('python manage.py collectstatic')
+os.system('CALL myenv.bat && python manage.py collectstatic')
 
 #print question "You want to create super user now?(y/n)". if y create superuser, if n don't create superuser, if repeat the question
 while True:
@@ -29,7 +27,7 @@ while True:
     if create_superuser == 'y':
         username = input('Enter username: ')
         email = input('Enter email: ')
-        os.system('python manage.py createsuperuser --username ' + username + ' --email ' + email)
+        os.system('CALL myenv.bat && python manage.py createsuperuser --username ' + username + ' --email ' + email)
         break
     elif create_superuser == 'n':
         break
@@ -67,17 +65,17 @@ file.write('if __name__ == \'__main__\' :\n')
 file.write('    #go to back to the root directory of the project\n')
 file.write('    os.system(\'cd ..\')\n')
 file.write('    #acivate the virtual environment\n')
-file.write('    os.system(\'myenv\\\\Scripts\\\\activate\')\n')
+file.write('    os.system(\'CALL myenv.bat\')\n')
 file.write('\n')
 file.write('    #go to folder onomics\n')
 file.write('    os.system(\'cd onomics\')\n')
 file.write('\n')
 file.write('    os.system(\'cd frontend && npm install --save --save-dev\')\n')
-file.write('    os.system(\'python manage.py makemigrations && python manage.py migrate\')\n')
+file.write('    os.system(\'CALL myenv.bat && python manage.py makemigrations && python manage.py migrate\')\n')
 file.write('\n')
-file.write('    p1 = Process(target=os.system, args=("cd .. && myenv\\\\Scripts\\\\activate && cd onomics && python manage.py makemigrations && python manage.py migrate && python manage.py runserver",))\n')
-file.write('    p2 = Process(target=os.system, args=("cd .. && myenv\\\\Scripts\\\\activate && cd onomics && cd frontend && npm install && npm run dev:watch",))\n')
-file.write('    p3 = Process(target=os.system, args=("cd .. && myenv\\\\Scripts\\\\activate && cd onomics && cd frontend && npm install && npx tailwindcss -i ./static/css/index.css -o ./static/css/compiled/style.css --watch",))\n')
+file.write('    p1 = Process(target=os.system, args=("cd .. && CALL myenv.bat && cd onomics && python manage.py makemigrations && python manage.py migrate && python manage.py runserver",))\n')
+file.write('    p2 = Process(target=os.system, args=("cd .. && CALL myenv.bat && cd onomics && cd frontend && npm install && npm run dev:watch",))\n')
+file.write('    p3 = Process(target=os.system, args=("cd .. && CALL myenv.bat && cd onomics && cd frontend && npm install && npx tailwindcss -i ./static/css/index.css -o ./static/css/compiled/style.css --watch",))\n')
 file.write('\n')
 file.write('    p1.start()\n')
 file.write('    p2.start()\n')
@@ -93,7 +91,7 @@ answer = input()
 
 def question():
     if answer == 'y':
-        os.system('python run.py')
+        os.system('CALL myenv.bat && python run.py')
     elif answer == 'n':
         print('You can run the project by running the file run.py. Use the command python run.py on root directory of the project.')
     else:
