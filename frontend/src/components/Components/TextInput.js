@@ -11,6 +11,7 @@ export class TextInput extends React.Component {
         this.max = this.props.max
         this.secure = this.props.secure
         this.id = this.props.id
+        this.onChange = this.props.onChange
 
         this.msgShow = false
         this.msg = ""
@@ -22,18 +23,6 @@ export class TextInput extends React.Component {
 
     componentDidMount() {
         console.log(this.state.length)
-    }
-
-    onChange(e) {
-        this.setState( { length: e.target.value.length } )
-        if (this.state.length < this.min && this.state.length > this.max) {
-            this.msgShow = true
-            this.msg = "Длина сообщения должна быть от " + this.min + " до " + this.max + " символов"
-            e.target.className = 'w-full outline-0 border-none outline-none bg-zinc-800 text-gray-200 rounded-b-lg px-2 py-2'
-        } else {
-            this.msgShow = false
-            e.target.className = 'w-full outline-0 border-none outline-none bg-zinc-800 text-gray-200 rounded-lg px-2 py-2'
-        }
     }
 
     render() {

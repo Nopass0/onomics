@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { createRoot } from 'react-dom/client'
 import { render } from "react-dom"
 import { Header } from './Header/Header'
 import { BrowserRouter } from 'react-router-dom';
@@ -33,8 +34,8 @@ class App extends Component {
 export default App
 
 const container = document.querySelector("#app")
-// render(<Header />, container)
-render(
+const root = createRoot(container)
+root.render(
 <BrowserRouter>
   <App />
 </BrowserRouter>, container)

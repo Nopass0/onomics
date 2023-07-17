@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export function Header() {
     const [image, setImage] = React.useState('')
+    const [isUserAuthenticated, setIsUserAuthenticated] = React.useState(false)
 
     //Fetch data from API to get image
     React.useEffect(() => {
@@ -12,6 +13,15 @@ export function Header() {
             }
         }).then(jsonRes => setImage(jsonRes))
     }, []) 
+
+    //Fetch data from API to check if user is authenticated
+    React.useEffect(() => {
+        fetch("/api/is_user_logged_in").then(res => {
+            if (res.ok) {
+                return res.json()
+            }
+        }).then(jsonRes => setIsUserAuthenticated(Boolean(jsonRes['is_user_logged_in'])))
+    }, [])
 
     return (
         <header
@@ -26,7 +36,7 @@ export function Header() {
             </div>
             <div>
             {/* <!--<button className="px-4 py-4 text-gray-700 hover:text-gray-900">Sign In</button>--> */}
-            {isUserAuthenticated? (
+            {isUserAuthenticated ? (
                 <div className="relative">
                 <button className="menu-profile px-4 py-2 text-gray-100 hover:text-gray-300">
                 <img src="" alt="User" className="h-8 w-8 rounded-full" />

@@ -15,12 +15,6 @@ export class DataInput extends React.Component {
     }
 
     componentDidMount() {
-        // console.log(this.text)
-        // //insert io5 calendar icon in text input
-        // this.textInput = document.querySelector("#data-input")
-        // this.textInput.innerHTML = <IoCalendarNumberOutline className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
-
-
     }
 
     showCalendar() {

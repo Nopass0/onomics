@@ -10,9 +10,5 @@
 </head>
 <body id="app" class="flex flex-col h-screen relative bg-[#121212] overflow-x-hidden">
 </body>
-<!--Context data from django in js-->
-<script>
-    let isUserAuthenticated = {{ user.is_authenticated|yesno:"true,false" }}
-</script>
 <script src="{% static 'frontend/main.js/main.js' %}"></script>
 </html>

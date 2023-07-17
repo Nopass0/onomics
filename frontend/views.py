@@ -7,11 +7,22 @@ import random, string
 from rest_framework.views import *
 from django.http import QueryDict
 from django.templatetags.static import static
+from django.middleware import csrf
 
 def index(request):
     return render(request, 'frontend/index.html')
 
 #API
+
+#get csrf token
+class CsrfTokenView(APIView):
+    def get(self, request):
+        return Response({'csrf_token': csrf.get_token(request)})
+    
+#get is user logged in
+class IsUserLoggedInView(APIView):
+    def get(self, request):
+        return Response({'is_user_logged_in': request.user.is_authenticated})
 
 #get all static files
 class StaticFilesView(APIView):
