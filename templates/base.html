@@ -15,7 +15,7 @@
 
 <body class="flex flex-col h-screen relative bg-[#121212] overflow-x-hidden" {% block body_settings %} {% endblock %}>
   <header
-    class="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-1">
+    class="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-2">
     <div class="flex items-center">
       <a href="/"><img src="{% static 'logo.svg' %}" alt="Logo" class="h-8 w-8 rounded-full" /></a>
       <nav class="flex items-center">
@@ -51,7 +51,7 @@
   </header>
 
   <header id="mobile-header" class="fixed z-10 inline sm:hidden bottom-0 h-12 w-full">
-    <nav class="flex flex-row justify-center items-center mx-auto h-full bg-[#1b1b1c] rounded-t-3xl">
+    <nav class="flex flex-row justify-center items-center mx-auto h-full bg-[#121212] rounded-t-3xl">
       <div class="flex justify-between items-center">
         <ul class="mx-4">
           <li>

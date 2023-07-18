@@ -969,6 +969,10 @@ select {
   margin-top: 0.25rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1089,6 +1093,10 @@ select {
   height: 24rem;
 }
 
+.h-\[100px\] {
+  height: 100px;
+}
+
 .h-\[105px\] {
   height: 105px;
 }
@@ -1105,6 +1113,14 @@ select {
   height: 630px;
 }
 
+.h-\[90px\] {
+  height: 90px;
+}
+
+.h-\[96px\] {
+  height: 96px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -1115,6 +1131,10 @@ select {
 
 .h-screen {
   height: 100vh;
+}
+
+.max-h-\[140px\] {
+  max-height: 140px;
 }
 
 .w-0 {
@@ -1189,8 +1209,20 @@ select {
   width: 100%;
 }
 
+.w-\[100px\] {
+  width: 100px;
+}
+
 .w-\[24px\] {
   width: 24px;
+}
+
+.w-\[60px\] {
+  width: 60px;
+}
+
+.w-\[64px\] {
+  width: 64px;
 }
 
 .w-\[70px\] {
@@ -1209,12 +1241,36 @@ select {
   min-width: 0px;
 }
 
+.max-w-\[1070px\] {
+  max-width: 1070px;
+}
+
+.max-w-\[160px\] {
+  max-width: 160px;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
+}
+
 .max-w-\[250px\] {
   max-width: 250px;
 }
 
+.max-w-\[350px\] {
+  max-width: 350px;
+}
+
+.max-w-\[390px\] {
+  max-width: 390px;
+}
+
 .max-w-\[660px\] {
   max-width: 660px;
+}
+
+.max-w-\[680px\] {
+  max-width: 680px;
 }
 
 .max-w-full {
@@ -1346,6 +1402,10 @@ select {
 
 .rounded-md {
   border-radius: 0.375rem;
+}
+
+.rounded-sm {
+  border-radius: 0.125rem;
 }
 
 .rounded-xl {
@@ -1653,6 +1713,16 @@ select {
   padding-bottom: 12rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
 .py-\[0\.32rem\] {
   padding-top: 0.32rem;
   padding-bottom: 0.32rem;
@@ -1668,6 +1738,10 @@ select {
   padding-bottom: 7px;
 }
 
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -1678,6 +1752,10 @@ select {
 
 .pl-3 {
   padding-left: 0.75rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
 }
 
 .pt-4 {
@@ -1777,6 +1855,10 @@ select {
   text-transform: uppercase;
 }
 
+.leading-5 {
+  line-height: 1.25rem;
+}
+
 .leading-\[2\.15\] {
   line-height: 2.15;
 }
@@ -1792,6 +1874,11 @@ select {
 .text-\[\#5fa9c1\] {
   --tw-text-opacity: 1;
   color: rgb(95 169 193 / var(--tw-text-opacity));
+}
+
+.text-\[\#919191\] {
+  --tw-text-opacity: 1;
+  color: rgb(145 145 145 / var(--tw-text-opacity));
 }
 
 .text-blue-100 {
@@ -2090,6 +2177,16 @@ body {
   display: block;
   height: 2px;
   background: #5fa9c1;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+#index_catalog .link_comCatalog--index::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: rgb(29, 29, 29);
   border-radius: 10px;
   margin-top: 6px;
 }
