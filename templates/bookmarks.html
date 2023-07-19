@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block pagename %}Закладки{% endblock %}
 {% block content %}
-<div class="flex my-4 justify-center">
+<!-- <div class="flex my-4 justify-center">
     <button id="read"
         class="text-gray-100 flex items-center bg-zinc-800 border-b-2 border-blue-500 px-2 sm:px-4 first:rounded-l-md last:rounded-r-md py-2 shadow-sm truncate hover:bg-zinc-700">
         Читаю<div class="rounded-full bg-zinc-600 text-gray-100 text-cente ml-2 py-1 px-3" id="read_len"></div>
@@ -23,7 +23,122 @@
 <div class="flex flex-wrap justify-center" id="wrapper_readed" style="display: none;"></div>
 <div class="flex flex-wrap justify-center" id="wrapper_droped" style="display: none;"></div>
 <div class="flex flex-wrap justify-center" id="wrapper_will_read" style="display: none;"></div>
-<div class="flex flex-wrap justify-center" id="wrapper_read"></div>
+<div class="flex flex-wrap justify-center" id="wrapper_read"></div> -->
+
+<div class="w-full max-w-[1070px] mx-auto h-screen mt-10">
+    <div class="flex flex-col">
+        <div class="flex text-gray-100 flex-row justify-between mb-5">
+            <div class="">
+                <h1 class="text-gray-100 text-4xl">Закладки</h1>
+            </div>
+
+            <!-- Edit and Sort buttons -->
+            <!-- <div class="flex items-center flex-nowrap">
+                <button class="mr-1 hover:bg-[#171717] py-2 px-2 rounded-lg duration-300 hover:text-[#5fa9c1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                    </svg>
+                </button>
+                <button class="hover:bg-[#171717] py-2 px-2 rounded-lg duration-300 hover:text-[#5fa9c1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-filter-right" viewBox="0 0 16 16">
+                        <path
+                            d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
+                    </svg>
+                </button>
+            </div> -->
+        </div>
+        <div class="flex text-gray-100 flex-row justify-between mb-5">
+            <div class="text-xs">
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="">Все 0</a>
+                </button>
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Читаю 0</a>
+                </button>
+
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Буду читать 0</a>
+                </button>
+
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Прочитано 0</a>
+                </button>
+
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Брошено 0</a>
+                </button>
+
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Отложено 0</a>
+                </button>
+
+                <button class="mr-1 py-3 px-3 rounded-lg duration-300 hover:bg-[#171717] hover:text-[#5fa9c1] active:bg-[#171717] active:text-[#5fa9c1] uppercase">
+                    <a href="#!">Не интересно 0</a>
+                </button>
+            </div>
+            <div class="">
+                <button class="duration-300 hover:text-[#5fa9c1]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                      </svg>
+                </button>
+            </div>
+        </div>
+
+        {% if isComicsExists %}
+        <div class="w-full overflow-y-hidden flex flex-row flex-wrap ">
+        {% for comic in comics %}
+            <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
+            <a class="pt-4 pb-1 flex flex-col max-w-[160px] mr-4" href="{{ request.path }}comics/{{ comic.id }}">
+            <div class="mb-2 relative">
+                <img src="{{ comic.image.url }}" alt="Comics" class="h-56 w-40 rounded-sm" />
+                <button class="text-white absolute top-0 right-0 duration-300 focus:outline-none  bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded- text-sm px-1 py-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                      </svg>
+
+                </button>
+            </div>
+            <div class="flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
+                <p class="mr-2">Комикс</p>
+                <!-- Rate -->
+                <!-- <p class="mr-1">9.1</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg> -->
+                <p class="mr-1">1K</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                </svg>
+
+            </div>
+            <div class="slider-item-title">
+                <h3 class="text-gray-200 leading-5">{{ comic.title }}</h3>
+            </div>
+            </a>
+            <!--End-->
+        {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Empty -->
+        <div class="flex justify-center items-center mt-32 flex-col">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise animate-spin  mr-3 text-gray-100" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+              </svg>
+              <div class="mt-5">
+                  <h1 class="text-gray-100 text-2xl">Здесь пока что ничего нет</h1>
+              </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
 
 

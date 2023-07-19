@@ -28,7 +28,12 @@ def index(request):
     return render(request, 'index.html' , {'comics': comics, 'isComicsExists': isComicsExists})
 
 def bookmarks(request):
-    return render(request, 'bookmarks.html')
+    comics = Comic.objects.all()
+    if len(Comic.objects.all()) > 0:
+        isComicsExists = True
+    else:
+        isComicsExists = False
+    return render(request, 'bookmarks.html', {'comics': comics, 'isComicsExists': isComicsExists})
 
 def vk(request):
     return redirect('https://vk.com/onomics')
