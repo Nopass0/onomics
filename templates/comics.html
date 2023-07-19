@@ -46,7 +46,7 @@
       <h1 class="text-gray-200 text-2xl hidden sm:block mb-1">{{ comic.title }}</h1>
       <div class="flex flex-col">
         <!--Description-->
-        <p class="text-gray-300 hidden sm:inline mb-4">{{ comic.description }}</p>
+        {% comment %} <p class="text-gray-300 hidden sm:inline mb-4">{{ comic.description }}</p> {% endcomment %}
         <div id="info" class="flex flex-col">
           <div class=" sm:bg-transparent rounded-lg mb-5">
             <div class="hidden sm:flex flex-col">
@@ -169,7 +169,7 @@
                   
                   {% for comment in comments  %}
                   <div id="comment" class="flex my-2 p-4 items-center">
-                    <img src="{% static comment.author.profile.avatar %}" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
+                    <img src="{{ comment.author.profile.avatar.url }}" alt="avatar" class="rounded-3xl w-9 h-9 mr-4">
                     <div class="w-full flex flex-wrap bg-zinc-800 bg-opacity-40 rounded-md p-4">
                       <span class="w-full text-zinc-400">{{comment.author}}</span>
                       <span class="w-full">{{comment}}</span>
@@ -261,7 +261,7 @@
           <a href="/comics/{{ addition.id }}" class="mb-5 flex flex-nowrap">
             <img src="{{ addition.image.url }}" alt="Cover" class=" h-[105px] w-[70px] mr-3"/>
             <div class="">
-              <p class="text-base text-gray-200 break-all">{{ addition.title }}</p>
+              <p class="text-base text-gray-200 break-all truncate">{{ addition.title }}</p>
               <p class="text-base text-gray-400 break-all">Похож по жанрам</p>
             </div>
           </a>
@@ -274,7 +274,7 @@
     <div id="author" class="w-full ml-5 mb-10">
       <h2 class="text-gray-200 text-xl mb-5">Страница автора</h2>
         <a href="#!" class="flex flex-nowrap">
-          <img src="{{ comic.image.url }}" alt="" class="w-14 h-14 mr-3">
+          <img src="{{ comic.author.profile.avatar.url }}" alt="" class="w-14 h-14 mr-3">
           <div class="flex flex-wrap">
             <p class="text-gray-200 text-base">{{ comic.author.first_name}} {{ comic.author.last_name }}</p>
           </div>
@@ -303,96 +303,20 @@
 {% block scripts %}
   <!--Jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
   <script>
-    //on #bookmark changes check if bookmark exists for user
-    //if not exists - create bookmark
-    //if exists - update bookmark
-    //if selected 1 option - delete bookmark
-    //bookmark model in django
-    /*
-    class Bookmark(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    read = models.ManyToManyField('Comic', blank=True, related_name='read', verbose_name='Прочитано')
-    readed = models.ManyToManyField('Comic', blank=True, related_name='readed', verbose_name='Читаю')
-    droped = models.ManyToManyField('Comic', blank=True, related_name='droped', verbose_name='Брошено')
-    will_read = models.ManyToManyField('Comic', blank=True, related_name='will_read', verbose_name='Буду читать')
+    const pickerOptions = { onEmojiSelect: console.log }
+    const picker = new EmojiMart.Picker(pickerOptions)
 
-    def __str__(self):
-        return self.user.username
-    */ 
-    //views.py
-    /*
-    #bookmarks API (GET) with check is user authenticated
-class BookmarksAPIView(APIView):
-    def get(self, request):
-        if request.user.is_authenticated:
-            bookmarks = Bookmark.objects.filter(user=request.user)
-            serializer = BookmarkSerializer(bookmarks, many=True)
-            return Response(serializer.data)
-        else:
-            return Response({'error': 'User is not authenticated'})
+    //Add emoji_picker_show button to comment form with id #chat and display emoji picker near this button
+    $('#chat').append('<button id="emoji_picker_show" class="bg-zinc-500 hover:bg-zinc-400 text-gray-200 font-bold py-2 px-4 rounded-full">😀</button>');
+    $('#emoji_picker_show').click(function() {
+      picker.togglePicker(this);
+    }); 
+  </script>
 
-#bookmarks API (POST) with check is user authenticated
-class BookmarksAddAPIView(APIView):
-    def post(self, request):
-        if request.user.is_authenticated:
-            serializer = BookmarkSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(serializer.data)
-            else:
-                return Response({'error': 'Data is not valid'})
-        else:
-            return Response({'error': 'User is not authenticated'})
-        
-#bookmarks API (DELETE) with check is user authenticated
-class BookmarksDeleteAPIView(APIView):
-    def delete(self, request, id):
-        if request.user.is_authenticated:
-            bookmark = Bookmark.objects.filter(id=id)
-            bookmark.delete()
-            return Response({'success': 'Bookmark was deleted'})
-        else:
-            return Response({'error': 'User is not authenticated'})
-
-#update Bookmark API (PUT) with check is user authenticated
-class BookmarksUpdateAPIView(APIView):
-    def put(self, request, id):
-        if request.user.is_authenticated:
-            bookmark = Bookmark.objects.filter(id=id)
-            serializer = BookmarkSerializer(bookmark, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            else:
-                return Response({'error': 'Data is not valid'})
-        else:
-            return Response({'error': 'User is not authenticated'})
-    */
-    //urls.py
-    /*
-      path('api/v1/bookmarks.get', BookmarksAPIView.as_view()),
-    path('api/v1/bookmarks.post', BookmarksAddAPIView.as_view()),
-    path('api/v1/bookmarks.delete', BookmarksDeleteAPIView.as_view()),
-    path('api/v1/bookmarks.put', BookmarksUpdateAPIView.as_view()),
-    */
-    
-    //use csrf token
-
-
-    //if selected bookmark exists in db - update it. Example - user read comic and want to add it to readed list. Delete from read list and add to readed list 
-    //if selected bookmark not exists in db - create it. Example - user want to add comic to read list. Create new bookmark with read list
-    //if selected 1 option - delete bookmark. Example - user want to delete comic from any list. Delete bookmark with any list where it exists
-    //all bookmarks add to db with user id using next urls: 
-    /*
-    path('api/v1/bookmarks.get', BookmarksAPIView.as_view()),
-    path('api/v1/bookmarks.post', BookmarksAddAPIView.as_view()),
-    path('api/v1/bookmarks.delete/<int:id>/', BookmarksDeleteAPIView.as_view()),
-    path('api/v1/bookmarks.put/<int:id>/', BookmarksUpdateAPIView.as_view()),
-    */
-    //bookmark model in django
-
+  <script>
     $('#bookmark').change(function() {
       var bookmark = $('#bookmark').val();
       var csrf_token = '{{ csrf_token }}';
@@ -430,9 +354,6 @@ class BookmarksUpdateAPIView(APIView):
       });
 
     });
-    
-
-
   </script>
 {% endblock  %}
   

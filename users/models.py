@@ -12,11 +12,6 @@ class Profile(models.Model):
         ('f', 'Женщина')
     )
 
-    #following = models.ManyToManyField('self', verbose_name='Подписки', related_name='followers', symmetrical=False, blank=True)
-
-    #follows = models.ForeignKey('Follow', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Подписки')
-
-
     nickname = models.CharField(max_length=25, blank=True, verbose_name='Ник')
     
     gender = models.CharField(choices=GENDERS, max_length=1, default='m', verbose_name='Пол')
