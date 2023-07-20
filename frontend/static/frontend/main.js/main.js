@@ -4507,29 +4507,41 @@ var ProfileMenu = /*#__PURE__*/function (_React$Component) {
       (0,_api_auth__WEBPACK_IMPORTED_MODULE_2__.logout)();
     }
   }, {
-    key: "ShowMenu",
-    value: function ShowMenu(e) {
-      var _this3 = this;
-      setTimeout(function () {
-        _this3.subMenu.style.top = '0px';
-      }, 5);
-      e.target.addEventListener('mouseleave', function () {
-        _this3.subMenu.addEventListener('mouseenter', function () {
-          _this3.subMenu.style.top = '0px';
-        });
-        _this3.subMenu.addEventListener('mouseleave', function () {
-          _this3.subMenu.style.top = '-999px';
-        });
-        _this3.subMenu.style.top = '-999px';
-      });
-    }
-  }, {
     key: "render",
-    value: function render() {
+    value:
+    // onClickMenu = (e) => {
+    //     console.log('THIS')
+    //     this.subMenu.style.top = '60px'
+    // }
+    // ShowMenu(e) {
+    //     setTimeout(() => {
+    //         this.subMenu.style.top = '50px'
+    //     }, 3);
+    //     e.target.addEventListener('mouseleave', () => {
+    //         this.subMenu.addEventListener('mouseenter', () => {
+    //             this.subMenu.style.top = '50px'
+    //         }
+    //         )
+    //         this.subMenu.addEventListener('mouseleave', () => {
+    //             this.subMenu.style.top = '-999px'
+    //         }
+    //         )
+    //         this.subMenu.style.top = '-999px'
+    //     })
+
+    // }
+
+    // const [open,setOpen] = useState(false);
+
+    // onMouseEnter={this.ShowMenu.bind(this)} 
+    function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "relative"
+        id: "profileSubMenu",
+        className: "relative z-10"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-        onMouseEnter: this.ShowMenu.bind(this),
+        onClick: function onClick() {
+          setOpen(!open);
+        },
         className: "px-4 py-2 text-gray-100 hover:text-gray-300"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
         src: this.state.avatar.url,
@@ -4537,38 +4549,38 @@ var ProfileMenu = /*#__PURE__*/function (_React$Component) {
         className: "h-8 w-8 rounded-full"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         id: "sub-menu",
-        className: " absolute right-0 w-[212px] rounded-lg bg-zinc-900 py-4 shadow-xl duration-300 ease-in-out"
+        className: "submenu ".concat(open ? 'active' : 'inactive', " absolute right-4 w-[212px] rounded-xl bg-[#222223] py-4 shadow-xl duration-300")
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         to: "profile",
-        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center transition group duration-300 "
+        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group "
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_icons_io5__WEBPACK_IMPORTED_MODULE_5__.IoPerson, {
         size: "1.0em"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
         className: "mx-2 group-hover:mx-4 duration-300"
       }, "\u041F\u0440\u043E\u0444\u0438\u043B\u044C")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         to: "addComics",
-        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center transition group duration-300 "
+        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center  group  "
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_icons_io5__WEBPACK_IMPORTED_MODULE_5__.IoAddCircle, {
         size: "1.0em"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
         className: "mx-2 group-hover:mx-4 duration-300"
       }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u0438\u043A\u0441")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         to: "notifications",
-        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center transition group duration-300 "
+        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center  group  "
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_icons_io5__WEBPACK_IMPORTED_MODULE_5__.IoNotifications, {
         size: "1.0em"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
         className: "mx-2 group-hover:mx-4 duration-300"
       }, "\u0423\u0432\u0435\u0434\u043E\u043C\u043B\u0435\u043D\u0438\u044F")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         to: "bookmarks",
-        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center transition group duration-300 "
+        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center  group  "
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_icons_io5__WEBPACK_IMPORTED_MODULE_5__.IoBookmarks, {
         size: "1.0em"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
         className: "mx-2 group-hover:mx-4 duration-300"
       }, "\u0417\u0430\u043A\u043B\u0430\u0434\u043A\u0438")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         onClick: this.onClickLogout.bind(this),
-        className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center transition group duration-300 "
+        className: "flex px-4 py-4 text-gray-100 hover:text-red-500 hover:drop-shadow-xl items-center  group  "
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_icons_io5__WEBPACK_IMPORTED_MODULE_5__.IoLogOut, {
         size: "1.0em"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {

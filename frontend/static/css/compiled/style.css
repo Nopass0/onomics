@@ -596,6 +596,10 @@ video {
   right: 0.75rem;
 }
 
+.right-4 {
+  right: 1rem;
+}
+
 .top-0 {
   top: 0px;
 }
@@ -606,6 +610,10 @@ video {
 
 .top-12 {
   top: 3rem;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .z-50 {
@@ -880,6 +888,11 @@ video {
   background-color: rgb(27 27 28 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#222223\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 34 35 / var(--tw-bg-opacity));
+}
+
 .bg-\[\#4c879a\] {
   --tw-bg-opacity: 1;
   background-color: rgb(76 135 154 / var(--tw-bg-opacity));
@@ -1077,14 +1090,6 @@ video {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .duration-200 {
   transition-duration: 200ms;
 }
@@ -1095,10 +1100,6 @@ video {
 
 .duration-\[400ms\] {
   transition-duration: 400ms;
-}
-
-.ease-in-out {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @font-face {
@@ -1234,6 +1235,33 @@ body {
   margin-top: 6px;
 }
 
+#profileSubMenu .submenu::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 7px 10px 7px;
+  border-color: transparent transparent #222223 transparent;
+  right: 15px;
+  z-index: -1;
+  top: -9px;
+}
+
+#profileSubMenu .submenu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: var(--speed) ease;
+}
+
+#profileSubMenu .submenu.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: var(--speed) ease;
+}
+
 .hover\:border-\[\#3f7081\]:hover {
   --tw-border-opacity: 1;
   border-color: rgb(63 112 129 / var(--tw-border-opacity));
@@ -1287,6 +1315,11 @@ body {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .hover\:drop-shadow-xl:hover {
