@@ -12,7 +12,7 @@ export class Text extends React.Component {
 
     render() {
         return (
-            <p class={ this.className ? this.className : "font-light text-center text-white" }>Ещё нет аккаунта?</p>
+            <p className={ this.className ? this.className : "font-light text-center text-white" }>Ещё нет аккаунта?</p>
         )
     }
 }

@@ -16,9 +16,9 @@ export class BlueButton extends React.Component {
         return (
            <>
            {this.isDisabled == "true" ? (
-            <button href="#" disabled onClick={ this.onClick.bind(this) } className={ this.className ? this.className : "w-full text-center text-gray-200 my-2 bg-[#1a5467] rounded-md px-4 py-4 sm:py-2 duration-300 disabled:bg-[#2a6578]" } >{this.text}</button>
+            <button href="#" disabled onClick={ this.onClick } className={ this.className ? this.className : "w-full text-center text-gray-200 my-2 bg-[#1a5467] rounded-md px-4 py-4 sm:py-2 duration-300 disabled:bg-[#2a6578]" } >{this.text}</button>
            ) : (
-            <button href="#" onClick={ this.onClick.bind(this) } className={ this.className ? this.className : "w-full text-center text-gray-200 my-2 bg-[#4c879a] rounded-md px-4 py-4 sm:py-2 duration-300 hover:bg-[#5fa9c1] disabled:bg-[#2a6578]" } >{this.text}</button>
+            <button href="#" onClick={ this.onClick } className={ this.className ? this.className : "w-full text-center text-gray-200 my-2 bg-[#4c879a] rounded-md px-4 py-4 sm:py-2 duration-300 hover:bg-[#5fa9c1] disabled:bg-[#2a6578]" } >{this.text}</button>
            )}
            </>
         )
