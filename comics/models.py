@@ -60,7 +60,7 @@ class Comic(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to=f'theme/static/covers/', verbose_name='Обложка') # Width: 180px, Height: 270px
+    image = models.ImageField(upload_to=f'frontend/static/images/covers/', verbose_name='Обложка') # Width: 180px, Height: 270px
     price = models.IntegerField(blank=True, null=True, verbose_name='Цена')
     slug = models.SlugField(blank=True, null=True)
 
@@ -162,7 +162,7 @@ class Chapter(models.Model):
         return "/comics/chapter/edit/%i" % (self.id)
 
 class Block(models.Model):
-    image = models.ImageField(upload_to='theme/static/blocks/', verbose_name='Изображение') # Width: 800px, Height: 1080px
+    image = models.ImageField(upload_to='frontend/static/images/blocks/', verbose_name='Изображение') # Width: 800px, Height: 1080px
     chapter = models.ForeignKey('chapter', on_delete=models.CASCADE)
 
     sequence_number = models.IntegerField(null=True, verbose_name='Номер блока в главе')
