@@ -13,7 +13,7 @@ export class Genre extends React.Component {
     render() {
         return (
             <div className="flex text-gray-200 bg-zinc-900 rounded-xl px-3 mr-2">
-            <a href="#!" class="flex items-center hover:text-[#5fa9c1] duration-200">{this.text}</a>
+            <a href="#!" className="flex items-center hover:text-[#5fa9c1] duration-200">{this.text}</a>
           </div>
         )
     }

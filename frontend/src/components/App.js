@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Content } from './Pages/Content'
 import { Footer } from './Pages/Footer'
 
+
 class App extends Component {
   
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
       loaded: false,
       placeholder: "Loading"
     }
+ 
   }
 
 
@@ -38,4 +40,4 @@ const root = createRoot(container)
 root.render(
 <BrowserRouter>
   <App />
-</BrowserRouter>, container)
+</BrowserRouter>)

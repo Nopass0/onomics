@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+/*!
+ * cookie
+ * Copyright(c) 2012-2014 Roman Shtylman
+ * Copyright(c) 2015 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+>>>>>>> 6ab6fadacd967bd43dbfd5c34b27b01f180f01c5
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
