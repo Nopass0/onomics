@@ -14,7 +14,7 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=25, blank=True, verbose_name='Ник')
     
     gender = models.CharField(choices=GENDERS, max_length=1, default='m', verbose_name='Пол')
-    avatar = models.ImageField(default='avatars/default.jpg', upload_to='theme/static/avatars/', verbose_name='Аватар')
+    avatar = models.ImageField(default='frontend/static/images/avatars/default/default.jpg', upload_to='frontend/static/images/avatars', verbose_name='Аватар')
 
     description = models.TextField(blank=True, verbose_name='Описание')
 
@@ -74,7 +74,7 @@ class Profile(models.Model):
 class Country(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, verbose_name="Название страны")
-    image = models.ImageField(default='countries/default.jpg', upload_to='countries/', verbose_name='Флаг страны')
+    image = models.ImageField(default='frontend/static/images/countries/default.jpg', upload_to='frontend/static/images/countries/', verbose_name='Флаг страны')
 
     def __str__(self):
         return self.name
@@ -87,7 +87,7 @@ class Country(models.Model):
 class Pin(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
-    image = models.ImageField(default='pins/default.jpg', upload_to='pins/', verbose_name='Значок')
+    image = models.ImageField(default='frontend/static/images/pins/default.jpg', upload_to='frontend/static/images/pins/', verbose_name='Значок')
     level = models.IntegerField(default=0, verbose_name="Уровень значка")
     name = models.CharField(max_length=50, verbose_name="Название значка")
     experience = models.IntegerField(default=0, verbose_name="Опыт значка")
@@ -121,7 +121,7 @@ class Notification(models.Model):
     text = models.TextField(verbose_name="Текст")
     date = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время")
     #image if exists
-    image = models.ImageField(blank=True, null=True, upload_to='notifications/', verbose_name='Изображение')
+    image = models.ImageField(blank=True, null=True, upload_to='frontend/static/images/notifications/', verbose_name='Изображение')
 
     TYPES = (
         ('info', 'Информация'),
@@ -143,7 +143,7 @@ class Notification(models.Model):
 #Profile background model
 class ProfileBackground(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(default='profile_backgrounds/default.jpg', upload_to='profile_backgrounds/', verbose_name='Фон профиля')
+    image = models.ImageField(default='frontend/static/images/profile_backgrounds/default.jpg', upload_to='frontend/static/images/profile_backgrounds/', verbose_name='Фон профиля')
     #user author
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author', blank=True, null=True, verbose_name="Автор фона профиля")
 

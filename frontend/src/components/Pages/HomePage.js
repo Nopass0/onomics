@@ -6,13 +6,17 @@ import { Genre } from '../Components/Genre'
 import { GenreWrap } from '../Components/GenreWrap'
 import { isAuth, myUserInfo } from '../api/auth'
 import { BlueButton } from '../Components/BlueButton'
+import { Slider } from '../Components/Slider'
+import { ComicsInstance } from '../Components/ComicsInstance'
+import { getAllComics } from '../api/comics'
 
 export class HomePage extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            info: {}
+            info: {},
+            comicsList: []
         }
         this.onClick = this.onClick.bind(this)
     }
@@ -25,11 +29,20 @@ export class HomePage extends React.Component {
                 info: data
             } )
         } )
+        getAllComics().then( (data) => {
+            console.log(data)
+            this.setState({
+                comicsList: data
+            } )
+        } )
+
+
     }
 
     onClick(e) {
         e.preventDefault()
         console.log(this.state.info)
+        console.log(this.state.comicsList)
     }
 
     render() {
@@ -50,6 +63,16 @@ export class HomePage extends React.Component {
                 <div className='text-gray-100 bg-slate-500 py-2 px-4'>Pass: {this.state.info['password']}</div>
                 {/* <div className='text-gray-100 bg-slate-500 py-2 px-4'>Me: <ul>{this.state.info.map( (key, data) => {<li>{key} : {data}</li>} )}</ul></div> */}
                 <BlueButton text="GET" onClick={this.onClick.bind(this)}/>
+                <Slider className="h-74 w-full overflow-y-hidden flex flex-row flex-nowrap">
+                    {this.state.comicsList.map( (data) => {
+                        return (
+                            <ComicsInstance key={data.id} id={data.id} author_name='Test Name' text={data.title} image_url={data.image} views_count='1.2K' width='180' height='270'/>
+                        )
+                    } )}
+
+
+                </Slider>
+               
             </div>
             </>
         )
