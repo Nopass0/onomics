@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export class Slider extends Component {
   constructor(props) {
     super(props)
+    this.numbers = 0
     this.sliderRef = React.createRef()
     this.state = {
       isDragging: false,
@@ -36,10 +37,15 @@ export class Slider extends Component {
         const { current: slider } = this.sliderRef
         e.preventDefault()
         slider.scrollLeft += e.deltaY
+        this.numbers += e.deltaY
+        this.sliderPlivi.style.transform  = `translateX(${this.numbers}px)`
+        console.log(e.deltaY);
+        console.log(this.sliderPlivi.style.transform,'\n',);
     }
 
     componentDidMount() {
         const { current: slider } = this.sliderRef
+        this.sliderPlivi = document.getElementById('sliderPlivi')
         slider.addEventListener('mousedown', this.onMouseDown)
         slider.addEventListener('mouseup', this.onMouseUp)
         slider.addEventListener('mousemove', this.onMouseMove)
