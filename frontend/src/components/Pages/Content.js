@@ -10,6 +10,8 @@ import { CatalogPage } from './CatalogPage'
 import { CommunityPage } from './CommunityPage'
 import { SignInPage } from './SignInPage'
 import { SignUpPage } from './SignUpPage'
+import { ComicEditPage } from './ComicsEditPage';
+import { ProfileEditPage } from './ProfileEditPage';
 
 export function Content() {
 
@@ -24,6 +26,8 @@ export function Content() {
                         <Route path='community' element={<CommunityPage />} />
                         <Route path='signin' element={<SignInPage />} />
                         <Route path='signup' element={<SignUpPage />} />
+                        <Route path='comicseditpage' element={<ComicEditPage />} />
+                        <Route path='profileeditpage' element={<ProfileEditPage />} />
                     </Routes>
                 </main>
             </div>

@@ -5,6 +5,8 @@ import { Header } from './Header/Header'
 import { BrowserRouter } from 'react-router-dom';
 import { Content } from './Pages/Content'
 import { Footer } from './Pages/Footer'
+import { ComicEditPage } from './Pages/ComicsEditPage';
+import { ProfileEditPage } from './Pages/ProfileEditPage';
 
 
 class App extends Component {
