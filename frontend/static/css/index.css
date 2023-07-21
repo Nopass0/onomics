@@ -168,7 +168,7 @@ background: #fff;}
 #profileSubMenu .submenu.active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(20);
     transition: var(--speed) ease;
 }
 

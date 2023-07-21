@@ -14,6 +14,7 @@ export class ProfileMenu extends React.Component {
         this.state = {
             profileInfo: {},
             avatar: {},
+            open: false,
         }
     };
 
@@ -25,9 +26,9 @@ export class ProfileMenu extends React.Component {
                 this.setState({ avatar: res })
             })
         } )
-        this.subMenu = document.getElementById('sub-menu')
-        this.subMenu.style.top = '-999px'
-        console.log(this.subMenu)
+        // this.subMenu = document.getElementById('sub-menu')
+        // this.subMenu.style.top = '-999px'
+        // console.log(this.subMenu)
     };
 
     onClickLogout(e) {
@@ -57,18 +58,23 @@ export class ProfileMenu extends React.Component {
         
     // }
 
-    // const [open,setOpen] = useState(false);
+    onClickMenu() {
+        this.setState({open:!this.state.open});
+        console.log('TEST');
+    };
+    
+
 
     // onMouseEnter={this.ShowMenu.bind(this)} 
     render() {
         
         return (
             <div id='profileSubMenu' className="relative z-10">
-                <button onClick={()=> {setOpen(!open)}} className="px-4 py-2 text-gray-100 hover:text-gray-300">
+                <button onClick={this.onClickMenu.bind(this)} className="px-4 py-2 text-gray-100 hover:text-gray-300">
                 <img src={this.state.avatar.url} alt="User" className="h-8 w-8 rounded-full" />
                 </button>
                 {/* {`${open? 'active' : 'inactive'}`} */}
-                <div id='sub-menu' className={`submenu ${open? 'active' : 'inactive'} absolute right-4 w-[212px] rounded-xl bg-[#222223] py-4 shadow-xl duration-300`}>
+                <div id='sub-menu' className={`submenu ${this.state.open? 'active' : 'inactive'} absolute right-2.5 w-[212px] rounded-xl bg-[#222223] py-4 shadow-xl duration-300`}>
                     <Link to="profile" className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group "><IoPerson size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Профиль</p></Link>
                     {/* {% if user.is_staff %}
                     <a href="{% url 'admin-panel' %}" className="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'shield-fill' %}<p className="mx-2">Админ-панель</p></a>

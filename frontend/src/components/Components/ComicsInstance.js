@@ -20,9 +20,9 @@ export class ComicsInstance extends Component {
       <Link
         to={`/comics/${id || ''}`}
         ref={this.instance}
-        className={`py-4 mr-2 h-[${height_w+delta || '400'}px] min-h-[${height_w+delta || '400'}px] max-h-[${height_w+delta|| '400'}px] w-[${width_w || '200'}px] min-w-[${width_w || '200'}px] max-w-[${width_w || '200'}px] flex flex-col ${className || ''}`}>
+        className={`py-4 mr-2 w-[160px] h-[320px] flex flex-col ${className || ''}`}>
             <div className="">
-              <img src={`${image_url || ''}`} alt="Comics" className={`h-[${height_w || '340'}px] min-h-[${height_w || '340'}px] max-h-[${height_w || '340'}px] w-[${width_w || '200'}px] min-w-[${width_w || '200'}px] max-w-[${width || '200'}px] rounded-sm`} />
+              <img src={`${image_url || ''}`} alt="Comics" className={`h-[240px] w-[160px] `} />
             </div>
             <div className="flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
               <p className="mr-2">{author_name || ''}</p>
@@ -33,7 +33,7 @@ export class ComicsInstance extends Component {
               </svg>
       
             </div>
-            <div className="slider-item-title leading-5">
+            <div className="slider-item-title leading-5 w-full">
               <h3 className="text-gray-200 truncate break-before-auto break-after-all">{text || ''}</h3>
             </div>
       </Link>

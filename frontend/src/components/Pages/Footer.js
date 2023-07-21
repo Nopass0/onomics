@@ -22,7 +22,7 @@ export function Footer() {
 
     return (
         <>
-            <footer className="bg-[#1b1b1c] text-white lg:text-left max-w-full bg-opacity-60 backdrop-blur-xl">
+            {/* <footer className="bg-[#1b1b1c] text-white lg:text-left max-w-full bg-opacity-60 backdrop-blur-xl ">
       <div
         className="flex items-center justify-center border-b-[2px] border-[#121212] bg-opacity-60 p-6 lg:justify-between">
       </div>
@@ -86,7 +86,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </footer> */}
         </>
     )
 }
