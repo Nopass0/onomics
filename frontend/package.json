@@ -38,6 +38,7 @@
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
+    "@trendyol-js/react-carousel": "^3.0.2",
     "axios": "^1.4.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^6.8.1",

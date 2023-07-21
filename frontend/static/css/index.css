@@ -166,15 +166,14 @@ background: #fff;}
 }
 
 #profileSubMenu .submenu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(20);
+
+    top: 50px;
+    animation-duration: 300ms;
     transition: var(--speed) ease;
 }
 
 #profileSubMenu .submenu.inactive {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
+
+    top: -999px;
     transition: var(--speed) ease;
 }

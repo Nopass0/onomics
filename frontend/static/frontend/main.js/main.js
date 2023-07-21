@@ -4252,7 +4252,7 @@ var ComicsInstance = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
         src: "".concat(image_url || ''),
         alt: "Comics",
-        className: "h-[240px] w-[160px] "
+        className: "h-[240px] w-[160px] rounded-sm"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
@@ -4575,7 +4575,7 @@ var ProfileMenu = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       profileInfo: {},
       avatar: {},
-      open: false
+      open: true
     };
     return _this;
   }
@@ -4594,52 +4594,69 @@ var ProfileMenu = /*#__PURE__*/function (_React$Component) {
           });
         });
       });
-      // this.subMenu = document.getElementById('sub-menu')
+      this.subMenu = document.getElementById('sub-menu');
       // this.subMenu.style.top = '-999px'
-      // console.log(this.subMenu)
+      console.log(this.subMenu);
     }
   }, {
     key: "onClickLogout",
     value: function onClickLogout(e) {
-      console.log('ok sss');
+      // console.log('ok sss')
       (0,_api_auth__WEBPACK_IMPORTED_MODULE_2__.logout)();
     }
   }, {
-    key: "onClickMenu",
+    key: "ShowMenu",
     value:
     // onClickMenu = (e) => {
     //     console.log('THIS')
     //     this.subMenu.style.top = '60px'
     // }
-    // ShowMenu(e) {
-    //     setTimeout(() => {
-    //         this.subMenu.style.top = '50px'
-    //     }, 3);
-    //     e.target.addEventListener('mouseleave', () => {
-    //         this.subMenu.addEventListener('mouseenter', () => {
-    //             this.subMenu.style.top = '50px'
-    //         }
-    //         )
-    //         this.subMenu.addEventListener('mouseleave', () => {
-    //             this.subMenu.style.top = '-999px'
-    //         }
-    //         )
+    function ShowMenu(e) {
+      this.subMenu.style.top = '50px';
+
+      // this.subMenu.addEventListener('mouseenter', () => {
+      //     this.subMenu.style.top = '50px'
+      // })
+
+      // this.subMenu.addEventListener('mouseleave', () => {
+      //     this.subMenu.style.top = '-999px'
+      // })
+
+      // e.target.addEventListener('mouseleave', () => {
+      //     setTimeout(() => {
+      //         this.subMenu.style.top = '-999px'
+      //     }
+      //     , 1000);
+      // })
+    }
+
+    // HideMenu(e) {
+    //     // setTimeout(() => {
+    //     //     this.subMenu.style.top = '-999px'
+    //     // }
+    //     // , 1000);
+    //     console.log(e.clientX, e.clientY)
+    //     //if mouse not on button or submenu then hide submenu
+    //     if (e.clientX < e.clientWidth || e.clientX > 212 || e.clientY < 0 || e.clientY > 60) {
     //         this.subMenu.style.top = '-999px'
-    //     })
+    //     }
 
     // }
-
-    function onClickMenu() {
+  }, {
+    key: "onClickMenu",
+    value: function onClickMenu(e) {
       this.setState({
         open: !this.state.open
       });
-      console.log('TEST');
+      this.subMenu.style.top = this.state.open ? '-999px' : '50px';
+      // this.ShowMenu(e)
+      //console.log('TEST')
     }
+
+    // onMouseEnter={this.ShowMenu.bind(this)} 
   }, {
     key: "render",
-    value:
-    // onMouseEnter={this.ShowMenu.bind(this)} 
-    function render() {
+    value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         id: "profileSubMenu",
         className: "relative z-10"
@@ -4652,7 +4669,7 @@ var ProfileMenu = /*#__PURE__*/function (_React$Component) {
         className: "h-8 w-8 rounded-full"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         id: "sub-menu",
-        className: "submenu ".concat(this.state.open ? 'active' : 'inactive', " absolute right-2.5 w-[212px] rounded-xl bg-[#222223] py-4 shadow-xl duration-300")
+        className: "submenu  absolute right-2.5 w-[212px] rounded-xl bg-[#1b1b1c] py-4 shadow-xl duration-300"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
         to: "profile",
         className: "flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group "
@@ -5543,6 +5560,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Slider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Components/Slider */ "./src/components/Components/Slider.js");
 /* harmony import */ var _Components_ComicsInstance__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Components/ComicsInstance */ "./src/components/Components/ComicsInstance.js");
 /* harmony import */ var _api_comics__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../api/comics */ "./src/components/api/comics.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '@trendyol-js/react-carousel'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -5556,6 +5574,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -5622,10 +5641,24 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
           text: data.title,
           image_url: data.image,
           views_count: "1.2K",
-          width: "180",
-          height: "270"
+          width: "280",
+          height: "380"
         });
-      }))));
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '@trendyol-js/react-carousel'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+        slide: 3,
+        swiping: true
+      }, this.state.comicsList.map(function (data) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_ComicsInstance__WEBPACK_IMPORTED_MODULE_9__.ComicsInstance, {
+          key: data.id,
+          id: data.id,
+          author_name: "Test Name",
+          text: data.title,
+          image_url: data.image,
+          views_count: "1.2K",
+          width: "280",
+          height: "380"
+        });
+      })));
     }
   }]);
   return HomePage;
