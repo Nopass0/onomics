@@ -5491,32 +5491,7 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "text-gray-100"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "bg-zinc-700 px-4 text-gray-100"
-      }, "Text"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_BlueLink__WEBPACK_IMPORTED_MODULE_2__.BlueLink, {
-        text: "Catalog"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_TransparentButton__WEBPACK_IMPORTED_MODULE_3__.TransparentLink, {
-        text: "Community"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_GenreWrap__WEBPACK_IMPORTED_MODULE_5__.GenreWrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Genre__WEBPACK_IMPORTED_MODULE_4__.Genre, {
-        text: "Action"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Genre__WEBPACK_IMPORTED_MODULE_4__.Genre, {
-        text: "Adventure"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Genre__WEBPACK_IMPORTED_MODULE_4__.Genre, {
-        text: "Comedy"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Genre__WEBPACK_IMPORTED_MODULE_4__.Genre, {
-        text: "Drama"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Genre__WEBPACK_IMPORTED_MODULE_4__.Genre, {
-        text: "Fantasy"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "text-gray-100 bg-slate-500 py-2 px-4"
-      }, "isAuth: ", (0,_api_auth__WEBPACK_IMPORTED_MODULE_6__.isAuth)() ? "true" : "false"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "text-gray-100 bg-slate-500 py-2 px-4"
-      }, "Pass: ", this.state.info['password']), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_BlueButton__WEBPACK_IMPORTED_MODULE_7__.BlueButton, {
-        text: "GET",
-        onClick: this.onClick.bind(this)
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Slider__WEBPACK_IMPORTED_MODULE_8__.Slider, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Slider__WEBPACK_IMPORTED_MODULE_8__.Slider, {
         className: "h-74 w-full overflow-y-hidden flex flex-row flex-nowrap"
       }, this.state.comicsList.map(function (data) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_ComicsInstance__WEBPACK_IMPORTED_MODULE_9__.ComicsInstance, {
@@ -5526,10 +5501,10 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
           text: data.title,
           image_url: data.image,
           views_count: "1.2K",
-          width: "180",
-          height: "270"
+          width: "280",
+          height: "380"
         });
-      }))));
+      })));
     }
   }]);
   return HomePage;

@@ -48,32 +48,15 @@ export class HomePage extends React.Component {
     render() {
         return (
             <>
-            <div className="text-gray-100">
-                <div className='bg-zinc-700 px-4 text-gray-100'>Text</div>
-                <BlueLink text="Catalog" />
-                <TransparentLink text="Community" />
-                <GenreWrap >
-                <Genre text="Action" />
-                <Genre text="Adventure" />
-                <Genre text="Comedy" />
-                <Genre text="Drama" />
-                <Genre text="Fantasy" />
-                </GenreWrap>
-                <div className='text-gray-100 bg-slate-500 py-2 px-4'>isAuth: {isAuth() ? "true" : "false" }</div>
-                <div className='text-gray-100 bg-slate-500 py-2 px-4'>Pass: {this.state.info['password']}</div>
-                {/* <div className='text-gray-100 bg-slate-500 py-2 px-4'>Me: <ul>{this.state.info.map( (key, data) => {<li>{key} : {data}</li>} )}</ul></div> */}
-                <BlueButton text="GET" onClick={this.onClick.bind(this)}/>
                 <Slider className="h-74 w-full overflow-y-hidden flex flex-row flex-nowrap">
                     {this.state.comicsList.map( (data) => {
                         return (
-                            <ComicsInstance key={data.id} id={data.id} author_name='Test Name' text={data.title} image_url={data.image} views_count='1.2K' width='180' height='270'/>
+                            <ComicsInstance key={data.id} id={data.id} author_name='Test Name' text={data.title} image_url={data.image} views_count='1.2K' width='280' height='380'/>
                         )
                     } )}
 
 
                 </Slider>
-               
-            </div>
             </>
         )
     }
