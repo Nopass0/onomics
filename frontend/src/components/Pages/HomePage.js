@@ -9,6 +9,7 @@ import { BlueButton } from '../Components/BlueButton'
 import { Slider } from '../Components/Slider'
 import { ComicsInstance } from '../Components/ComicsInstance'
 import { getAllComics } from '../api/comics'
+import { Carousel } from '@trendyol-js/react-carousel';
 
 export class HomePage extends React.Component {
 
@@ -76,8 +77,14 @@ export class HomePage extends React.Component {
                     } )}
                 </div>
 
-
                 </Slider>
+                <Carousel slide={3} swiping={true}>
+                {this.state.comicsList.map( (data) => {
+                        return (
+                            <ComicsInstance  key={data.id} id={data.id} author_name='Test Name' text={data.title} image_url={data.image} views_count='1.2K' width='280' height='380'/>
+                        )
+                    } )}
+                </Carousel>
             </>
         )
     }

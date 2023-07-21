@@ -22,7 +22,7 @@ export class ComicsInstance extends Component {
         ref={this.instance}
         className={`py-4 mr-2 w-[160px] h-[320px] flex flex-col ${className || ''}`}>
             <div className="">
-              <img src={`${image_url || ''}`} alt="Comics" className={`h-[240px] w-[160px] `} />
+              <img src={`${image_url || ''}`} alt="Comics" className={`h-[240px] w-[160px] rounded-sm`} />
             </div>
             <div className="flex flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
               <p className="mr-2">{author_name || ''}</p>

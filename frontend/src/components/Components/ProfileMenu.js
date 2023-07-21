@@ -14,7 +14,7 @@ export class ProfileMenu extends React.Component {
         this.state = {
             profileInfo: {},
             avatar: {},
-            open: false,
+            open: true,
         }
     };
 
@@ -26,13 +26,13 @@ export class ProfileMenu extends React.Component {
                 this.setState({ avatar: res })
             })
         } )
-        // this.subMenu = document.getElementById('sub-menu')
+        this.subMenu = document.getElementById('sub-menu')
         // this.subMenu.style.top = '-999px'
-        // console.log(this.subMenu)
+        console.log(this.subMenu)
     };
 
     onClickLogout(e) {
-        console.log('ok sss')
+        // console.log('ok sss')
         logout()
     };
 
@@ -40,28 +40,45 @@ export class ProfileMenu extends React.Component {
     //     console.log('THIS')
     //     this.subMenu.style.top = '60px'
     // }
-    // ShowMenu(e) {
-    //     setTimeout(() => {
-    //         this.subMenu.style.top = '50px'
-    //     }, 3);
-    //     e.target.addEventListener('mouseleave', () => {
-    //         this.subMenu.addEventListener('mouseenter', () => {
-    //             this.subMenu.style.top = '50px'
-    //         }
-    //         )
-    //         this.subMenu.addEventListener('mouseleave', () => {
-    //             this.subMenu.style.top = '-999px'
-    //         }
-    //         )
-    //         this.subMenu.style.top = '-999px'
-    //     })
+    ShowMenu(e) {
+        this.subMenu.style.top = '50px'
+
+        // this.subMenu.addEventListener('mouseenter', () => {
+        //     this.subMenu.style.top = '50px'
+        // })
+
+        // this.subMenu.addEventListener('mouseleave', () => {
+        //     this.subMenu.style.top = '-999px'
+        // })
+
+        // e.target.addEventListener('mouseleave', () => {
+        //     setTimeout(() => {
+        //         this.subMenu.style.top = '-999px'
+        //     }
+        //     , 1000);
+        // })
         
+    }
+
+    // HideMenu(e) {
+    //     // setTimeout(() => {
+    //     //     this.subMenu.style.top = '-999px'
+    //     // }
+    //     // , 1000);
+    //     console.log(e.clientX, e.clientY)
+    //     //if mouse not on button or submenu then hide submenu
+    //     if (e.clientX < e.clientWidth || e.clientX > 212 || e.clientY < 0 || e.clientY > 60) {
+    //         this.subMenu.style.top = '-999px'
+    //     }
+
     // }
 
-    onClickMenu() {
-        this.setState({open:!this.state.open});
-        console.log('TEST');
-    };
+    onClickMenu(e) {
+        this.setState({open:!this.state.open})
+        this.subMenu.style.top = this.state.open ? '-999px' : '50px'
+        // this.ShowMenu(e)
+        //console.log('TEST')
+    }
     
 
 
@@ -73,8 +90,8 @@ export class ProfileMenu extends React.Component {
                 <button onClick={this.onClickMenu.bind(this)} className="px-4 py-2 text-gray-100 hover:text-gray-300">
                 <img src={this.state.avatar.url} alt="User" className="h-8 w-8 rounded-full" />
                 </button>
-                {/* {`${open? 'active' : 'inactive'}`} */}
-                <div id='sub-menu' className={`submenu ${this.state.open? 'active' : 'inactive'} absolute right-2.5 w-[212px] rounded-xl bg-[#222223] py-4 shadow-xl duration-300`}>
+                {/* ${this.state.open? 'active' : 'inactive'}*/}
+                <div id='sub-menu' className={`submenu  absolute right-2.5 w-[212px] rounded-xl bg-[#1b1b1c] py-4 shadow-xl duration-300`}>
                     <Link to="profile" className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group "><IoPerson size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Профиль</p></Link>
                     {/* {% if user.is_staff %}
                     <a href="{% url 'admin-panel' %}" className="flex px-4 py-4 text-gray-100 hover:bg-zinc-700 items-center">{% bs_icon 'shield-fill' %}<p className="mx-2">Админ-панель</p></a>
