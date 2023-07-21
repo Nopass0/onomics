@@ -50,7 +50,8 @@
     <!--Catalog header-->
     <div class="mt-10 flex flex-col">
       <div class="mt-4">
-        <h1 class=" text-gray-100 text-xl">Ваша подборка</h1>
+        <h1 class=" text-gray-100 text-2xl">Ваша подборка</h1>
+
       </div>
       <!--End-->
       <!--comics-catalog-->
@@ -78,7 +79,7 @@
       
             </div>
             <div class="slider-item-title leading-5">
-              <h3 class="text-gray-200">{{ comic.title }}</h3>
+              <h3 class="text-gray-200 font-normal">{{ comic.title }}</h3>
             </div>
   
           </a>
@@ -99,7 +100,7 @@
   <div  class="max-w-[1070px] w-full flex justify-center ">
     <div class="mt-10 flex flex-col ">
       <div class="mt-4">
-        <h1 class=" text-gray-100 text-xl">Наши авторы</h1>
+        <h1 class=" text-gray-100 text-2xl">Наши авторы</h1>
       </div>
   
       <div class=" mt-2 flex flex-nowrap ">
@@ -157,7 +158,7 @@
     <!-- Catalog -->
     <div class="flex max-w-[680px]  w-full">
       <div class="flex flex-col w-full">
-        <h1 class="text-gray-100 text-xl mb-10">Последние обновления</h1>
+        <h1 class="text-gray-100 text-2xl mb-10">Последние обновления</h1>
         <div class="flex flex-col mr-5">
           {% for comic in comics %}
              <!--Создать карточку комикса с названем снизу и картинкой 144x216 сверху-->
@@ -171,8 +172,8 @@
                 <div class="flex flex-col">
   
                   <div class="slider-item-title leading-5 mb-2">
-                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold text-sm mb-2">{{ comic.title }}</h3>
-                    <h3 class="text-gray-200 duration-300 hover:text-[#5fa9c1] font-bold">Том 3. Глава 243</h3>
+                    <h3 class="text-gray-200 duration-200 hover:text-[#5fa9c1] text-sm mb-2">{{ comic.title }}</h3>
+                    <h3 class="text-gray-200 duration-200 hover:text-[#5fa9c1] ">Том 3. Глава 243</h3>
                   </div>
                 
   
@@ -207,7 +208,7 @@
     <!-- Authors -->
     <div class="max-w-[390px] w-full flex flex-col">
       <div class="flex flex-col w-full">
-        <h1 class=" text-gray-100 text-xl mb-10">Поплуярно сегодня</h1>
+        <h1 class=" text-gray-100 text-2xl mb-10">Поплуярно сегодня</h1>
         <!--End-->
         <!--comics-catalog-->
         <div class="flex flex-col mr-5">

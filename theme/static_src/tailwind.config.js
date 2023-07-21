@@ -44,7 +44,12 @@ module.exports = {
         '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        fontFamily: {
+            'geologica': ['Geologica','sans-serif']
+          },
+        extend: {
+
+        },
     },
     plugins: [
         /**
