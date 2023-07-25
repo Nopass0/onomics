@@ -11,7 +11,139 @@ datasource db {
 }
 
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id              String          @id @default(cuid())
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+}
+
+model User {
+    id              Int             @id @default(autoincrement())
+    username        String?
+    email           String          @unique
+    password        String
+    avatar          String          @default("public/avatars/default.jpg")
+    isStuff         Boolean         @default(false)
+    createdAt       DateTime?       @default(now())
+    updatedAt       DateTime?       @updatedAt
+    description     String?
+    author_code     String?
+    session         Session?
+    follows         Follow[]        @relation(name: "follows_to")
+    followers       Follow[]        @relation(name: "follows_from")
+    messages_from   Message[]       @relation(name: "messages_from")
+    messages_to     Message[]       @relation(name: "messages_to")
+    notifications   Notification[]  @relation(name: "user_to")
+    emoji_created   Emoji[]         @relation(name: "author_emoji")
+    emoji_have      EmojiHave[]     @relation(name: "users_have_emoji")
+    comics          Comics[]
+}
+
+model Session {
+    id              Int             @id @default(autoincrement())
+    user            User            @relation(fields: [userId], references: [id])
+    userId          Int             @unique // relation scalar field (used in the `@relation` attribute above)
+    token           String          @unique
+    createdAt       DateTime        @default(now())
+}   
+
+model Follow {  
+    id              Int             @id @default(autoincrement())
+    user_from       User            @relation(name: "follows_from", fields: [user_fromId], references: [id])
+    user_fromId     Int             @unique // relation scalar field (used in the `@relation` attribute above)
+    user_to         User            @relation(name: "follows_to", fields: [user_toId], references: [id])
+    user_toId       Int             @unique // relation scalar field (used in the `@relation` attribute above)
+    createdAt       DateTime        @default(now())
+}
+
+model Message {
+    id              Int             @id @default(autoincrement())
+    user_from       User            @relation(name: "messages_from", fields: [user_fromId], references: [id])
+    user_fromId     Int
+    user_to         User            @relation(name: "messages_to", fields: [user_toId], references: [id])
+    user_toId       Int
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+}
+
+model Emoji {
+    id              Int             @id @default(autoincrement())
+    author          User            @relation(name: "author_emoji", fields: [authorId], references: [id])
+    authorId        Int
+    image           String?
+    text_code       String          @unique //For example: Hello :<authorCode><textCode>:
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+}   
+
+model EmojiHave {
+    id              Int             @id @default(autoincrement())
+    emojiId         Int
+    users_have      User            @relation(name: "users_have_emoji", fields: [users_haveId], references: [id])
+    users_haveId    Int             
+}
+
+model Notification {    
+    id              Int             @id @default(autoincrement())
+    user_to         User            @relation(name: "user_to", fields: [user_toId], references: [id])
+    user_toId       Int
+    image           String?
+    text            String
+    onClick         String?
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+}   
+
+model Comics {  
+    id              Int             @id @default(autoincrement())
+    cover           String          @default("public/covers/default.jpg")
+    title           String  
+    description     String? 
+    genres          Genre[] 
+    createdAt       DateTime        @default(now())
+    updatedAt       DateTime        @updatedAt
+    author          User          @relation(fields: [authorId], references: [id])
+    authorId        Int 
+    chapters        Chapter[]   
+    views           View[]
+    likes           Like[]
+}   
+
+model Genre {   
+    id              Int             @id @default(autoincrement())
+    name            String  
+    comics          Comics          @relation(fields: [comicsId], references: [id])
+    comicsId        Int 
+}   
+
+model Chapter { 
+    id              Int             @id @default(autoincrement())
+    title           String  
+    comics          Comics          @relation(fields: [comicsId], references: [id])
+    comicsId        Int 
+    sequence_number Int             
+    blocks          Block[] 
+}   
+
+model Block {   
+    id              Int             @id @default(autoincrement())
+    image           String
+    sequence_number Int            
+    chapter         Chapter         @relation(fields: [chapterId], references: [id])
+    chapterId       Int 
+}  
+
+model View {
+    id              Int             @id @default(autoincrement())
+    comics          Comics          @relation(fields: [comicsId], references: [id])
+    comicsId        Int
+    userId          Int
+    createdAt       DateTime        @default(now())
+}
+
+model Like {
+    id              Int             @id @default(autoincrement())
+    comics          Comics          @relation(fields: [comicsId], references: [id])
+    comicsId        Int
+    userId          Int
+    createdAt       DateTime        @default(now())
 }
