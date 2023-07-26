@@ -101,7 +101,7 @@ model Comics {
     genres          Genre[] 
     createdAt       DateTime        @default(now())
     updatedAt       DateTime        @updatedAt
-    author          User          @relation(fields: [authorId], references: [id])
+    author          User            @relation(fields: [authorId], references: [id])
     authorId        Int 
     chapters        Chapter[]   
     views           View[]
