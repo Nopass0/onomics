@@ -30,7 +30,7 @@ export const authRouter = createTRPCRouter({
         //check is session exists
         const session = await prisma.session.findFirst({
             where: {
-                user: user
+                userId: user.id
             }
         });
 
