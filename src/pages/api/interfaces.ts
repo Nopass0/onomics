@@ -9,4 +9,5 @@ export interface IUser {
     isStuff: boolean,
     description: string | null,
     author_code: string | null
-  }
+}
+
