@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* body{
+    @apply bg-primary;
+}
+
+body.dark {
+    @apply bg-primary-dark text-text-primary-dark;
+} */
+
+
+.bg-primary {
+    @apply bg-[#ffffff] dark:bg-[#121212];
+}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#1b1b1c] text-white lg:text-left max-w-full bg-opacity-60 backdrop-blur-xl ">
+    <footer className="lg:text-left max-w-full  backdrop-blur-xl bg-white dark:bg-black">
       <div className="flex items-center justify-center border-b-[2px] border-[#121212] bg-opacity-60 p-6 lg:justify-between"></div>
 
       <div className="lg:flex lg:justify-center mx-auto py-10 md:text-left max-w-full max-lg:ml-8">

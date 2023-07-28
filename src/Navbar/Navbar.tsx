@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-zinc-900 px-4 lg:px-40 py-2">
+    <header className="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-xl bg-opacity-60 bg-primary px-4 lg:px-40 py-2">
       <div className="flex items-center">
         <Link href="/">
           <div>
@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
         ) : (
           <div className="relative my-2">
             <Link href="/auth/signin">
-              <div className="px-2 text-gray-100 hover:text-gray-300 truncate py-4 h-8">Войти</div>
+              <div className="text-gray-100 hover:text-gray-300 truncate h-8">Войти</div>
             </Link>
           </div>
         )}

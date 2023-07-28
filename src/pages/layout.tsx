@@ -13,7 +13,7 @@ export default function Layout({ children } : PropsWithChildren) : JSX.Element {
       </Head>
       <Navbar />
       <div className="h-6 mt-[30px] hidden sm:block"><br/></div>
-        <div className="w-full">
+        <div className="w-full overflow-hidden">
             <main className='w-auto flex-grow h-full my-2 box-border pb-24 overflow-x-hidden'>{children}</main>
         </div>
       <Footer />
