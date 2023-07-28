@@ -21,7 +21,7 @@ model User {
     username        String?
     email           String          @unique
     password        String
-    avatar          String          @default("public/avatars/default.jpg")
+    avatar          String          @default("images/avatars/default.jpg")
     isStuff         Boolean         @default(false)
     createdAt       DateTime?       @default(now())
     updatedAt       DateTime?       @updatedAt
@@ -95,7 +95,7 @@ model Notification {
 
 model Comics {  
     id              Int             @id @default(autoincrement())
-    cover           String          @default("public/covers/default.jpg")
+    cover           String          @default("images/covers/default.jpg")
     title           String  
     description     String? 
     genres          Genre[] 
