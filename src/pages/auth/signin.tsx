@@ -41,48 +41,58 @@ export default function Signin() {
         <meta name="description" content="Login Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-zinc-900 w-screen h-screen flex justify-center items-center">
-        <div className="w-[400px] h-[300px] bg-[#1b1b1c] rounded-lg">
-          <form className="w-full mx-6 mt-4" onSubmit={handleSubmit}>
-            <h1 className="text-gray-100 text-xl">Sign In</h1>
-            <div className="mt-4">
-              <label className="text-gray-100">Email:</label>
+      <div className="" data-mode="dark">
+      <main className=" w-screen h-screen flex justify-center items-center bg-secondary dark:bg-primary-dark dark:text-text-primary-dark">
+        <div className="mx-auto rounded-xl  my-32 md:w-[450px] h-[440px] flex  justify-center bg-primary text-text-primary dark:bg-secondary-dark dark:text-text-primary-dark">
+          <form className="flex flex-col justify-around font-light" onSubmit={handleSubmit}>
+            <h1 className="flex justify-center mt-4 mb-6 text-xl">Войти в аккаунт</h1>
+            <div className="flex flex-col">
+              <label className="">Почта:</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-2 py-1 mt-1 bg-zinc-800 text-gray-100 rounded-md"
+                className="px-2 py-1 mt-1 bg-secondary border-[1px] hover:bg-[#e5e5e5] duration-300 dark:bg-[#212121] dark:border-0 rounded-md"
                 required
               />
             </div>
-            <div className="mt-4">
-              <label className="text-gray-100">Password:</label>
+            <div className="flex flex-col">
+              <label className="">Пароль:</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-2 py-1 mt-1 bg-zinc-800 text-gray-100 rounded-md"
+                className="px-2 py-1 mt-1 bg-secondary border-[1px] hover:bg-[#e5e5e5] duration-300 dark:bg-[#212121] dark:border-0 rounded-md"
                 required
               />
             </div>
-            <div className="flex flex-row justify-center mt-4">
+
+            <div className="mb-4 flex text-sm justify-end">
+              <Link href="#!">
+                <p className="text-[#4c879a] hover:text-[#5fa9c1] dark:text-[#5fa9c1] dark:hover:text-[#4c879a] duration-150">Забыли пароль?</p>
+              </Link>
+            </div>
+
+            <div className="flex flex-row justify-center ">
               <button
                 type="submit"
-                className="bg-[#2b2b2c] text-gray-100 px-4 py-2 rounded-md hover:bg-[#4b4b4c] mx-2"
+                className="text-center text-white mt-3 mb-1 bg-[#5fa9c1] py-[5px] px-6 border-2 rounded-3xl border-[#5fa9c1] duration-[400ms] hover:bg-[#3f7081] hover:border-[#3f7081] active:bg-[#3f7081] active:border-[#3f7081]"
               >
-                Sign In
+                Войти
               </button>
+            </div>
+            <div className="flex flex-col justify-center items-center text-sm mb-2">
+              <p>У вас ещё нет аккаунта?</p>
               <Link href="/auth/signup">
-                <div className="bg-[#2b2b2c] text-gray-100 px-4 py-2 rounded-md hover:bg-[#4b4b4c] mx-2">
-                  Sign Up
-                </div>
+                <p className="text-[#4c879a] hover:text-[#5fa9c1] dark:text-[#5fa9c1] dark:hover:text-[#4c879a] duration-150">Зарегистрироваться</p>
               </Link>
             </div>
           </form>
         </div>
       </main>
+      </div>
     </>
   );
 }

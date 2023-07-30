@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { IoPerson, IoAddCircle, IoNotifications, IoBookmarks, IoLogOut } from 'react-icons/io5';
 import { api } from '~/utils/api'; // Adjust the import path based on your project structure
 
+
 const NavProfileMenu: React.FC = () => {
     const router = useRouter();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,16 +46,18 @@ const NavProfileMenu: React.FC = () => {
         <button
             onMouseEnter={handleAvatarHover}
             onMouseLeave={handleMenuLeave}
-            className="px-4 py-2 text-gray-100 hover:text-gray-300"
+            className="py-2 text-gray-100 hover:text-gray-300"
         >
             <img src={profileInfo?.avatar} alt="User" className="h-8 w-8 rounded-full" />
         </button>
         {isMenuOpen && (
+            
             <div
             onMouseEnter={handleAvatarHover}
             onMouseLeave={handleMenuLeave}
             className="submenu absolute right-2.5 w-[212px] rounded-xl bg-[#1b1b1c] py-4 shadow-xl duration-300"
             >
+
             <button onClick={() => router.push('/profile')} className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoPerson size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Профиль</p>
             </button>

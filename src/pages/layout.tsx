@@ -2,7 +2,6 @@ import React, { PropsWithChildren, ReactNode } from "react";
 import Navbar from "~/Navbar/Navbar";
 import Footer from "~/Footer/Footer";
 import Head from "next/head";
- 
 export default function Layout({ children } : PropsWithChildren) : JSX.Element {
   return (
     <>
@@ -14,7 +13,7 @@ export default function Layout({ children } : PropsWithChildren) : JSX.Element {
       <Navbar />
       <div className="h-6 mt-[30px] hidden sm:block"><br/></div>
         <div className="w-full overflow-hidden">
-            <main className='w-auto flex-grow h-full my-2 box-border pb-24 overflow-x-hidden'>{children}</main>
+            <main className='w-auto flex-grow h-full box-border overflow-x-hidden'>{children}</main>
         </div>
       <Footer />
     </>
