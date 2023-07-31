@@ -41,8 +41,7 @@ export default function Signin() {
         <meta name="description" content="Login Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="" data-mode="dark">
-      <main className=" w-screen h-screen flex justify-center items-center bg-secondary dark:bg-primary-dark dark:text-text-primary-dark">
+
         <div className="mx-auto rounded-xl  my-32 md:w-[450px] h-[440px] flex  justify-center bg-primary text-text-primary dark:bg-secondary-dark dark:text-text-primary-dark">
           <form className="flex flex-col justify-around font-light" onSubmit={handleSubmit}>
             <h1 className="flex justify-center mt-4 mb-6 text-xl">Войти в аккаунт</h1>
@@ -91,8 +90,6 @@ export default function Signin() {
             </div>
           </form>
         </div>
-      </main>
-      </div>
     </>
   );
 }

@@ -11,9 +11,12 @@ export default function Layout({ children } : PropsWithChildren) : JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="h-6 mt-[30px] hidden sm:block"><br/></div>
-        <div className="w-full overflow-hidden">
-            <main className='w-auto flex-grow h-full box-border overflow-x-hidden'>{children}</main>
+      {/* <div className="h-6 mt-[30px] hidden sm:block"><br/></div> */}
+      <div className="" data-mode=''>
+      <div className="h-[50px] bg-secondary dark:bg-primary-dark"></div>
+      </div>
+        <div className="w-full h-screen overflow-hidden" data-mode="">
+            <main className='w-auto flex-grow h-full box-border overflow-x-hidden text-primary-dark dark:text-primary bg-secondary dark:bg-primary-dark'>{children}</main>
         </div>
       <Footer />
     </>

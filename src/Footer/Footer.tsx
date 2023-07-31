@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="lg:text-left max-w-full  backdrop-blur-xl font-light " data-mode="dark">
+    <footer className="lg:text-left max-w-full  backdrop-blur-xl font-light " data-mode="">
       <div className="text-primary-dark dark:text-primary bg-secondary dark:bg-primary-dark">
         <div className="flex items-center justify-center border-b-[2px] dark:border-[#212121] bg-opacity-60 p-6 lg:justify-between"></div>
 
