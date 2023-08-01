@@ -7,6 +7,8 @@ import { IUser } from "./api/interfaces";
 export default function Home() {
   const [user, setUser] = useState({} as IUser);
   const [isAuth, setIsAuth] = useState(false);
+  const [theme, setTheme] = useState("dark");
+
   const context = api.useContext();
 
   const getUserInfo = useCallback(async () => {
@@ -38,11 +40,13 @@ export default function Home() {
       setIsAuth(true);
       getUserInfo();
     }
+    setTheme(localStorage.getItem("theme") || "dark");
+
   }, [getUserInfo]);
 
   return (
     <>
-      <main className="bg-zinc-900 w-screen h-screen flex justify-center items-center">
+      <main id="themed" data-mode={theme} className="bg-zinc-900 w-screen h-screen flex justify-center items-center">
         <div className="w-[1200px] h-[600px] bg-[#1b1b1c] rounded-lg">
           <div className="w-full mx-6 mt-4">
             <h1 className="text-gray-100 text-xl">Home Page</h1>

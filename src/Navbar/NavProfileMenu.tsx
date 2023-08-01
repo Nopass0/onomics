@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { IoPerson, IoAddCircle, IoNotifications, IoBookmarks, IoLogOut } from 'react-icons/io5';
