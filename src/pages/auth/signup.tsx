@@ -42,9 +42,8 @@ export default function Signup() {
         <meta name="description" content="Registration Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="" data-mode="dark">
-      <main className="w-screen h-screen flex justify-center items-center bg-secondary dark:bg-primary-dark dark:text-text-primary-dark">
-        <div className="flex justify-center bg-zinc-900 rounded-lg mx-auto my-32 md:w-[450px] md:h-[630px] bg-primary text-text-primary dark:bg-secondary-dark dark:text-text-primary-dark">
+
+        <div className="flex justify-center bg-zinc-900 rounded-lg mx-auto my-32 md:w-[450px] h-[630px] bg-primary text-text-primary dark:bg-secondary-dark dark:text-text-primary-dark">
           <form className="flex flex-col justify-around font-light" onSubmit={handleSubmit}>
             <h1 className="flex justify-center text-xl">Зарегистрировать аккаунт</h1>
             <div className="flex flex-col">
@@ -107,8 +106,6 @@ export default function Signup() {
             </div>
           </form>
         </div>
-      </main>
-      </div>
     </>
   );
 }
