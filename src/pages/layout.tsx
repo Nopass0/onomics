@@ -12,7 +12,7 @@ export default function Layout({ children } : PropsWithChildren) : JSX.Element {
       </Head>
       <Navbar />
       {/* <div className="h-6 mt-[30px] hidden sm:block"><br/></div> */}
-      <div className="" data-mode=''>
+      <div className="" data-mode="">
       <div className="h-[50px] bg-secondary dark:bg-primary-dark"></div>
       </div>
         <div className="w-full h-screen overflow-hidden" data-mode="">
