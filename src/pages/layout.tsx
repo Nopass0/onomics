@@ -18,9 +18,9 @@ export default function Layout({ children } : PropsWithChildren) : JSX.Element {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div className="h-6 mt-[30px] hidden sm:block" data-mode="dark"><br/></div>
-        <div id="themed" className="w-full overflow-hidden" data-mode={theme}>
-            <main className='w-auto flex-grow h-full box-border overflow-x-hidden bg-primary dark:bg-primary-dark'>{children}</main>
+      <div className="h-6 mt-[30px] hidden sm:block" data-mode={theme}><br/></div>
+        <div id="themed" className="" data-mode={theme}>
+            <main className='w-auto flex-grow h-auto box-border overflow-x-hidden bg-primary dark:bg-primary-dark'>{children}</main>
         </div>
       <Footer />
     </>

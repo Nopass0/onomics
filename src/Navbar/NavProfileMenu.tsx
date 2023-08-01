@@ -57,22 +57,22 @@ const NavProfileMenu: React.FC = () => {
             <div
             onMouseEnter={handleAvatarHover}
             onMouseLeave={handleMenuLeave}
-            className="submenu absolute right-2.5 w-[212px] rounded-xl bg-[#1b1b1c] py-4 shadow-xl duration-300"
+            className="submenu absolute right-2.5 w-[216px] rounded-xl bg-[#fbfbfc] dark:bg-[#1b1b1c] py-4 shadow-xl duration-300"
             >
 
-            <button onClick={() => router.push('/profile')} className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
+            <button onClick={() => router.push('/profile')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoPerson size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Профиль</p>
             </button>
-            <button onClick={() => router.push('/addComics')} className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
+            <button onClick={() => router.push('/addComics')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoAddCircle size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Добавить комикс</p>
             </button>
-            <button onClick={() => router.push('/notifications')} className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
+            <button onClick={() => router.push('/notifications')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoNotifications size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Уведомления</p>
             </button>
-            <button onClick={() => router.push('/bookmarks')} className="flex px-4 py-4 text-gray-100 hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
+            <button onClick={() => router.push('/bookmarks')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoBookmarks size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Закладки</p>
             </button>
-            <button onClick={handleLogout} className="flex px-4 py-4 text-gray-100 hover:text-red-500 hover:drop-shadow-xl items-center group">
+            <button onClick={handleLogout} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-red-500 dark:hover:text-red-500 hover:drop-shadow-xl items-center group">
                 <IoLogOut size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Выйти</p>
             </button>
             </div>

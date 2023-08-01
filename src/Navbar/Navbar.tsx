@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
   return (
       <div className="" data-mode={theme}>
         <header className=" bg-primary dark:bg-primary-dark" >
-          <div className="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-sm bg-opacity-60 px-4 lg:px-40 py-3 font-light text-primary-dark dark:text-primary bg-secondary dark:bg-secondary-dark">
+          <div className="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-between backdrop-blur-sm bg-opacity-60 px-4 lg:px-40 py-1 font-light text-primary-dark dark:text-primary bg-secondary dark:bg-secondary-dark">
           <div className="flex items-center">
             <Link href="/">
               <div>
@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
             ) : (
               <div className="relative mt-1">
                 <Link href="/auth/signin">
-                  <div className="truncate h-8 flex items-center hover:text-[#5fa9c1] text-sm duration-200">Войти</div>
+                  <div className="truncate h-8 py-[24px] flex items-center hover:text-[#5fa9c1] text-sm duration-200">Войти</div>
                 </Link>
               </div>
             )}
