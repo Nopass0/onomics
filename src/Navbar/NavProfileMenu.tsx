@@ -57,7 +57,7 @@ const NavProfileMenu: React.FC = () => {
             <div
             onMouseEnter={handleAvatarHover}
             onMouseLeave={handleMenuLeave}
-            className="submenu absolute right-2.5 w-[216px] rounded-xl bg-[#fbfbfc] dark:bg-[#1b1b1c] py-4 shadow-xl duration-300"
+            className="submenu absolute right-2 w-[216px] rounded-xl bg-[#fbfbfc] dark:bg-[#1b1b1c] py-4 shadow-xl duration-300"
             >
 
             <button onClick={() => router.push('/profile')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
