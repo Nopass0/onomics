@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link href="/">
               <div>
-                <img src="/images/other/logo.svg" alt="Logo" className="h-8 w-8 rounded-full logo animate-spin" />
+                <img src="/images/other/logo.svg" alt="Logo" className="h-8 w-8 rounded-full logo" />
               </div>
             </Link>
             <nav className="flex items-center">
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
             <div className="mr-8 flex items-center justify-center">
             <div className="toggleWrapper">
             {theme == "dark" ? <input type="checkbox" className="dn" id="dn" onChange={themeChange}  /> : <input type="checkbox" className="dn" id="dn" onChange={themeChange} />}
-              <label for="dn" className="toggle">
+              <label htmlFor="dn" className="toggle">
                   <span className="toggle__handler">
                       <span className="crater crater--1"></span>
                       <span className="crater crater--2"></span>
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
             {isAuthenticated ? (
               <NavProfileMenu />
             ) : (
-              <div className="relative mt-1">
+              <div className="relative ">
                 <Link href="/auth/signin">
                   <div className="truncate h-8 py-[24px] flex items-center hover:text-[#5fa9c1] text-sm duration-200">Войти</div>
                 </Link>
