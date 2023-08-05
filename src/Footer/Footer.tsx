@@ -10,14 +10,14 @@ const Footer: React.FC = () => {
 
   return (
     <footer id="themed" className="lg:text-left max-w-full  backdrop-blur-xl font-light " data-mode={theme}>
-      <div className="text-primary-dark dark:text-primary bg-secondary dark:bg-primary-dark">
-        <div className="flex items-center justify-center border-b-[2px] dark:border-[#212121] bg-opacity-60 p-6 lg:justify-between"></div>
+      <div className="text-primary-dark dark:text-primary bg-primary dark:bg-primary-dark">
+        <div className="flex items-center justify-center border-b-[2px] dark:border-b-[3px] border-[#f1f1f1] dark:border-[#171717] bg-opacity-60 p-6  lg:justify-between"></div>
 
         <div className="lg:flex lg:justify-center mx-auto py-10 md:text-left max-w-full max-lg:ml-8 max-xl:ml-5 items-center">
           <div className="grid-1 grid gap-10 lg:gap-44 max-md:grid-cols-1 lg:grid-cols-3">
             <div className="text-sm">
               <h6 className="mb-4 flex items-center font-semibold uppercase md:justify-start ">
-                <img src="/images/other/logo.svg" alt="Logo" className="w-8 h-8 mr-3 logo animate-spin" />
+                <img src="/images/other/logo.svg" alt="Logo" className="w-8 h-8 mr-3 logo" />
                 Onomics
               </h6>
               <p className="">Читать комиксы онлайн на русском!</p>
