@@ -36,8 +36,8 @@ export default {
       },
       
       'text-secondary': {
-        DEFAULT: '#f7f7f8',
-        'dark': '#f7f7f8',
+        DEFAULT: '#919191',
+        'dark': '#919191',
       },
 
       'text-btn': {

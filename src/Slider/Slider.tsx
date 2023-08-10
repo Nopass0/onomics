@@ -67,28 +67,11 @@ const Slider: React.FC = () => {
           style={{ transform: `translateX(${sliderPosition}px)` }}
         >
 
-        {arr.map( (key) => {
-            return (
-                <Link key={key} draggable="false" className="slider-item ml-2 pt-4 pb-1 flex flex-col max-w-[130px] mr-2" href="comic">
-                <div className="slider-item-image mb-2">
-                    <img src="https://placehold.jp/180x270.png" alt="Comics" className="h-[220px] w-[130px] rounded-lg" width={130} height={220} />
-                </div>
-                <div className="flex mx-1 flex-row flex-nowrap items-center text-[#919191] font-semibold text-xs mb-2">
-                    <p className="mr-2">Комикс</p>
-    
-                    <p className="mr-1">1K</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
+                <p className="mr-1">1K</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                     <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                    </svg>
-    
-                </div>
-                <div className="slider-item-title mx-1">
-                    <h3 className="text-primary-dark dark:text-primary leading-5">Test</h3>
-                </div>
-                </Link>
-                )
-        } )}
+                </svg>
 
         </div>
       </div>

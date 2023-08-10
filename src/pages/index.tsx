@@ -224,34 +224,8 @@ export default function Home() {
             <div className="h-[120px] flex flex-row bg-secondary dark:bg-secondary-dark rounded-xl">
               <div className="flex flex-row rounded-none">
                 
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
-                  <h3 className="text-xs font-light">Nikita G.</h3>
-                </div>
-
-                
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
-                  <h3 className="text-xs font-light">Nikita G.</h3>
-                </div>
-                
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
-                  <h3 className="text-xs font-light">Nikita G.</h3>
-                </div>
-                
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
-                  <h3 className="text-xs font-light">Nikita G.</h3>
-                </div>
-                
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
-                  <h3 className="text-xs font-light">Nikita G.</h3>
-                </div>
-                
-                <div className="flex flex-col justify-center items-center ml-4">
-                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-full mb-1" />
+                <div className="flex flex-col justify-center items-center ml-4 ">
+                  <img src="https://placehold.co/60x60" alt="Avatar" className="rounded-lg mb-1" />
                   <h3 className="text-xs font-light">Nikita G.</h3>
                 </div>
               </div>
