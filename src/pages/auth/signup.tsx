@@ -28,7 +28,9 @@ export default function Signup() {
         window.localStorage.setItem("token", response.token);
         // Redirect to profile page after successful registration
         // Assuming you have div profile page at "/profile"
-        window.location.href = "/profile";
+        const user = await context.users.getMyProfile.fetch({ token: response.token});
+
+        window.location.href = `/profile/${user.id}`;
       }
     } catch (error) {
       console.error("Error during registration:", error);

@@ -51,20 +51,12 @@ export const usersRouter = createTRPCRouter({
     }),
 
   getUserById: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
       // Получить информацию о пользователе по его идентификатору (id)
       const user = await prisma.user.findUnique({
         where: {
-          id: input.id,
-        },
-        select: {
-          id: true,
-          email: true,
-          username: true,
-          createdAt: true,
-          updatedAt: true,
-          // Добавьте другие поля, которые вы хотите включить
+          id: Number(input.id),
         },
       });
 
