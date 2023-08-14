@@ -15,6 +15,15 @@ const Navbar: React.FC = () => {
     const token = window.localStorage.getItem("token");
     setIsAuthenticated(!!token);
     setTheme(localStorage.getItem("theme") || "dark");
+
+    const listenStorageChange = () => {
+      if (localStorage.getItem("token") === null || localStorage.getItem("token") == '') {
+        setIsAuthenticated(false);
+      } else {
+        setIsAuthenticated(true);
+      }
+    };
+    window.addEventListener("storage", listenStorageChange);
   }, []);
 
   const themeChange = (e) => {

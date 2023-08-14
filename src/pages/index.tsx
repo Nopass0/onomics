@@ -12,38 +12,38 @@ export default function Home() {
 
   const context = api.useContext();
 
-  const getUserInfo = useCallback(async () => {
-    try {
-      const response = await context.users.getMyProfile.fetch({
-        token: window.localStorage.getItem("token") || "",
-      });
-      setUser(response);
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-    }
-  }, [context.users]);
+  // const getUserInfo = useCallback(async () => {
+  //   try {
+  //     const response = await context.users.getMyProfile.fetch({
+  //       token: window.localStorage.getItem("token") || "",
+  //     });
+  //     setUser(response);
+  //   } catch (error) {
+  //     console.error("Error fetching user info:", error);
+  //   }
+  // }, [context.users]);
 
-  const logout = useCallback(async () => {
-    try {
-      await context.auth.logout.fetch({
-        token: window.localStorage.getItem("token") || "",
-      });
-      setIsAuth(false);
-      window.localStorage.removeItem("token");
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  }, [context.auth]);
+  // const logout = useCallback(async () => {
+  //   try {
+  //     await context.auth.logout.fetch({
+  //       token: window.localStorage.getItem("token") || "",
+  //     });
+  //     setIsAuth(false);
+  //     window.localStorage.removeItem("token");
+  //   } catch (error) {
+  //     console.error("Error logging out:", error);
+  //   }
+  // }, [context.auth]);
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (token) {
       setIsAuth(true);
-      getUserInfo();
+      // getUserInfo();
     }
     setTheme(localStorage.getItem("theme") || "dark");
 
-  }, [getUserInfo]);
+  }, []);
 
   return (
     <>

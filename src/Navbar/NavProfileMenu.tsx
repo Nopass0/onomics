@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { IoPerson, IoAddCircle, IoNotifications, IoBookmarks, IoLogOut } from 'react-icons/io5';
 import { api } from '~/utils/api'; // Adjust the import path based on your project structure
 
@@ -37,11 +38,14 @@ const NavProfileMenu: React.FC = () => {
         try {
         await context.auth.logout.fetch({ token: window.localStorage.getItem("token") || "" });
         localStorage.removeItem('token');
+        window.dispatchEvent(new Event('storage'));
         router.push('/auth/signin');
         } catch (error) {
         console.error('Logout failed:', error);
         }
     };
+
+    
 
     return (
         <div id='profileSubMenu' className="relative z-10">
@@ -50,7 +54,7 @@ const NavProfileMenu: React.FC = () => {
             onMouseLeave={handleMenuLeave}
             className="py-2 text-gray-100 hover:text-gray-300"
         >
-            <img src={profileInfo?.avatar} alt="User" className="h-8 w-8 rounded-full" />
+            <Image src={`/${ profileInfo?.avatar }`} width={32} height={32}  alt="User" className="h-8 w-8 rounded-full" />
         </button>
         {isMenuOpen && (
             
@@ -60,7 +64,7 @@ const NavProfileMenu: React.FC = () => {
             className="submenu absolute right-2 w-[216px] rounded-xl bg-[#fbfbfc] dark:bg-[#1b1b1c] py-4 shadow-xl duration-300"
             >
 
-            <button onClick={() => router.push('/profile')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
+            <button onClick={() => router.push('/profile/' + profileInfo?.id)} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
                 <IoPerson size='1.0em' /><p className="mx-2 group-hover:mx-4 duration-300">Профиль</p>
             </button>
             <button onClick={() => router.push('/addComics')} className="flex px-4 py-4 text-gray-800 dark:text-gray-100 hover:text-[#76bcd3] dark:hover:text-[#76bcd3] hover:drop-shadow-xl items-center group">
