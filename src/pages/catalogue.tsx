@@ -7,51 +7,9 @@ import Slider from '@mui/material/Slider';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Option from "react-select/dist/declarations/src/components/Option";
+import Button from '@mui/material/Button';
+import { slide as Menu } from 'react-burger-menu'
 
-// User Create new Options
-
-// const createOption = (label: string) => ({
-//     label,
-//     value: label.toLowerCase().replace(/\W/g, ''),
-//   });
-  
-//   const defaultOptions = [
-//     createOption('Комикс'),
-//     createOption('Манга'),
-//     createOption('Яой'),
-//   ];
-
-
-
-// export interface optionsType {
-//     readonly value: string;
-//     readonly label: string;
-//     readonly color: string;
-//     readonly isFixed?: boolean;
-//     readonly isDisabled?: boolean;
-//   }
-
-// const groupBadgeStyles: CSSProperties = {
-//     backgroundColor: '#EBECF0',
-//     borderRadius: '2em',
-//     color: '#172B4D',
-//     display: 'inline-block',
-//     fontSize: 12,
-//     fontWeight: 'normal',
-//     lineHeight: '1',
-//     minWidth: 1,
-//     padding: '0.16666666666667em 0.5em',
-//     textAlign: 'center',
-//   };
-
-//   const optionsType = {
-//     label: 'Комикс',
-//     options: {
-//         value:'comics',
-//         label:'Комикс',
-//         isDisabled: true
-//     }
-//   }
 
 // Slider
 function valuetext(value: number) {
@@ -182,18 +140,10 @@ const customStyles = {
     const [options, setOptions] = useState(defaultOptions);
     const [value, setValue] = useState<Option | null>();
     const handleClearValue = () => {
-        setValue(null);
+        setValue('');
+        
     }
 
-    // const handleCreate = (inputValue: string) => {
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //     const newOption = createOption(inputValue);
-    //     setIsLoading(false);
-    //     setOptions((prev) => [...prev, newOption]);
-    //     setValue(newOption);
-    //     }, 1000);
-    // };
 
     // Slider
     const [valueNumber, setValueNumber] = useState<number[]>([1990, 2023]);
@@ -203,22 +153,40 @@ const customStyles = {
 
 
     // ChipChip
-    // const handleClickChip = () => {
-    //     console.info('You clicked the Chip.');
-    //   };
-    const [selected, setSelected] = useState(false);
 
+    const [selected1, setSelected1] = useState(false);
+    const [selected2, setSelected2] = useState(false);
+    const [selected3, setSelected3] = useState(false);
+    const [selected4, setSelected4] = useState(false);
 
+    // Right menu
+    const [isOpen,setOpen] = useState(false);
 
+    const handleIsOpen = () => {
+        setOpen(!isOpen)
+      }
+    
+      const closeSideBar = () => {
+        setOpen(false)
+      }
     return (
         <div className="h-screen w-full" >
             <div className="sm:max-w-[1200px] mx-auto flex flex-row flex-nowrap pt-10 overflow-hidden text-primary-dark dark:text-primary">
                 <div className="flex flex-col w-full max-xl:ml-6 mr-6">
-                    <h1 className="font-bold text-4xl">Каталог</h1>
-
+                    <div className="flex flex-row flex-nowrap justify-between">
+                        <h1 className="font-bold text-4xl">Каталог</h1>
+                        <button className="sm:hidden flex flex-nowrap flex-row items-center justify-center text-sm font-light hover:text-btn duration-200 uppercase"
+                        onClick={handleIsOpen}
+                        >
+                            Фильтр
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" className="bi bi-funnel ml-1 mt-[2px]" viewBox="0 0 16 16">
+                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+                        </svg>
+                        </button>
+                    </div>
                     {/* Main Catalog */}
                     <div className="max-w-[900px] w-full flex flex-col">
-                        <div className="flex items-center justify-end">
+                        <div className="flex items-center justify-end mb-2">
                             <button onClick={handleClickSquare} id="sort_square" className="sort_square active hover:text-btn-secondary active:text-btn-secondary duration-200 px-2 py-2 rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="19" width="19" viewBox="0 -960 960 960" fill="currentColor">
                                     <path d="M226-160q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-414q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19ZM226-668q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 0q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Z"/>
@@ -378,13 +346,16 @@ const customStyles = {
                 </div>
 
                 {/* Filter */}
-                <div className="max-w-[400px] w-full flex flex-col">
+                <div className="max-w-[400px] w-full flex flex-col max-sm:hidden">
                     <div className="flex flex-col mx-12">
-                        <div className="flex justify-between mt-12 mb-4">
+                        <div className="flex justify-between mt-12 mb-4 font-light uppercase text-xs">
                             <p className="">Фильтр</p>
                             {/* onClick={value ? () => setValue('') : null} */}
-                            <button className="flex flex-row items-center justify-center hover:text-red-500 duration-200" onClick={() => {
-                                 selected ? setSelected((s) => !s) : null;
+                            <button className="flex flex-row items-center justify-center hover:text-red-500 duration-200 uppercase text-xs" onClick={() => {
+                                 selected1 ? setSelected1((s) => !s) : null;
+                                 selected2 ? setSelected2((s) => !s) : null;
+                                 selected3 ? setSelected3((s) => !s) : null;
+                                 selected4 ? setSelected4((s) => !s) : null;
                                  value !== null && handleClearValue();
                                  console.log(value);
                                  
@@ -473,22 +444,22 @@ const customStyles = {
                         </div> 
                         <Stack direction="row" spacing={1} className="font-light mb-2">
                             <Chip label="1-50" variant="outlined"
-                            onClick={() => setSelected((s) => !s)}
-                            color={selected ? "primary" : "default"}
-                            variant={selected ? "default" : "outlined"}
+                            onClick={() => setSelected1((s) => !s)}
+                            color={selected1 ? "primary" : "default"}
+                            variant={selected1 ? "default" : "outlined"}
                             />
                             <Chip label="50-120" variant="outlined" 
-                            onClick={() => setSelected((s) => !s)}
-                            color={selected ? "primary" : "default"}
-                            variant={selected ? "default" : "outlined"}/>
+                            onClick={() => setSelected2((s) => !s)}
+                            color={selected2 ? "primary" : "default"}
+                            variant={selected2 ? "default" : "outlined"}/>
                             <Chip label="120-200" variant="outlined" 
-                            onClick={() => setSelected((s) => !s)}
-                            color={selected ? "primary" : "default"}
-                            variant={selected ? "default" : "outlined"}/>
+                            onClick={() => setSelected3((s) => !s)}
+                            color={selected3 ? "primary" : "default"}
+                            variant={selected3 ? "default" : "outlined"}/>
                             <Chip label=">200" variant="outlined" 
-                            onClick={() => setSelected((s) => !s)}
-                            color={selected ? "primary" : "default"}
-                            variant={selected ? "default" : "outlined"}/>
+                            onClick={() => setSelected4((s) => !s)}
+                            color={selected4 ? "primary" : "default"}
+                            variant={selected4 ? "default" : "outlined"}/>
                         </Stack>
                         
                         <div className="flex mb-2">
@@ -524,6 +495,173 @@ const customStyles = {
                             />
                     </div>
                 </div>
+
+
+                {/* Mini Filter for max-md */}
+                <Menu 
+                right
+                width={ '375px' }
+                isOpen={isOpen}
+                onOpen={handleIsOpen}
+                onClose={handleIsOpen}
+                customBurgerIcon={ false }
+                className="bg-primary dark:bg-primary-dark sm:hidden"
+                >
+                    <div className="flex flex-col w-full h-full">
+                        <div className="flex flex-col justify-center mx-8">
+                            <div className="flex justify-between mt-12 mb-4">
+                                <button className="flex flex-row items-center justify-center hover:text-red-500 duration-200" onClick={() => {
+                                    selected1 ? setSelected1((s) => !s) : null;
+                                    selected2 ? setSelected2((s) => !s) : null;
+                                    selected3 ? setSelected3((s) => !s) : null;
+                                    selected4 ? setSelected4((s) => !s) : null;
+                                    value !== null && handleClearValue();
+                                    console.log(value);
+                                    
+                                }}>
+                                    Очистить
+                                </button>
+                                <button onClick={closeSideBar}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-x pt-[2px]" viewBox="0 0 16 16">
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[0]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Типы'
+                                noOptionsMessage={() => "Типы закончились"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-2"
+                                classNamePrefix="my-react-select"
+                                />
+                            
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[1]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Жанры'
+                                noOptionsMessage={() => "Жанры закончились"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-2"
+                                classNamePrefix="my-react-select"
+                                />
+
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[2]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Статус проекта'
+                                noOptionsMessage={() => "Пусто"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-2"
+                                classNamePrefix="my-react-select"
+                                />
+                            
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[3]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Возрастной рейтинг'
+                                noOptionsMessage={() => "Пусто"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-2"
+                                classNamePrefix="my-react-select"
+                                />
+                            <div className="flex mt-3 mb-10">
+                                <h1 className="font-light">Год выпуска</h1>    
+                            </div> 
+                            <div className="ml-4 mb-3">
+                                <Box sx={{}}>
+                                    <Slider
+                                        aria-label="Год выпуска"
+                                        min={1990}
+                                        max={2023}
+                                        value={valueNumber}
+                                        marks={marks}
+                                        step={1}
+                                        onChange={handleChange}
+                                        valueLabelDisplay="on"
+                                        getAriaValueText={valuetext}
+                                    />
+                                </Box>
+                            </div>
+
+                            <div className="flex mb-2">
+                                <h1 className="font-light">Количество глав</h1>    
+                            </div> 
+                            <Stack direction="row" spacing={1} className="font-light mb-2">
+                                <Chip label="1-50" variant="outlined"
+                                onClick={() => setSelected1((s) => !s)}
+                                color={selected1 ? "primary" : "default"}
+                                variant={selected1 ? "default" : "outlined"}
+                                />
+                                <Chip label="50-120" variant="outlined" 
+                                onClick={() => setSelected2((s) => !s)}
+                                color={selected2 ? "primary" : "default"}
+                                variant={selected2 ? "default" : "outlined"}/>
+                                <Chip label="120-200" variant="outlined" 
+                                onClick={() => setSelected3((s) => !s)}
+                                color={selected3 ? "primary" : "default"}
+                                variant={selected3 ? "default" : "outlined"}/>
+                                <Chip label=">200" variant="outlined" 
+                                onClick={() => setSelected4((s) => !s)}
+                                color={selected4 ? "primary" : "default"}
+                                variant={selected4 ? "default" : "outlined"}/>
+                            </Stack>
+                            
+                            <div className="flex mb-2">
+                                <h1 className="font-light">Исключить</h1>    
+                            </div> 
+
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[0]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Типы'
+                                noOptionsMessage={() => "Типы закончились"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-2"
+                                classNamePrefix="my-react-select"
+                                />
+                            
+                            <Select
+                                isMulti
+                                isClearable
+                                closeMenuOnSelect={false}
+                                options={options[1]}
+                                components={animatedComponents}
+                                value={value}
+                                placeholder='Жанры'
+                                noOptionsMessage={() => "Жанры закончились"}
+                                styles={customStyles}
+                                className="my-react-select-container mb-6"
+                                classNamePrefix="my-react-select"
+                                />
+
+                                <div className="flex justify-center items-center">
+                                    <button className="outline-none bg-btn-secondary hover:bg-btn duration-300 rounded-3xl px-4 py-2 text-primary">Применить</button>
+                                </div>
+                        </div>
+                    </div>
+                </Menu>
             </div>
         </div>
     );

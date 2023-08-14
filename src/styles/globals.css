@@ -330,3 +330,7 @@ input:checked + .toggle .star--6 {
   .MuiChip-clickableColorPrimary {
     @apply bg-btn-secondary hover:bg-btn duration-200;
   }
+
+  .bm-menu-wrap {
+    @apply min-h-screen top-0;
+  }
