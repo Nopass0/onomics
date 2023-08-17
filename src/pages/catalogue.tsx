@@ -140,7 +140,10 @@ const customStyles = {
     const [options, setOptions] = useState(defaultOptions);
     const [value, setValue] = useState<Option | null>();
     const handleClearValue = () => {
-        setValue('');
+        setValue(value);
+        console.log(value);
+        
+        // setValue(undefined);
         
     }
 

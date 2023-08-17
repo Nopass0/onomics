@@ -138,10 +138,10 @@ export default function UserProfile() {
   <div className="md:container mx-auto md:px-4 md:pb-4 max-sm:flex max-sm:justify-center max-sm:items-center">
     {/* <!--Button 'Редактировать' if isMyProfile--> */}
 
-    { isMyProfile ? <a href="{% url 'profile_edit' %}" id="edit_profile"
-      className="bg-primary dark:bg-primary-dark text-primary-dark dark:text-primary w-auto sm:w-auto text-center mx-2 px-3 py-2 mr-0.5 rounded-sm duration-300 hover:bg-btn-secondary hover:text-primary hover:dark:text-primary hover:dark:bg-btn-secondary active:bg-[#5fa9c1] max-md:bg-[#5fa9c1] text-md">Редактировать
-      профиль</a> : 
-          <button id="follow_btn" className="bg-primary dark:bg-primary-dark text-primary px-3 py-2 ml-0.5 rounded-sm hover:bg-blue-500 text-md">
+    { isMyProfile ? <Link href="/edit_profile" id="edit_profile"
+      className="bg-primary dark:bg-primary-dark text-primary-dark dark:text-primary sm:w-auto text-center px-[6px] py-2 mr-0.5 rounded-sm duration-300 hover:bg-btn-secondary hover:text-primary hover:dark:text-primary hover:dark:bg-btn-secondary active:bg-[#5fa9c1] max-md:bg-[#5fa9c1] text-md">Редактировать
+      профиль</Link> : 
+          <button id="follow_btn" className="bg-primary dark:bg-primary-dark text-primary py-2 ml-0.5 rounded-sm hover:bg-blue-500 text-md">
           {/* {% if isFollower %} */}
           Отслеживать изменения
           {/* {% else %} */}
