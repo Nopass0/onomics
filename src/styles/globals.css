@@ -335,4 +335,15 @@ input:checked + .toggle .star--6 {
     @apply min-h-screen top-0;
   }
 
-  
+ /* Profile Edit */
+#li:hover {
+    text-shadow: #6BAED3 0 0 20px;
+}
+
+#li-exit:hover {
+    text-shadow: #d36b6b 0 0 20px;
+}
+
+#light {
+    box-shadow: #6BAED3 22px 222px 120px;
+}

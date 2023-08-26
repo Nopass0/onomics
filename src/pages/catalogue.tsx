@@ -353,7 +353,6 @@ const customStyles = {
                     <div className="flex flex-col mx-12">
                         <div className="flex justify-between mt-12 mb-4 font-light uppercase text-xs">
                             <p className="">Фильтр</p>
-                            {/* onClick={value ? () => setValue('') : null} */}
                             <button className="flex flex-row items-center justify-center hover:text-red-500 duration-200 uppercase text-xs" onClick={() => {
                                  selected1 ? setSelected1((s) => !s) : null;
                                  selected2 ? setSelected2((s) => !s) : null;

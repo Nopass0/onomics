@@ -3,9 +3,11 @@ import Navbar from "~/Navbar/Navbar";
 import Footer from "~/Footer/Footer";
 import Head from "next/head";
 import { useEffect } from 'react';
+import {Route, Link, Routes, useLocation} from 'react-router-dom';
+
 export default function Layout({ children } : PropsWithChildren) : JSX.Element {
   const [theme, setTheme] = useState("dark");
-
+  
   useEffect( () => {
     setTheme(localStorage.getItem("theme") || "dark");
   }, [] )
